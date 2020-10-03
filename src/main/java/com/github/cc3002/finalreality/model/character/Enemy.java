@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
  * A class that holds all the information of a single enemy of the game.
  *
  * @author Ignacio Slater Muñoz
- * @author <Your name>
+ * @author <Magdalena Álvarez>
  */
 public class Enemy extends AbstractCharacter {
 

@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
  * An abstract class that holds the common behaviour of all the characters in the game.
  *
  * @author Ignacio Slater Muñoz.
- * @author <Your name>
+ * @author <Magdalena Álvarez>
  */
 public abstract class AbstractCharacter implements ICharacter {
 
@@ -31,7 +31,7 @@ public abstract class AbstractCharacter implements ICharacter {
   }
 
 
-  //public abstract void waitTurn(); 
+  //public abstract void waitTurn();
   // revisar si es necesario o no
 
   /**
