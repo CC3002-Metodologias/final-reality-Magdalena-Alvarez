@@ -25,10 +25,10 @@ public class GameTest {
     void partyTest(){
         assertTrue(testGame.getParty().isEmpty());
         for (int i = 0; i<5; i++){
-            testGame.addPlayerCharacter(new PlayerCharacter());
+            testGame.addPlayerCharacter(PlayerCharacter);
             assertEquals(i+1,testGame.getParty().size());
         }
-        testGame.addPlayerCharacter(new PlayerCharacter());
+        testGame.addPlayerCharacter( PlayerCharacter);
         assertEquals(5, testGame.getParty().size());
     }
 
