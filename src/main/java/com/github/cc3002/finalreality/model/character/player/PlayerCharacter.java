@@ -29,6 +29,8 @@ public class PlayerCharacter extends AbstractCharacter {
    * @param characterClass
    *     the class of this character
    */
+  protected Weapon equippedWeapon = null;
+
   public PlayerCharacter(@NotNull String name,
       @NotNull BlockingQueue<ICharacter> turnsQueue,
       final CharacterClass characterClass) {
@@ -47,9 +49,7 @@ public class PlayerCharacter extends AbstractCharacter {
   }
 
   public void equip(Weapon weapon) {
-    if (this instanceof PlayerCharacter) {
       this.equippedWeapon = weapon;
-    }
   }
 
   public Weapon getEquippedWeapon() {

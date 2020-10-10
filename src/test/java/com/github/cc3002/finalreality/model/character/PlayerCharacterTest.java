@@ -7,7 +7,11 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import com.github.cc3002.finalreality.model.character.player.CharacterClass;
 import com.github.cc3002.finalreality.model.character.player.PlayerCharacter;
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
+
+import com.github.cc3002.finalreality.model.weapon.Weapon;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,6 +23,9 @@ import org.junit.jupiter.api.Test;
  * @see PlayerCharacter
  */
 class PlayerCharacterTest extends AbstractCharacterTest {
+
+  protected List<PlayerCharacter> testCharacters;
+  protected Weapon testWeapon;
 
   private static final String BLACK_MAGE_NAME = "Vivi";
   private static final String KNIGHT_NAME = "Adelbert";
@@ -69,7 +76,28 @@ class PlayerCharacterTest extends AbstractCharacterTest {
     }
 
   }
+  protected void tryToEquip(PlayerCharacter character) {
 
+    character.equip(testWeapon);
+  }
+
+  void waitTurnTest() {
+    Assertions.assertTrue(turns.isEmpty());
+    tryToEquip(testCharacters.get(0));
+    testCharacters.get(0).waitTurn();
+    try {
+      // Thread.sleep is not accurate so this values may be changed to adjust the
+      // acceptable error margin.
+      // We're testing that the character waits approximately 1 second.
+      Thread.sleep(900);
+      Assertions.assertEquals(0, turns.size());
+      Thread.sleep(200);
+      Assertions.assertEquals(1, turns.size());
+      Assertions.assertEquals(testCharacters.get(0), turns.peek());
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
   @Test
   void equipWeaponTest() {
     for (var character :

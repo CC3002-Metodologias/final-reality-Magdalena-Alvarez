@@ -20,7 +20,7 @@ public abstract class AbstractCharacter implements ICharacter {
   protected final BlockingQueue<ICharacter> turnsQueue;
   protected final String name;
   private final CharacterClass characterClass;
-  protected Weapon equippedWeapon = null;
+  //protected Weapon equippedWeapon = null;
   protected ScheduledExecutorService scheduledExecutor;
 
   protected AbstractCharacter(@NotNull BlockingQueue<ICharacter> turnsQueue,
@@ -31,7 +31,7 @@ public abstract class AbstractCharacter implements ICharacter {
   }
 
 
-  //public abstract void waitTurn();
+  public abstract void waitTurn();
   // revisar si es necesario o no
 
   /**
