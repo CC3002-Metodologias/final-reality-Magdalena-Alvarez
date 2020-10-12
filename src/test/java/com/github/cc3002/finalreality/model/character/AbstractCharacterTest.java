@@ -24,20 +24,15 @@ public abstract class AbstractCharacterTest {
 
   protected BlockingQueue<ICharacter> turns;
   protected List<ICharacter> testCharacters;
-  //protected Weapon testWeapon;
 
   /**
    * Checks that the character waits the appropriate amount of time for it's turn.
    */
-  @Test
-  void waitTurnTest(){
-    this.waitTurnTest();
-  };
-/*
-  private void tryToEquip(PlayerCharacter character) {
-    character.equip(testWeapon);
-  }
-*/
+  //@Test
+  //void waitTurnTest(){
+   // this.waitTurnTest();
+  //}
+
   protected void checkConstruction(final ICharacter expectedCharacter,
       final ICharacter testEqualCharacter,
       final ICharacter sameClassDifferentCharacter,

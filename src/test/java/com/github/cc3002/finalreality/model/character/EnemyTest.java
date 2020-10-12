@@ -23,7 +23,7 @@ class EnemyTest extends AbstractCharacterTest {
         new Enemy(ENEMY_NAME, 11, turns),
         new PlayerCharacter(ENEMY_NAME, turns, CharacterClass.THIEF));
   }
-
+  @Test
   void waitTurnTest() {
     Assertions.assertTrue(turns.isEmpty());
     testCharacters.get(0).waitTurn();

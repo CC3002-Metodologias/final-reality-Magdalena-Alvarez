@@ -28,7 +28,9 @@ public class Weapon {
     this.type = type;
   }
 
-  private String getName() {
+
+
+    private String getName() {
     return name;
   }
 

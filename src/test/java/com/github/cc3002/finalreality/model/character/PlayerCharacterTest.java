@@ -6,11 +6,16 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import com.github.cc3002.finalreality.model.character.player.CharacterClass;
 import com.github.cc3002.finalreality.model.character.player.PlayerCharacter;
+
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import com.github.cc3002.finalreality.model.weapon.Weapon;
+import com.github.cc3002.finalreality.model.weapon.WeaponType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,8 +29,8 @@ import org.junit.jupiter.api.Test;
  */
 class PlayerCharacterTest extends AbstractCharacterTest {
 
-  protected List<PlayerCharacter> testCharacters;
-  protected Weapon testWeapon;
+  protected List<PlayerCharacter> testPlayerCharacters = new ArrayList<>();
+  protected Weapon testWeapon = new Weapon("cuchillo",15,15, WeaponType.KNIFE);
 
   private static final String BLACK_MAGE_NAME = "Vivi";
   private static final String KNIGHT_NAME = "Adelbert";
@@ -40,8 +45,8 @@ class PlayerCharacterTest extends AbstractCharacterTest {
    */
   @BeforeEach
   void setUp() {
-    super.basicSetUp();
-
+    //super.basicSetUp();
+    turns = new LinkedBlockingQueue<>();
     characterNames = new EnumMap<>(CharacterClass.class);
     characterNames.put(CharacterClass.BLACK_MAGE, BLACK_MAGE_NAME);
     characterNames.put(CharacterClass.KNIGHT, KNIGHT_NAME);
@@ -50,11 +55,11 @@ class PlayerCharacterTest extends AbstractCharacterTest {
     characterNames.put(CharacterClass.THIEF, THIEF_NAME);
 
     for (var characterClass :
-        characterNames.keySet()) {
-      testCharacters.add(
+        characterNames.keySet())
+      testPlayerCharacters.add(
           new PlayerCharacter(characterNames.get(characterClass), turns, characterClass));
     }
-  }
+
 
   /**
    * Checks that the class' constructor and equals method works properly.
@@ -63,7 +68,7 @@ class PlayerCharacterTest extends AbstractCharacterTest {
   void constructorTest() {
     var enemy = new Enemy("Enemy", 10, turns);
     for (var character :
-        testCharacters) {
+        testPlayerCharacters) {
       var characterClass = character.getCharacterClass();
       var characterName = characterNames.get(characterClass);
       checkConstruction(new PlayerCharacter(characterName, turns, characterClass),
@@ -80,11 +85,11 @@ class PlayerCharacterTest extends AbstractCharacterTest {
 
     character.equip(testWeapon);
   }
-
+  @Test
   void waitTurnTest() {
     Assertions.assertTrue(turns.isEmpty());
-    tryToEquip(testCharacters.get(0));
-    testCharacters.get(0).waitTurn();
+    tryToEquip(testPlayerCharacters.get(0));
+    testPlayerCharacters.get(0).waitTurn();
     try {
       // Thread.sleep is not accurate so this values may be changed to adjust the
       // acceptable error margin.
@@ -93,7 +98,7 @@ class PlayerCharacterTest extends AbstractCharacterTest {
       Assertions.assertEquals(0, turns.size());
       Thread.sleep(200);
       Assertions.assertEquals(1, turns.size());
-      Assertions.assertEquals(testCharacters.get(0), turns.peek());
+      Assertions.assertEquals(testPlayerCharacters.get(0), turns.peek());
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
@@ -101,7 +106,7 @@ class PlayerCharacterTest extends AbstractCharacterTest {
   @Test
   void equipWeaponTest() {
     for (var character :
-        testCharacters) {
+        testPlayerCharacters) {
       assertNull(character.getEquippedWeapon());
       character.equip(testWeapon);
       assertEquals(testWeapon, character.getEquippedWeapon());
