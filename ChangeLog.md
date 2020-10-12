@@ -3,7 +3,10 @@ ChangeLog
 
 Version 2.0
 -----------
-Write your changes in here
+Write your changes in here:
+- (B.2) Adapting test to SOLID
+- (B.1) SOLID Review
+
 
 Version 1.0
 -----------
