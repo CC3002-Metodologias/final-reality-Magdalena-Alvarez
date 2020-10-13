@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 class PlayerCharacterTest extends AbstractCharacterTest {
 
   protected List<PlayerCharacter> testPlayerCharacters = new ArrayList<>();
-  protected Weapon testWeapon = new Weapon("cuchillo",15,15, WeaponType.KNIFE);
+  protected Weapon testWeapon = new Weapon("knife",15,15, WeaponType.KNIFE);
 
   private static final String BLACK_MAGE_NAME = "Vivi";
   private static final String KNIGHT_NAME = "Adelbert";
