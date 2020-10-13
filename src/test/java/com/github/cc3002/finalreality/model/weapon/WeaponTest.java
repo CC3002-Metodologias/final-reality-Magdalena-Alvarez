@@ -24,6 +24,8 @@ class WeaponTest {
   private static final int SPEED = 10;
   private static final int SPEED2 = 15;
   private static final String Player_Name = "Test Player";
+  private static final String AXE_NAME2 = "Test Axe2";
+
 
   private Weapon testAxe;
   private Weapon testStaff;
@@ -32,6 +34,8 @@ class WeaponTest {
   private Weapon testKnife;
   private Weapon testStaff2;
   private Weapon testSword2;
+  private Weapon testAxe2;
+  private Weapon testAxe_Sword;
 
   private PlayerCharacter testPlayer;
 
@@ -47,6 +51,8 @@ class WeaponTest {
     testPlayer = new PlayerCharacter(Player_Name,turns, CharacterClass.BLACK_MAGE);
     testStaff2 = new Weapon(STAFF_NAME, DAMAGE2, SPEED, WeaponType.STAFF);
     testSword2 = new Weapon(SWORD_NAME, DAMAGE, SPEED2, WeaponType.SWORD);
+    testAxe2 = new Weapon(AXE_NAME2, DAMAGE, SPEED, WeaponType.AXE);
+    testAxe_Sword = new Weapon(AXE_NAME, DAMAGE, SPEED, WeaponType.SWORD);
   }
 
   @Test
@@ -68,8 +74,9 @@ class WeaponTest {
     assertEquals(expectedKnife, testKnife);
     assertEquals(expectedKnife.hashCode(), testKnife.hashCode());
     assertNotEquals(expectedAxe,testPlayer);
-    assertNotEquals(testBow, testAxe);
+    assertNotEquals(expectedAxe,testAxe2);
     assertNotEquals(expectedStaff, testStaff2);
     assertNotEquals(expectedSword,testSword2);
+    assertNotEquals(expectedAxe,testAxe_Sword);
   }
 }
