@@ -19,6 +19,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public class PlayerCharacter extends AbstractCharacter {
   protected Weapon equippedWeapon = null;
+  protected int life = 0;
+  protected int dp = 0;
   /**
    * Creates a new character.
    *
@@ -30,10 +32,13 @@ public class PlayerCharacter extends AbstractCharacter {
    *     the class of this character
    */
 
+
   public PlayerCharacter(@NotNull String name,
       @NotNull BlockingQueue<ICharacter> turnsQueue,
       final CharacterClass characterClass) {
     super(turnsQueue, name, characterClass);
+    this.life = 50;
+    this.dp = 20;
   }
 
   @Override
@@ -66,5 +71,13 @@ public class PlayerCharacter extends AbstractCharacter {
     final PlayerCharacter that = (PlayerCharacter) o;
     return getCharacterClass() == that.getCharacterClass()
         && getName().equals(that.getName());
+  }
+
+  protected int getLife() {
+    return life;
+  }
+
+  protected int getDp() {
+    return dp;
   }
 }

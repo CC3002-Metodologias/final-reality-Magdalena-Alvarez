@@ -10,17 +10,11 @@ import java.util.concurrent.BlockingQueue;
 
 public class Knight extends PlayerCharacter {
 
-    private static final CharacterClass typeKnight = CharacterClass.KNIGHT;
-    protected CharacterClass type = typeKnight;
+
     public Knight(@NotNull String name, @NotNull BlockingQueue<ICharacter> turnsQueue) {
         super(name, turnsQueue, CharacterClass.KNIGHT);
-        this.type = typeKnight;
     }
 
-
-    public CharacterClass getType() {
-        return type;
-    }
 
     /**
      * Equips an Bow to the Engineer
