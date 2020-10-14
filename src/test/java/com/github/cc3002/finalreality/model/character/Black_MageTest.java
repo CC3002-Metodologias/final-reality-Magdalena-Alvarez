@@ -1,6 +1,7 @@
 package com.github.cc3002.finalreality.model.character;
 
 import com.github.cc3002.finalreality.model.character.player.Black_Mage;
+import com.github.cc3002.finalreality.model.character.player.PlayerCharacter;
 import com.github.cc3002.finalreality.model.weapon.StaffWeapon;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,9 +36,11 @@ public class Black_MageTest extends PlayerCharacterTest{
         assertEquals(expectedstaff, testBlack_Mage.getEquippedWeapon());
     }
 
-    void tryToEquipStaff(Black_Mage testmage){
-        testmage.equipStaff(STAFF_NAME);
+    protected void tryToEquipStaff(Black_Mage character) {
+
+        character.equipStaff(STAFF_NAME);
     }
+
 
     @Test
     void waitTurnTest() {
@@ -57,4 +60,5 @@ public class Black_MageTest extends PlayerCharacterTest{
             e.printStackTrace();
         }
     }
+
 }

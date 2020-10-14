@@ -4,8 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import com.github.cc3002.finalreality.model.character.player.CharacterClass;
-import com.github.cc3002.finalreality.model.character.player.PlayerCharacter;
+import com.github.cc3002.finalreality.model.character.player.*;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -14,6 +13,7 @@ import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import com.github.cc3002.finalreality.model.weapon.StaffWeapon;
 import com.github.cc3002.finalreality.model.weapon.Weapon;
 import com.github.cc3002.finalreality.model.weapon.WeaponType;
 import org.junit.jupiter.api.Assertions;
@@ -30,23 +30,26 @@ import org.junit.jupiter.api.Test;
 class PlayerCharacterTest extends AbstractCharacterTest {
 
   protected List<PlayerCharacter> testPlayerCharacters = new ArrayList<>();
-  protected Weapon testWeapon = new Weapon("knife",15,15, WeaponType.KNIFE);
+
 
   private static final String BLACK_MAGE_NAME = "Vivi";
   private static final String KNIGHT_NAME = "Adelbert";
   private static final String WHITE_MAGE_NAME = "Eiko";
   private static final String ENGINEER_NAME = "Cid";
   private static final String THIEF_NAME = "Zidane";
+  private static final String Staff_NAME = "Test Staff";
   private Map<CharacterClass, String> characterNames;
+  private Weapon weapontest = new Weapon("knife", 15, 15, WeaponType.KNIFE);
+
 
   /**
    * Setup method.
    * Creates a new character named Vivi with 10 speed and links it to a turn queue.
    */
+
   @BeforeEach
   void setUp() {
-    //super.basicSetUp();
-    turns = new LinkedBlockingQueue<>();
+    super.basicSetUp();
     characterNames = new EnumMap<>(CharacterClass.class);
     characterNames.put(CharacterClass.BLACK_MAGE, BLACK_MAGE_NAME);
     characterNames.put(CharacterClass.KNIGHT, KNIGHT_NAME);
@@ -54,11 +57,13 @@ class PlayerCharacterTest extends AbstractCharacterTest {
     characterNames.put(CharacterClass.ENGINEER, ENGINEER_NAME);
     characterNames.put(CharacterClass.THIEF, THIEF_NAME);
 
-    for (var characterClass :
-        characterNames.keySet())
+    for (var characterClass:
+      characterNames.keySet())
       testPlayerCharacters.add(
-          new PlayerCharacter(characterNames.get(characterClass), turns, characterClass));
-    }
+              new PlayerCharacter(characterNames.get(characterClass), turns, characterClass));
+
+
+  }
 
 
   /**
@@ -68,7 +73,7 @@ class PlayerCharacterTest extends AbstractCharacterTest {
   void constructorTest() {
     var enemy = new Enemy("Enemy", 10, turns);
     for (var character :
-        testPlayerCharacters) {
+            testPlayerCharacters) {
       var characterClass = character.getCharacterClass();
       var characterName = characterNames.get(characterClass);
       checkConstruction(new PlayerCharacter(characterName, turns, characterClass),
@@ -83,8 +88,9 @@ class PlayerCharacterTest extends AbstractCharacterTest {
   }
   protected void tryToEquip(PlayerCharacter character) {
 
-    character.equip(testWeapon);
+    character.equip(weapontest);
   }
+
   @Test
   void waitTurnTest() {
     Assertions.assertTrue(turns.isEmpty());
@@ -103,13 +109,18 @@ class PlayerCharacterTest extends AbstractCharacterTest {
       e.printStackTrace();
     }
   }
-  @Test
-  void equipWeaponTest() {
-    for (var character :
-        testPlayerCharacters) {
-      assertNull(character.getEquippedWeapon());
-      character.equip(testWeapon);
-      assertEquals(testWeapon, character.getEquippedWeapon());
-    }
-  }
+
+
+/*
+//  @Test
+ // void equipWeaponTest() {
+   // for (var character :
+     //   testPlayerCharacters) {
+      //assertNull(character.getEquippedWeapon());
+      //character.equip(testWeapon);
+      //assertEquals(testWeapon, character.getEquippedWeapon());
+    //}
+  //}
+
+   */
 }

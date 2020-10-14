@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
  * @author <Magdalena Álvarez>
  */
 public class PlayerCharacter extends AbstractCharacter {
-
+  protected Weapon equippedWeapon = null;
   /**
    * Creates a new character.
    *
@@ -29,7 +29,6 @@ public class PlayerCharacter extends AbstractCharacter {
    * @param characterClass
    *     the class of this character
    */
-  protected Weapon equippedWeapon = null;
 
   public PlayerCharacter(@NotNull String name,
       @NotNull BlockingQueue<ICharacter> turnsQueue,
@@ -49,7 +48,7 @@ public class PlayerCharacter extends AbstractCharacter {
   }
 
   public void equip(Weapon weapon) {
-      this.equippedWeapon = weapon;
+     this.equippedWeapon = weapon;
   }
 
   public Weapon getEquippedWeapon() {

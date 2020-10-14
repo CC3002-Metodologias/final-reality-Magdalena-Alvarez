@@ -13,7 +13,10 @@ public class Black_Mage extends PlayerCharacter {
         super(name, turnsQueue, CharacterClass.BLACK_MAGE);
         this.mana = Mage_mana;
     }
-
+    /**
+     * Equips an Staff to the Black Mage
+     * @param staff_name
+     */
     public void equipStaff(String staff_name){
         this.equippedWeapon = new StaffWeapon(staff_name);
     }

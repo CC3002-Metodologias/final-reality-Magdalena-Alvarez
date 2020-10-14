@@ -1,14 +1,20 @@
 package com.github.cc3002.finalreality.model.character;
 
 import com.github.cc3002.finalreality.model.character.player.Thief;
+import com.github.cc3002.finalreality.model.character.player.Thief;
+import com.github.cc3002.finalreality.model.weapon.BowWeapon;
+import com.github.cc3002.finalreality.model.weapon.KnifeWeapon;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class ThiefTest extends PlayerCharacterTest{
-    private static final String ThiefName = "";
+    private static final String ThiefName = "Jeff";
+    private static final String KNIFE_NAME = "Super Knife";
+    private static final String BOW_NAME = "Super Bow";
     private Thief testThief;
     //protected Weapon testWeapon = new Weapon("Sword",15,10, WeaponType.SWORD);
     @BeforeEach
@@ -20,13 +26,33 @@ public class ThiefTest extends PlayerCharacterTest{
     void constructorTest(){
         var expectedThief = new Thief(ThiefName,turns);
         assertEquals(expectedThief,testThief);
-        //testPlayerCharacters.add(testKnight);
     }
+
+    @Test
+    void equipKnifeTest() {
+        var expectedknife = new KnifeWeapon(KNIFE_NAME);
+        assertNull(testThief.getEquippedWeapon());
+        testThief.equipKnife(KNIFE_NAME);
+        assertEquals(expectedknife, testThief.getEquippedWeapon());
+    }
+
+    @Test
+    void equipBowTest() {
+        var expectedbow = new BowWeapon(BOW_NAME);
+        assertNull(testThief.getEquippedWeapon());
+        testThief.equipBow(BOW_NAME);
+        assertEquals(expectedbow, testThief.getEquippedWeapon());
+    }
+    protected void tryToEquipKNIFE(Thief character) {
+
+        character.equipKnife(KNIFE_NAME);
+    }
+
 
     @Test
     void waitTurnTest() {
         Assertions.assertTrue(turns.isEmpty());
-        tryToEquip(testThief);
+        tryToEquipKNIFE(testThief);
         testThief.waitTurn();
         try {
             // Thread.sleep is not accurate so this values may be changed to adjust the
