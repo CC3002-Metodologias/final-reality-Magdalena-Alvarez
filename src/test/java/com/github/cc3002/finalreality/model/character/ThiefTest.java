@@ -4,6 +4,7 @@ import com.github.cc3002.finalreality.model.character.player.Thief;
 import com.github.cc3002.finalreality.model.character.player.Thief;
 import com.github.cc3002.finalreality.model.weapon.BowWeapon;
 import com.github.cc3002.finalreality.model.weapon.KnifeWeapon;
+import com.github.cc3002.finalreality.model.weapon.SwordWeapon;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,6 +16,7 @@ public class ThiefTest extends PlayerCharacterTest{
     private static final String ThiefName = "Jeff";
     private static final String KNIFE_NAME = "Super Knife";
     private static final String BOW_NAME = "Super Bow";
+    private static final String SWORD_NAME = "Slayer";
     private Thief testThief;
     //protected Weapon testWeapon = new Weapon("Sword",15,10, WeaponType.SWORD);
     @BeforeEach
@@ -42,6 +44,14 @@ public class ThiefTest extends PlayerCharacterTest{
         assertNull(testThief.getEquippedWeapon());
         testThief.equipBow(BOW_NAME);
         assertEquals(expectedbow, testThief.getEquippedWeapon());
+    }
+
+    @Test
+    void equipSwordTest() {
+        var expectedsword = new SwordWeapon(SWORD_NAME);
+        assertNull(testThief.getEquippedWeapon());
+        testThief.equipSword(SWORD_NAME);
+        assertEquals(expectedsword, testThief.getEquippedWeapon());
     }
     protected void tryToEquipKNIFE(Thief character) {
 

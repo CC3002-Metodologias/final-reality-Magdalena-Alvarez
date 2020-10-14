@@ -10,8 +10,14 @@ import org.jetbrains.annotations.NotNull;
 import java.util.concurrent.BlockingQueue;
 
 public class Engineer extends PlayerCharacter{
-    private static final CharacterClass typeEngineer = CharacterClass.ENGINEER;
-    protected CharacterClass type = typeEngineer;
+    /**
+     * Creates a new character that it's class is engineer.
+     *
+     * @param name
+     *     the character's name
+     * @param turnsQueue
+     *     the queue with the characters waiting for their turn
+     */
     public Engineer(@NotNull String name, @NotNull BlockingQueue<ICharacter> turnsQueue) {
         super(name, turnsQueue, CharacterClass.ENGINEER);
     }
@@ -19,6 +25,7 @@ public class Engineer extends PlayerCharacter{
     /**
      * Equips an Axe to the Engineer
      * @param axename
+     *      Axe's name
      */
     public void equipAxe(String axename){
         this.equippedWeapon = new AxeWeapon(axename);
@@ -26,6 +33,7 @@ public class Engineer extends PlayerCharacter{
     /**
      * Equips an Bow to the Engineer
      * @param bowname
+     *      Bow's name
      */
     public void equipBow(String bowname) {
         this.equippedWeapon = new BowWeapon(bowname);

@@ -2,6 +2,7 @@ package com.github.cc3002.finalreality.model.character;
 
 import com.github.cc3002.finalreality.model.character.player.Black_Mage;
 import com.github.cc3002.finalreality.model.character.player.PlayerCharacter;
+import com.github.cc3002.finalreality.model.weapon.KnifeWeapon;
 import com.github.cc3002.finalreality.model.weapon.StaffWeapon;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,6 +16,7 @@ public class Black_MageTest extends PlayerCharacterTest{
     private Black_Mage testBlack_Mage;
 
     private static final String STAFF_NAME = "mystic Staff";
+    private static final String KNIFE_NAME = "Super Knife";
     //protected Weapon testWeapon = new Weapon("Sword",15,10, WeaponType.SWORD);
     @BeforeEach
     void setUp(){
@@ -35,7 +37,13 @@ public class Black_MageTest extends PlayerCharacterTest{
         testBlack_Mage.equipStaff(STAFF_NAME);
         assertEquals(expectedstaff, testBlack_Mage.getEquippedWeapon());
     }
-
+    @Test
+    void equipKnifeTest() {
+        var expectedknife = new KnifeWeapon(KNIFE_NAME);
+        assertNull(testBlack_Mage.getEquippedWeapon());
+        testBlack_Mage.equipKnife(KNIFE_NAME);
+        assertEquals(expectedknife, testBlack_Mage.getEquippedWeapon());
+    }
     protected void tryToEquipStaff(Black_Mage character) {
 
         character.equipStaff(STAFF_NAME);

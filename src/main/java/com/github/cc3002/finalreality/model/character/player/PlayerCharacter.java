@@ -45,6 +45,10 @@ public class PlayerCharacter extends AbstractCharacter {
   public int hashCode() {
     return Objects.hash(getCharacterClass());
   }
+
+  /**
+   * Makes that the playercharacter waits it's turn, adding it to a wait list.
+   */
   @Override
   public void waitTurn() {
     scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
@@ -52,10 +56,20 @@ public class PlayerCharacter extends AbstractCharacter {
             .schedule(this::addToQueue, equippedWeapon.getWeight() / 10, TimeUnit.SECONDS);
   }
 
+  /**
+   * Equips a weapon to the player character.
+   * @param weapon
+   *    weapon that is going be equipped
+   */
   public void equip(Weapon weapon) {
      this.equippedWeapon = weapon;
   }
 
+  /**
+   * Gets the weapon that is equipped in the player character.
+   * @return
+   *    the weapon that is equipped
+   */
   public Weapon getEquippedWeapon() {
     return equippedWeapon;
   }
