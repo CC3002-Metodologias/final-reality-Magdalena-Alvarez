@@ -20,7 +20,8 @@ public abstract class AbstractCharacter implements ICharacter {
   protected final BlockingQueue<ICharacter> turnsQueue;
   protected final String name;
   private final CharacterClass characterClass;
-  //protected Weapon equippedWeapon = null;
+  protected int life = 0;
+  protected int dp = 0;
   protected ScheduledExecutorService scheduledExecutor;
 
   protected AbstractCharacter(@NotNull BlockingQueue<ICharacter> turnsQueue,
@@ -28,6 +29,8 @@ public abstract class AbstractCharacter implements ICharacter {
     this.turnsQueue = turnsQueue;
     this.name = name;
     this.characterClass = characterClass;
+    this.life = 50;
+    this.dp = 20;
   }
 
 
@@ -50,5 +53,15 @@ public abstract class AbstractCharacter implements ICharacter {
   @Override
   public CharacterClass getCharacterClass() {
     return characterClass;
+  }
+
+  @Override
+  public int getLife() {
+    return life;
+  }
+
+  @Override
+  public int getDp() {
+    return dp;
   }
 }

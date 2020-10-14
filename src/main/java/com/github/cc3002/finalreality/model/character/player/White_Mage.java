@@ -7,6 +7,8 @@ import java.util.concurrent.BlockingQueue;
 public class White_Mage extends PlayerCharacter{
     protected int mana;
     protected int Mage_mana = 100;
+
+
     /**
      * Creates a new character that it's class is white mage.
      *
@@ -28,4 +30,14 @@ public class White_Mage extends PlayerCharacter{
     public void equipStaff(String staff_name){
         this.equippedWeapon = new StaffWeapon(staff_name);
     }
+
+    /**
+     * returns mage's mana
+     * @return
+     *      mage's mana
+     */
+    public int getMana() {
+        return mana;
+    }
+
 }
