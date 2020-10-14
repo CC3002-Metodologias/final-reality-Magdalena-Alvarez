@@ -1,19 +1,26 @@
 package com.github.cc3002.finalreality.model.character.player;
 
 import com.github.cc3002.finalreality.model.character.AbstractCharacter;
+//import com.github.cc3002.finalreality.model.character.Enemy;
 import com.github.cc3002.finalreality.model.character.ICharacter;
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
+import com.github.cc3002.finalreality.model.weapon.Weapon;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * A class that holds all the information of a single character of the game.
  *
  * @author Ignacio Slater Muñoz.
- * @author <Your name>
+ * @author <Magdalena Álvarez>
  */
 public class PlayerCharacter extends AbstractCharacter {
-
+  protected Weapon equippedWeapon = null;
+  protected int life = 0;
+  protected int dp = 0;
   /**
    * Creates a new character.
    *
@@ -24,15 +31,47 @@ public class PlayerCharacter extends AbstractCharacter {
    * @param characterClass
    *     the class of this character
    */
+
+
   public PlayerCharacter(@NotNull String name,
       @NotNull BlockingQueue<ICharacter> turnsQueue,
       final CharacterClass characterClass) {
     super(turnsQueue, name, characterClass);
+    this.life = 50;
+    this.dp = 20;
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(getCharacterClass());
+  }
+
+  /**
+   * Makes that the playercharacter waits it's turn, adding it to a wait list.
+   */
+  @Override
+  public void waitTurn() {
+    scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
+    scheduledExecutor
+            .schedule(this::addToQueue, equippedWeapon.getWeight() / 10, TimeUnit.SECONDS);
+  }
+
+  /**
+   * Equips a weapon to the player character.
+   * @param weapon
+   *    weapon that is going be equipped
+   */
+  public void equip(Weapon weapon) {
+     this.equippedWeapon = weapon;
+  }
+
+  /**
+   * Gets the weapon that is equipped in the player character.
+   * @return
+   *    the weapon that is equipped
+   */
+  public Weapon getEquippedWeapon() {
+    return equippedWeapon;
   }
 
   @Override
@@ -46,5 +85,13 @@ public class PlayerCharacter extends AbstractCharacter {
     final PlayerCharacter that = (PlayerCharacter) o;
     return getCharacterClass() == that.getCharacterClass()
         && getName().equals(that.getName());
+  }
+
+  protected int getLife() {
+    return life;
+  }
+
+  protected int getDp() {
+    return dp;
   }
 }
