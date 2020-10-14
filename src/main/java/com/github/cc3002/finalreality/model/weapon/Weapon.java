@@ -10,10 +10,10 @@ import java.util.Objects;
  */
 public class Weapon {
 
-  private final String name;
-  private final int damage;
-  private final int weight;
-  private final WeaponType type;
+  protected final String name;
+  protected int damage;
+  protected int weight;
+  protected final WeaponType type;
 
   /**
    * Creates a weapon with a name, a base damage, speed and it's type.
@@ -30,11 +30,11 @@ public class Weapon {
 
 
 
-    private String getName() {
+  protected String getName() {
     return name;
   }
 
-  private int getDamage() {
+  protected int getDamage() {
     return damage;
   }
 
@@ -42,7 +42,7 @@ public class Weapon {
     return weight;
   }
 
-  private WeaponType getType() {
+  protected WeaponType getType() {
     return type;
   }
 
@@ -55,10 +55,10 @@ public class Weapon {
       return false;
     }
     final Weapon weapon = (Weapon) o;
-    return getDamage() == weapon.getDamage() &&
+    return getType() == weapon.getType() && getDamage() == weapon.getDamage() &&
         getWeight() == weapon.getWeight() &&
-        getName().equals(weapon.getName()) &&
-        getType() == weapon.getType();
+        getName().equals(weapon.getName());
+
   }
 
   @Override
