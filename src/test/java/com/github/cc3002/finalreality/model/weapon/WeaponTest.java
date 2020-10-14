@@ -21,6 +21,7 @@ class WeaponTest {
   private static final String KNIFE_NAME = "Test Knife";
   private static final int DAMAGE = 10;
   private static final int SPEED = 10;
+
   private static final String KNIFE_NAME2 = "Test Knife2";
 
   private AxeWeapon testAxe;
@@ -47,6 +48,7 @@ class WeaponTest {
     testKnife2 = new KnifeWeapon(KNIFE_NAME2);
     testStaff2.damage = DAMAGE;
     testSword2.weight = SPEED;
+
   }
 
   @Test
@@ -70,6 +72,8 @@ class WeaponTest {
     assertNotEquals(expectedAxe, testBow);
     assertNotEquals(expectedKnife, testKnife2);
     assertNotEquals(expectedStaff, testStaff2);
+    assertNotEquals(expectedStaff.hashCode(),testStaff2.hashCode());
     assertNotEquals(expectedSword,testSword2);
+    assertNotEquals(expectedSword.hashCode(),testSword2.hashCode());
   }
 }

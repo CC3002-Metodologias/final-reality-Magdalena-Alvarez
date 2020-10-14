@@ -31,6 +31,7 @@ class PlayerCharacterTest extends AbstractCharacterTest {
 
   protected List<PlayerCharacter> testPlayerCharacters = new ArrayList<>();
 
+  protected Weapon testWeapon = new Weapon("cuchillo",15,10, WeaponType.KNIFE);
 
   private static final String BLACK_MAGE_NAME = "Vivi";
   private static final String KNIGHT_NAME = "Adelbert";
