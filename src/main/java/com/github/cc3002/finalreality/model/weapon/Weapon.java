@@ -30,11 +30,11 @@ public class Weapon {
 
 
 
-  protected String getName() {
+  public String getName() {
     return name;
   }
 
-  protected int getDamage() {
+  public int getDamage() {
     return damage;
   }
 
@@ -42,7 +42,7 @@ public class Weapon {
     return weight;
   }
 
-  protected WeaponType getType() {
+  public WeaponType getType() {
     return type;
   }
 

@@ -38,4 +38,13 @@ public class Black_Mage extends PlayerCharacter {
     public void equipKnife(String knife_name){
         this.equippedWeapon = new KnifeWeapon(knife_name);
     }
+
+    /**
+     * returns mage's mana
+     * @return
+     *      mage's mana
+     */
+    public int getMana() {
+        return mana;
+    }
 }
