@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ThiefTest extends PlayerCharacterTest{
-    private static final String ThiefName = "Kevin";
+    private static final String ThiefName = "";
     private Thief testThief;
     //protected Weapon testWeapon = new Weapon("Sword",15,10, WeaponType.SWORD);
     @BeforeEach
