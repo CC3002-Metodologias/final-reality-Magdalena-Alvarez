@@ -4,7 +4,7 @@ import com.github.cc3002.finalreality.model.weapon.StaffWeapon;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.BlockingQueue;
-public class White_Mage extends PlayerCharacter{
+public class White_Mage extends AbstractPlayerCharacter{
     protected int mana;
     protected int Mage_mana = 100;
 

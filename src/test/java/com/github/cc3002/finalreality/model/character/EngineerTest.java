@@ -1,11 +1,8 @@
 package com.github.cc3002.finalreality.model.character;
 
 import com.github.cc3002.finalreality.model.character.player.Engineer;
-import com.github.cc3002.finalreality.model.character.player.Engineer;
-import com.github.cc3002.finalreality.model.character.player.Knight;
 import com.github.cc3002.finalreality.model.weapon.AxeWeapon;
 import com.github.cc3002.finalreality.model.weapon.BowWeapon;
-import com.github.cc3002.finalreality.model.weapon.AxeWeapon;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,13 +10,12 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class EngineerTest extends PlayerCharacterTest {
+public class EngineerTest extends AbstractPlayerCharacterTest {
 
     private static final String EngineerName = "Kevin";
     private static final String AXE_NAME = "Super Axe";
     private static final String BOW_NAME = "Super Bow";
     private Engineer testEngineer;
-    //protected Weapon testWeapon = new Weapon("Sword",15,10, WeaponType.SWORD);
     @BeforeEach
     void setUp(){
         basicSetUp();
@@ -29,7 +25,6 @@ public class EngineerTest extends PlayerCharacterTest {
     void constructorTest(){
         var expectedEngineer = new Engineer(EngineerName,turns);
         assertEquals(expectedEngineer,testEngineer);
-        //testPlayerCharacters.add(testKnight);
     }
 
     @Test

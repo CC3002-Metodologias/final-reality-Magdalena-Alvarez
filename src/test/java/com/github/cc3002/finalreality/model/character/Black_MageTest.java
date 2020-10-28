@@ -1,7 +1,8 @@
 package com.github.cc3002.finalreality.model.character;
 
 import com.github.cc3002.finalreality.model.character.player.Black_Mage;
-import com.github.cc3002.finalreality.model.character.player.PlayerCharacter;
+import com.github.cc3002.finalreality.model.character.player.AbstractPlayerCharacter;
+import com.github.cc3002.finalreality.model.character.player.Thief;
 import com.github.cc3002.finalreality.model.weapon.KnifeWeapon;
 import com.github.cc3002.finalreality.model.weapon.StaffWeapon;
 import org.junit.jupiter.api.Assertions;
@@ -11,8 +12,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class Black_MageTest extends PlayerCharacterTest{
+public class Black_MageTest extends AbstractPlayerCharacterTest{
     private static final String Black_MageName = "Jack";
+    private static final String ENEMY_NAME = "EMEMY";
     private Black_Mage testBlack_Mage;
 
     private static final String STAFF_NAME = "mystic Staff";
@@ -26,7 +28,9 @@ public class Black_MageTest extends PlayerCharacterTest{
     @Test
     void constructorTest(){
         var expectedBlack_Mage = new Black_Mage(Black_MageName,turns);
-        assertEquals(expectedBlack_Mage,testBlack_Mage);
+        //assertEquals(expectedBlack_Mage,testBlack_Mage);
+        checkConstruction(expectedBlack_Mage,testBlack_Mage,
+                new Black_Mage(ENEMY_NAME,turns),new Enemy(ENEMY_NAME, 11, turns));
         //testPlayerCharacters.add(testKnight);
     }
 

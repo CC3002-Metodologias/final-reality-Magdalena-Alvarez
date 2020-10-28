@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.BlockingQueue;
 
-public class Engineer extends PlayerCharacter{
+public class Engineer extends AbstractPlayerCharacter{
     /**
      * Creates a new character that it's class is engineer.
      *

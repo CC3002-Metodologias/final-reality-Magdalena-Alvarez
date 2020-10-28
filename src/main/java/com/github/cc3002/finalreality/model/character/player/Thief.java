@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.BlockingQueue;
 
-public class Thief extends PlayerCharacter {
+public class Thief extends AbstractPlayerCharacter {
     /**
      * Creates a new character that it's class is thief.
      *

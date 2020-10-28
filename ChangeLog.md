@@ -1,9 +1,13 @@
 ChangeLog
 =========
 
+Version 3.0
+-----------
+- (B.1) Add Interfaces, for the players and weapons
+
 Version 2.0
 -----------
-Write your changes in here:
+
 - (B.2) Adapting test to SOLID
 - (B.1) SOLID Review
 

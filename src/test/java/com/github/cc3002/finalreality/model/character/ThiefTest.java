@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class ThiefTest extends PlayerCharacterTest{
+public class ThiefTest extends AbstractPlayerCharacterTest{
     private static final String ThiefName = "Jeff";
     private static final String KNIFE_NAME = "Super Knife";
     private static final String BOW_NAME = "Super Bow";

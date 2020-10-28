@@ -8,7 +8,7 @@ import java.util.Objects;
  * @author Ignacio Slater Muñoz.
  * @author <Magdalena Álvarez>
  */
-public class Weapon {
+public class Weapon implements IWeapon {
 
   protected final String name;
   protected int damage;
@@ -29,19 +29,19 @@ public class Weapon {
   }
 
 
-
+  @Override
   public String getName() {
     return name;
   }
-
+  @Override
   public int getDamage() {
     return damage;
   }
-
+  @Override
   public int getWeight() {
     return weight;
   }
-
+  @Override
   public WeaponType getType() {
     return type;
   }
@@ -51,10 +51,10 @@ public class Weapon {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof Weapon)) {
+    if (!(o instanceof IWeapon)) {
       return false;
     }
-    final Weapon weapon = (Weapon) o;
+    final IWeapon weapon = (IWeapon) o;
     return getType() == weapon.getType() && getDamage() == weapon.getDamage() &&
         getWeight() == weapon.getWeight() &&
         getName().equals(weapon.getName());

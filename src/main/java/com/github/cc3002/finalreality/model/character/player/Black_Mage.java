@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.BlockingQueue;
 
-public class Black_Mage extends PlayerCharacter {
+public class Black_Mage extends AbstractPlayerCharacter {
     protected int mana;
     protected int Mage_mana = 100;
     /**

@@ -11,9 +11,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class KnightTest extends PlayerCharacterTest{
-
-   // protected List<PlayerCharacter> testPlayerCharacters = new ArrayList<>();
+public class KnightTest extends AbstractPlayerCharacterTest{
     private static final String knightName = "Johann";
     private static final String SWORD_NAME = "Slayer";
     private static final String BOW_NAME = "Super Bow";

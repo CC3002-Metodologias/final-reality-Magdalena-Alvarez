@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class White_MageTest extends  PlayerCharacterTest{
+public class White_MageTest extends  AbstractPlayerCharacterTest{
     private static final String White_MageName = "";
     private White_Mage testWhite_Mage;
 

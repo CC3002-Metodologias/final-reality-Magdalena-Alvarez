@@ -6,7 +6,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import com.github.cc3002.finalreality.model.character.player.PlayerCharacter;
+import com.github.cc3002.finalreality.model.character.player.AbstractPlayerCharacter;
 import org.jetbrains.annotations.NotNull;
 
 /**
