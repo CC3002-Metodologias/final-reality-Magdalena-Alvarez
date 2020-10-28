@@ -16,6 +16,8 @@ public class Black_MageTest extends AbstractPlayerCharacterTest{
     private static final String Black_MageName = "Jack";
     private static final String ENEMY_NAME = "EMEMY";
     private Black_Mage testBlack_Mage;
+    private Enemy enemytest;
+    private int previous_life;
 
     private static final String STAFF_NAME = "mystic Staff";
     private static final String KNIFE_NAME = "Super Knife";
@@ -24,6 +26,8 @@ public class Black_MageTest extends AbstractPlayerCharacterTest{
     void setUp(){
         basicSetUp();
         testBlack_Mage = new Black_Mage(Black_MageName,turns);
+        enemytest = new Enemy(ENEMY_NAME, 11, turns);
+        previous_life = enemytest.getLife();
     }
     @Test
     void constructorTest(){
@@ -53,6 +57,14 @@ public class Black_MageTest extends AbstractPlayerCharacterTest{
         character.equipStaff(STAFF_NAME);
     }
 
+    @Test
+    void attackTest(){
+        testBlack_Mage.attack(enemytest);
+        Assertions.assertEquals(previous_life, enemytest.getLife());
+        testBlack_Mage.equipStaff(STAFF_NAME);
+        testBlack_Mage.attack(enemytest);
+        Assertions.assertEquals(previous_life-enemytest.getLife(), testBlack_Mage.getEquippedWeapon().getDamage()-enemytest.getDp());
+    }
 
     @Test
     void waitTurnTest() {
@@ -72,5 +84,7 @@ public class Black_MageTest extends AbstractPlayerCharacterTest{
             e.printStackTrace();
         }
     }
+
+
 
 }

@@ -1,5 +1,7 @@
 package com.github.cc3002.finalreality.model.weapon;
 
+import com.github.cc3002.finalreality.model.character.ICharacter;
+
 import java.util.Objects;
 
 /**
@@ -8,7 +10,7 @@ import java.util.Objects;
  * @author Ignacio Slater Muñoz.
  * @author <Magdalena Álvarez>
  */
-public class Weapon implements IWeapon {
+public abstract class AbstractWeapon implements IWeapon {
 
   protected final String name;
   protected int damage;
@@ -20,7 +22,7 @@ public class Weapon implements IWeapon {
    *
    * @see WeaponType
    */
-  public Weapon(final String name, final int damage, final int weight,
+  public AbstractWeapon(final String name, final int damage, final int weight,
       final WeaponType type) {
     this.name = name;
     this.damage = damage;
@@ -45,6 +47,8 @@ public class Weapon implements IWeapon {
   public WeaponType getType() {
     return type;
   }
+
+  public abstract void attack(ICharacter character);
 
   @Override
   public boolean equals(final Object o) {

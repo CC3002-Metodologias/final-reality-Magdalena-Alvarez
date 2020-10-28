@@ -14,7 +14,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import com.github.cc3002.finalreality.model.weapon.StaffWeapon;
-import com.github.cc3002.finalreality.model.weapon.Weapon;
+import com.github.cc3002.finalreality.model.weapon.AbstractWeapon;
 import com.github.cc3002.finalreality.model.weapon.WeaponType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

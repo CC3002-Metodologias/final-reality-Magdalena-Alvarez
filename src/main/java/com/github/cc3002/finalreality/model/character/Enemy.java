@@ -18,6 +18,7 @@ import org.jetbrains.annotations.NotNull;
 public class Enemy extends AbstractCharacter {
 
   private final int weight;
+  private final int attack_points;
 
   /**
    * Creates a new enemy with a name, a weight and the queue with the characters ready to
@@ -27,6 +28,7 @@ public class Enemy extends AbstractCharacter {
       @NotNull final BlockingQueue<ICharacter> turnsQueue) {
     super(turnsQueue, name, CharacterClass.ENEMY);
     this.weight = weight;
+    this.attack_points = 8;
   }
 
   /**
@@ -43,6 +45,21 @@ public class Enemy extends AbstractCharacter {
     scheduledExecutor
             .schedule(this::addToQueue, enemy.getWeight() / 10, TimeUnit.SECONDS);
   }
+
+  /**
+   * Returns the enemy's attack points
+   * @return
+   */
+  public int getAttack_points() {
+    return attack_points;
+  }
+
+  @Override
+  public void attack(ICharacter character){
+
+  }
+
+
 
   @Override
   public boolean equals(final Object o) {

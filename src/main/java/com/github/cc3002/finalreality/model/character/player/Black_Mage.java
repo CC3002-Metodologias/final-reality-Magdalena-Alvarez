@@ -1,5 +1,6 @@
 package com.github.cc3002.finalreality.model.character.player;
 
+import com.github.cc3002.finalreality.model.character.Enemy;
 import com.github.cc3002.finalreality.model.character.ICharacter;
 import com.github.cc3002.finalreality.model.weapon.KnifeWeapon;
 import com.github.cc3002.finalreality.model.weapon.StaffWeapon;
@@ -47,4 +48,5 @@ public class Black_Mage extends AbstractPlayerCharacter {
     public int getMana() {
         return mana;
     }
+
 }

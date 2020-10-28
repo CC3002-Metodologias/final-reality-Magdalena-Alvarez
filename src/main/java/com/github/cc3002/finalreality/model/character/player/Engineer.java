@@ -3,7 +3,7 @@ package com.github.cc3002.finalreality.model.character.player;
 import com.github.cc3002.finalreality.model.character.ICharacter;
 import com.github.cc3002.finalreality.model.weapon.AxeWeapon;
 import com.github.cc3002.finalreality.model.weapon.BowWeapon;
-import com.github.cc3002.finalreality.model.weapon.Weapon;
+import com.github.cc3002.finalreality.model.weapon.AbstractWeapon;
 import com.github.cc3002.finalreality.model.weapon.WeaponType;
 import org.jetbrains.annotations.NotNull;
 
@@ -38,4 +38,7 @@ public class Engineer extends AbstractPlayerCharacter{
     public void equipBow(String bowname) {
         this.equippedWeapon = new BowWeapon(bowname);
     }
+
+
+
 }

@@ -2,6 +2,7 @@ package com.github.cc3002.finalreality.model.character;
 
 import com.github.cc3002.finalreality.model.character.player.CharacterClass;
 import com.github.cc3002.finalreality.model.character.player.AbstractPlayerCharacter;
+import com.github.cc3002.finalreality.model.character.player.IPlayer;
 import com.github.cc3002.finalreality.model.character.player.Thief;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,6 +41,14 @@ class EnemyTest extends AbstractCharacterTest {
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
+  }
+
+  @Test
+  void attackedByAxeTest(){
+    Enemy enemytest = new Enemy(ENEMY_NAME, 11, turns);
+    int previous_life = enemytest.getLife();
+    enemytest.attackedByAxe();
+    Assertions.assertEquals(previous_life-enemytest.getLife(), 8-enemytest.getDp());
   }
 
 }

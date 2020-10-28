@@ -15,11 +15,17 @@ public class EngineerTest extends AbstractPlayerCharacterTest {
     private static final String EngineerName = "Kevin";
     private static final String AXE_NAME = "Super Axe";
     private static final String BOW_NAME = "Super Bow";
+    private static final String ENEMY_NAME = "EMEMY";
     private Engineer testEngineer;
+    private Enemy enemytest;
+    private int previous_life;
+
     @BeforeEach
     void setUp(){
         basicSetUp();
         testEngineer = new Engineer(EngineerName,turns);
+        enemytest = new Enemy(ENEMY_NAME, 11, turns);
+        previous_life = enemytest.getLife();
     }
     @Test
     void constructorTest(){
@@ -45,6 +51,14 @@ public class EngineerTest extends AbstractPlayerCharacterTest {
     protected void tryToEquipAxe(Engineer character) {
 
         character.equipAxe(AXE_NAME);
+    }
+    @Test
+    void attackTest(){
+        testEngineer.attack(enemytest);
+        Assertions.assertEquals(previous_life, enemytest.getLife());
+        testEngineer.equipBow(BOW_NAME);
+        testEngineer.attack(enemytest);
+        Assertions.assertEquals(previous_life-enemytest.getLife(), testEngineer.getEquippedWeapon().getDamage()-enemytest.getDp());
     }
 
 

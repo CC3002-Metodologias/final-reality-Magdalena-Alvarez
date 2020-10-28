@@ -8,7 +8,8 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import com.github.cc3002.finalreality.model.weapon.Weapon;
+import com.github.cc3002.finalreality.model.weapon.IWeapon;
+import com.github.cc3002.finalreality.model.weapon.AbstractWeapon;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -17,8 +18,8 @@ import org.jetbrains.annotations.NotNull;
  * @author Ignacio Slater Muñoz.
  * @author <Magdalena Álvarez>
  */
-public class AbstractPlayerCharacter extends AbstractCharacter implements IPlayer, ICharacter {
-  protected Weapon equippedWeapon = null;
+public abstract class AbstractPlayerCharacter extends AbstractCharacter implements IPlayer, ICharacter {
+  protected IWeapon equippedWeapon = null;
 
   /**
    * Creates a new character.
@@ -62,8 +63,14 @@ public class AbstractPlayerCharacter extends AbstractCharacter implements IPlaye
   }
 */
   @Override
-  public Weapon getEquippedWeapon() {
+  public IWeapon getEquippedWeapon() {
     return equippedWeapon;
+  }
+  @Override
+  public void attack(ICharacter character){
+    if (this.equippedWeapon != null) {
+      this.equippedWeapon.attack(character);
+    }
   }
 
   @Override

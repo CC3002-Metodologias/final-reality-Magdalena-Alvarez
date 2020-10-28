@@ -27,17 +27,37 @@ public interface ICharacter {
    * Returns this character's class.
    */
   CharacterClass getCharacterClass();
+
   /**
    * Returns the character's life points
-   * @return
-   *    character's life points
    */
   int getLife();
 
   /**
    * Returns the character's defense points
-   * @return
-   *    character's defense points
    */
   int getDp();
+
+  void attack(ICharacter character);
+
+  /**
+   * Descontar el ataque del hacha a los puntos de vida
+   */
+  void attackedByAxe();
+  /**
+   * Descontar el ataque del arco a los puntos de vida
+   */
+  void attackedByBow();
+  /**
+   * Descontar el ataque del cuchillo a los puntos de vida
+   */
+  void attackedByKnife();
+  /**
+   * Descontar el ataque de la espada a los puntos de vida
+   */
+  void attackedBySword();
+  /**
+   * Descontar el ataque del baston a los puntos de vida
+   */
+  void attackedByStaff();
 }

@@ -2,7 +2,7 @@ package com.github.cc3002.finalreality.model.character;
 
 import com.github.cc3002.finalreality.model.character.player.CharacterClass;
 //import com.github.cc3002.finalreality.model.character.player.PlayerCharacter;
-import com.github.cc3002.finalreality.model.weapon.Weapon;
+import com.github.cc3002.finalreality.model.weapon.AbstractWeapon;
 import java.util.concurrent.BlockingQueue;
 //import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -24,13 +24,14 @@ public abstract class AbstractCharacter implements ICharacter {
   protected int dp = 0;
   protected ScheduledExecutorService scheduledExecutor;
 
+
   protected AbstractCharacter(@NotNull BlockingQueue<ICharacter> turnsQueue,
-      @NotNull String name, CharacterClass characterClass) {
+                              @NotNull String name, CharacterClass characterClass) {
     this.turnsQueue = turnsQueue;
     this.name = name;
     this.characterClass = characterClass;
     this.life = 50;
-    this.dp = 20;
+    this.dp = 3;
   }
 
 
@@ -63,5 +64,31 @@ public abstract class AbstractCharacter implements ICharacter {
   @Override
   public int getDp() {
     return dp;
+  }
+
+  public abstract void attack(ICharacter character);
+  @Override
+  public void attackedByAxe(){
+    this.life-= 8- this.dp;
+  }
+
+  @Override
+  public void attackedByBow(){
+    this.life-= 15- this.dp;
+  }
+
+  @Override
+  public void attackedByKnife() {
+    this.life-=5-this.dp;
+  }
+
+  @Override
+  public void attackedBySword() {
+    this.life-= 15-this.dp;
+  }
+
+  @Override
+  public void attackedByStaff() {
+    this.life-= 5-this.dp;
   }
 }

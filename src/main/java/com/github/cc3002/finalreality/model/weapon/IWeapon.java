@@ -1,5 +1,7 @@
 package com.github.cc3002.finalreality.model.weapon;
 
+import com.github.cc3002.finalreality.model.character.ICharacter;
+
 public interface IWeapon {
     /**
      *Returns the weapon's name
@@ -20,4 +22,6 @@ public interface IWeapon {
      * Returns the weapon's type
      */
     WeaponType getType();
+
+    void attack(ICharacter character);
 }

@@ -1,13 +1,14 @@
 package com.github.cc3002.finalreality.model.character.player;
 
-import com.github.cc3002.finalreality.model.weapon.Weapon;
+import com.github.cc3002.finalreality.model.weapon.AbstractWeapon;
 import com.github.cc3002.finalreality.model.character.ICharacter;
+import com.github.cc3002.finalreality.model.weapon.IWeapon;
 
 public interface IPlayer {
     /**
      * Returns the weapon that is equipped in the player character.
      */
-    Weapon getEquippedWeapon();
+    IWeapon getEquippedWeapon();
 
     /**
      * Returns this character's name.
