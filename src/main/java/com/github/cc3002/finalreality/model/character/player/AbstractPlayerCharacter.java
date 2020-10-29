@@ -68,8 +68,15 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
   }
   @Override
   public void attack(ICharacter character){
-    if (this.equippedWeapon != null) {
+    if (this.equippedWeapon != null && this.status) {
       this.equippedWeapon.attack(character);
+    }
+  }
+  @Override
+  public void attackedByEnemy() {
+    this.life-= 8-this.dp;
+    if (this.life <=0){
+      this.status = false;
     }
   }
 

@@ -9,8 +9,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Black_MageTest extends AbstractPlayerCharacterTest{
     private static final String Black_MageName = "Jack";
@@ -21,6 +20,8 @@ public class Black_MageTest extends AbstractPlayerCharacterTest{
 
     private static final String STAFF_NAME = "mystic Staff";
     private static final String KNIFE_NAME = "Super Knife";
+    private static final String STAFF_NAME2 = "mystic Staff2";
+    private static final String KNIFE_NAME2 = "Super Knife2";
     //protected Weapon testWeapon = new Weapon("Sword",15,10, WeaponType.SWORD);
     @BeforeEach
     void setUp(){
@@ -44,6 +45,13 @@ public class Black_MageTest extends AbstractPlayerCharacterTest{
         assertNull(testBlack_Mage.getEquippedWeapon());
         testBlack_Mage.equipStaff(STAFF_NAME);
         assertEquals(expectedstaff, testBlack_Mage.getEquippedWeapon());
+
+        while (testBlack_Mage.status){
+            enemytest.attack(testBlack_Mage);
+        }
+        var expectedstaff2 = new StaffWeapon(STAFF_NAME2);
+        testBlack_Mage.equipStaff(STAFF_NAME2);
+        assertNotEquals(testBlack_Mage.getEquippedWeapon(),expectedstaff2);
     }
     @Test
     void equipKnifeTest() {
@@ -51,6 +59,12 @@ public class Black_MageTest extends AbstractPlayerCharacterTest{
         assertNull(testBlack_Mage.getEquippedWeapon());
         testBlack_Mage.equipKnife(KNIFE_NAME);
         assertEquals(expectedknife, testBlack_Mage.getEquippedWeapon());
+        while (testBlack_Mage.status){
+            enemytest.attack(testBlack_Mage);
+        }
+        var expectedknife2 = new KnifeWeapon(KNIFE_NAME2);
+        testBlack_Mage.equipStaff(KNIFE_NAME2);
+        assertNotEquals(testBlack_Mage.getEquippedWeapon(),expectedknife2);
     }
     protected void tryToEquipStaff(Black_Mage character) {
 
@@ -61,10 +75,15 @@ public class Black_MageTest extends AbstractPlayerCharacterTest{
     void attackTest(){
         testBlack_Mage.attack(enemytest);
         Assertions.assertEquals(previous_life, enemytest.getLife());
-        testBlack_Mage.equipStaff(STAFF_NAME);
+        testBlack_Mage.equipKnife(KNIFE_NAME);
         testBlack_Mage.attack(enemytest);
         Assertions.assertEquals(previous_life-enemytest.getLife(), testBlack_Mage.getEquippedWeapon().getDamage()-enemytest.getDp());
+        while(enemytest.getStatus()){
+            testBlack_Mage.attack(enemytest);
+        }
+        Assertions.assertFalse(enemytest.getStatus());
     }
+
 
     @Test
     void waitTurnTest() {

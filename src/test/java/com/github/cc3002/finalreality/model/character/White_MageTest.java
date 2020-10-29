@@ -1,19 +1,24 @@
 package com.github.cc3002.finalreality.model.character;
 
+import com.github.cc3002.finalreality.model.character.player.Thief;
 import com.github.cc3002.finalreality.model.character.player.White_Mage;
 import com.github.cc3002.finalreality.model.character.player.White_Mage;
 import com.github.cc3002.finalreality.model.character.player.White_Mage;
+import com.github.cc3002.finalreality.model.weapon.KnifeWeapon;
 import com.github.cc3002.finalreality.model.weapon.StaffWeapon;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class White_MageTest extends  AbstractPlayerCharacterTest{
-    private static final String White_MageName = "";
+    private static final String White_MageName = "Mage";
     private White_Mage testWhite_Mage;
+    private static final String ENEMY_NAME = "EMEMY";
+    private static final String STAFF_NAME2 = "mystic Staff2";
+    private Enemy enemytest;
+    private int previous_life;
 
     private static final String STAFF_NAME = "mystic Staff";
     //protected Weapon testWeapon = new Weapon("Sword",15,10, WeaponType.SWORD);
@@ -21,11 +26,14 @@ public class White_MageTest extends  AbstractPlayerCharacterTest{
     void setUp(){
         basicSetUp();
         testWhite_Mage = new White_Mage(White_MageName,turns);
+        enemytest = new Enemy(ENEMY_NAME, 11, turns);
+        previous_life = enemytest.getLife();
     }
     @Test
     void constructorTest(){
         var expectedWhite_Mage = new White_Mage(White_MageName,turns);
         assertEquals(expectedWhite_Mage,testWhite_Mage);
+
         //testPlayerCharacters.add(testKnight);
     }
 
@@ -35,6 +43,25 @@ public class White_MageTest extends  AbstractPlayerCharacterTest{
         assertNull(testWhite_Mage.getEquippedWeapon());
         testWhite_Mage.equipStaff(STAFF_NAME);
         assertEquals(expectedstaff, testWhite_Mage.getEquippedWeapon());
+        while (testWhite_Mage.status){
+            enemytest.attack(testWhite_Mage);
+        }
+        var expectedstaff2 = new KnifeWeapon(STAFF_NAME2);
+        testWhite_Mage.equipStaff(STAFF_NAME2);
+        assertNotEquals(testWhite_Mage.getEquippedWeapon(),expectedstaff2);
+
+    }
+    @Test
+    void attackTest(){
+        testWhite_Mage.attack(enemytest);
+        Assertions.assertEquals(previous_life, enemytest.getLife());
+        testWhite_Mage.equipStaff(STAFF_NAME);
+        testWhite_Mage.attack(enemytest);
+        Assertions.assertEquals(previous_life-enemytest.getLife(), testWhite_Mage.getEquippedWeapon().getDamage()-enemytest.getDp());
+        while(enemytest.getStatus()){
+            testWhite_Mage.attack(enemytest);
+        }
+        Assertions.assertFalse(enemytest.getStatus());
     }
 
     protected void tryToEquipStaff(White_Mage character) {

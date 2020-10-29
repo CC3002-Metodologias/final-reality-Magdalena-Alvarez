@@ -3,26 +3,36 @@ package com.github.cc3002.finalreality.model.character;
 import com.github.cc3002.finalreality.model.character.player.Knight;
 import com.github.cc3002.finalreality.model.character.player.Knight;
 import com.github.cc3002.finalreality.model.weapon.KnifeWeapon;
+import com.github.cc3002.finalreality.model.weapon.StaffWeapon;
 import com.github.cc3002.finalreality.model.weapon.SwordWeapon;
-import com.github.cc3002.finalreality.model.weapon.BowWeapon;
+import com.github.cc3002.finalreality.model.weapon.AxeWeapon;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class KnightTest extends AbstractPlayerCharacterTest{
     private static final String knightName = "Johann";
     private static final String SWORD_NAME = "Slayer";
-    private static final String BOW_NAME = "Super Bow";
+    private static final String Axe_NAME = "Super Axe";
     private static final String KNIFE_NAME = "Super Knife";
+    private static final String Axe_NAME2 = "Super Axe2";
+    private static final String SWORD_NAME2 = "Slayer2";
+    private static final String KNIFE_NAME2 = "Super Knife2";
+    private static final String ENEMY_NAME = "EMEMY";
     private static Knight testKnight;
+    private Enemy enemytest;
+    private int previous_life;
+
 
 
     @BeforeEach
     void setUp(){
         basicSetUp();
         testKnight = new Knight(knightName,turns);
+        enemytest = new Enemy(ENEMY_NAME, 11, turns);
+        previous_life = enemytest.getLife();
     }
     @Test
     void constructorTest(){
@@ -37,14 +47,28 @@ public class KnightTest extends AbstractPlayerCharacterTest{
         assertNull(testKnight.getEquippedWeapon());
         testKnight.equipSword(SWORD_NAME);
         assertEquals(expectedsword, testKnight.getEquippedWeapon());
+        while (testKnight.status){
+            enemytest.attack(testKnight);
+        }
+        var expectedsword2 = new SwordWeapon(SWORD_NAME2);
+        testKnight.equipSword(SWORD_NAME2);
+        assertNotEquals(testKnight.getEquippedWeapon(),expectedsword2);
+
     }
 
     @Test
-    void equipBowTest() {
-        var expectedbow = new BowWeapon(BOW_NAME);
+    void equipAxeTest() {
+        var expectedAxe = new AxeWeapon(Axe_NAME);
         assertNull(testKnight.getEquippedWeapon());
-        testKnight.equipBow(BOW_NAME);
-        assertEquals(expectedbow, testKnight.getEquippedWeapon());
+        testKnight.equipAxe(Axe_NAME);
+        assertEquals(expectedAxe, testKnight.getEquippedWeapon());
+        while (testKnight.status){
+            enemytest.attack(testKnight);
+        }
+        var expectedAxe2 = new AxeWeapon(Axe_NAME2);
+        testKnight.equipAxe(Axe_NAME2);
+        assertNotEquals(testKnight.getEquippedWeapon(),expectedAxe2);
+
     }
 
     @Test
@@ -53,8 +77,26 @@ public class KnightTest extends AbstractPlayerCharacterTest{
         assertNull(testKnight.getEquippedWeapon());
         testKnight.equipKnife(KNIFE_NAME);
         assertEquals(expectedknife, testKnight.getEquippedWeapon());
-    }
+        while (testKnight.status){
+            enemytest.attack(testKnight);
+        }
+        var expectedknife2 = new KnifeWeapon(KNIFE_NAME2);
+        testKnight.equipKnife(KNIFE_NAME2);
+        assertNotEquals(testKnight.getEquippedWeapon(),expectedknife2);
 
+    }
+    @Test
+    void attackTest(){
+        testKnight.attack(enemytest);
+        Assertions.assertEquals(previous_life, enemytest.getLife());
+        testKnight.equipAxe(Axe_NAME);
+        testKnight.attack(enemytest);
+        Assertions.assertEquals(previous_life-enemytest.getLife(), testKnight.getEquippedWeapon().getDamage()-enemytest.getDp());
+        while(enemytest.getStatus()){
+            testKnight.attack(enemytest);
+        }
+        Assertions.assertFalse(enemytest.getStatus());
+    }
     protected void tryToEquipSword(Knight character) {
 
         character.equipSword(SWORD_NAME);

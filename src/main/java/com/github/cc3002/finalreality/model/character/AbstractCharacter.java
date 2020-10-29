@@ -1,8 +1,6 @@
 package com.github.cc3002.finalreality.model.character;
 
 import com.github.cc3002.finalreality.model.character.player.CharacterClass;
-//import com.github.cc3002.finalreality.model.character.player.PlayerCharacter;
-import com.github.cc3002.finalreality.model.weapon.AbstractWeapon;
 import java.util.concurrent.BlockingQueue;
 //import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -20,8 +18,9 @@ public abstract class AbstractCharacter implements ICharacter {
   protected final BlockingQueue<ICharacter> turnsQueue;
   protected final String name;
   private final CharacterClass characterClass;
-  protected int life = 0;
-  protected int dp = 0;
+  protected int life;
+  protected int dp;
+  protected boolean status;
   protected ScheduledExecutorService scheduledExecutor;
 
 
@@ -31,7 +30,9 @@ public abstract class AbstractCharacter implements ICharacter {
     this.name = name;
     this.characterClass = characterClass;
     this.life = 50;
-    this.dp = 3;
+    this.dp = 5;
+    this.status = true;
+
   }
 
 
@@ -66,29 +67,49 @@ public abstract class AbstractCharacter implements ICharacter {
     return dp;
   }
 
+  @Override
+  public boolean getStatus(){ return status;}
+
   public abstract void attack(ICharacter character);
   @Override
   public void attackedByAxe(){
+
     this.life-= 8- this.dp;
+    if (this.life <=0) {
+      this.status = false;
+    }
   }
 
   @Override
   public void attackedByBow(){
     this.life-= 15- this.dp;
+    if (this.life <=0) {
+      this.status = false;
+    }
   }
 
   @Override
   public void attackedByKnife() {
     this.life-=5-this.dp;
+    if (this.life <=0) {
+      this.status = false;
+    }
   }
 
   @Override
   public void attackedBySword() {
     this.life-= 15-this.dp;
+    if (this.life <=0) {
+      this.status = false;
+    }
   }
 
   @Override
   public void attackedByStaff() {
     this.life-= 5-this.dp;
+    if (this.life <=0) {
+      this.status = false;
+    }
   }
+  public abstract void attackedByEnemy();
 }

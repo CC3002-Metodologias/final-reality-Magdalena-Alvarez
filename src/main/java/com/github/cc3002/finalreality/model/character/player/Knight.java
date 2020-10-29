@@ -1,6 +1,7 @@
 package com.github.cc3002.finalreality.model.character.player;
 
 import com.github.cc3002.finalreality.model.character.ICharacter;
+import com.github.cc3002.finalreality.model.weapon.AxeWeapon;
 import com.github.cc3002.finalreality.model.weapon.BowWeapon;
 import com.github.cc3002.finalreality.model.weapon.KnifeWeapon;
 import com.github.cc3002.finalreality.model.weapon.SwordWeapon;
@@ -24,12 +25,15 @@ public class Knight extends AbstractPlayerCharacter {
 
 
     /**
-     * Equips a Bow to the Knight
-     * @param bowname
-     *      bow's name
+     * Equips a Axe to the Knight
+     * @param Axename
+     *      axe's name
      */
-    public void equipBow(String bowname) {
-        this.equippedWeapon = new BowWeapon(bowname);
+    public void equipAxe(String Axename) {
+
+        if (this.status){
+            this.equippedWeapon = new AxeWeapon(Axename);
+        }
     }
     /**
      * Equips a Bow to the Knight
@@ -37,7 +41,10 @@ public class Knight extends AbstractPlayerCharacter {
      *      sword's name
      */
     public void equipSword(String swordName) {
-        this.equippedWeapon = new SwordWeapon((swordName));
+
+        if (this.status){
+            this.equippedWeapon = new SwordWeapon((swordName));
+        }
     }
 
     /**
@@ -46,6 +53,9 @@ public class Knight extends AbstractPlayerCharacter {
      *      knife's name
      */
     public void equipKnife(String knifeName) {
-        this.equippedWeapon = new KnifeWeapon((knifeName));
+
+        if (this.status) {
+            this.equippedWeapon = new KnifeWeapon((knifeName));
+        }
     }
 }

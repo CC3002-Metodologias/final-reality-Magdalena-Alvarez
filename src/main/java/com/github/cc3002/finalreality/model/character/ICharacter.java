@@ -38,6 +38,17 @@ public interface ICharacter {
    */
   int getDp();
 
+  /**
+   *Returns the character's status
+   * true if it's alive, false if not
+   */
+  boolean getStatus();
+
+  /**
+   * Attacks a character
+   * @param character
+   */
+
   void attack(ICharacter character);
 
   /**
@@ -60,4 +71,8 @@ public interface ICharacter {
    * Descontar el ataque del baston a los puntos de vida
    */
   void attackedByStaff();
+  /**
+   * Descontar el ataque del enemigo a los puntos de vida
+   */
+  void attackedByEnemy();
 }

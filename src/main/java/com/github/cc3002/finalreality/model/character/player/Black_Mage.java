@@ -29,7 +29,9 @@ public class Black_Mage extends AbstractPlayerCharacter {
      *      staff's name
      */
     public void equipStaff(String staff_name){
-        this.equippedWeapon = new StaffWeapon(staff_name);
+        if (this.status) {
+            this.equippedWeapon = new StaffWeapon(staff_name);
+        }
     }
     /**
      * Equips a Knife to the Black Mage
@@ -37,7 +39,9 @@ public class Black_Mage extends AbstractPlayerCharacter {
      *      knife's name
      */
     public void equipKnife(String knife_name){
-        this.equippedWeapon = new KnifeWeapon(knife_name);
+        if (this.status) {
+            this.equippedWeapon = new KnifeWeapon(knife_name);
+        }
     }
 
     /**

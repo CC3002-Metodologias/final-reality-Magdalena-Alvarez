@@ -28,7 +28,10 @@ public class Engineer extends AbstractPlayerCharacter{
      *      Axe's name
      */
     public void equipAxe(String axename){
-        this.equippedWeapon = new AxeWeapon(axename);
+
+        if (this.status){
+            this.equippedWeapon = new AxeWeapon(axename);
+        }
     }
     /**
      * Equips an Bow to the Engineer
@@ -36,7 +39,9 @@ public class Engineer extends AbstractPlayerCharacter{
      *      Bow's name
      */
     public void equipBow(String bowname) {
-        this.equippedWeapon = new BowWeapon(bowname);
+        if (this.status) {
+            this.equippedWeapon = new BowWeapon(bowname);
+        }
     }
 
 

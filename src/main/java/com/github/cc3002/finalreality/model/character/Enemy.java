@@ -29,6 +29,8 @@ public class Enemy extends AbstractCharacter {
     super(turnsQueue, name, CharacterClass.ENEMY);
     this.weight = weight;
     this.attack_points = 8;
+    this.dp = 2;
+    this.life = 30;
   }
 
   /**
@@ -56,9 +58,13 @@ public class Enemy extends AbstractCharacter {
 
   @Override
   public void attack(ICharacter character){
-
+    if (this.status) {
+      character.attackedByEnemy();
+    }
   }
-
+  @Override
+  public void attackedByEnemy() {
+  }
 
 
   @Override

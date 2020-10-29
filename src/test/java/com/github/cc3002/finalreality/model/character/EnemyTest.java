@@ -1,9 +1,6 @@
 package com.github.cc3002.finalreality.model.character;
 
-import com.github.cc3002.finalreality.model.character.player.CharacterClass;
-import com.github.cc3002.finalreality.model.character.player.AbstractPlayerCharacter;
-import com.github.cc3002.finalreality.model.character.player.IPlayer;
-import com.github.cc3002.finalreality.model.character.player.Thief;
+import com.github.cc3002.finalreality.model.character.player.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,11 +8,23 @@ import org.junit.jupiter.api.Test;
 class EnemyTest extends AbstractCharacterTest {
 
   private static final String ENEMY_NAME = "Goblin";
+  private static final String BLACKM_NAME = "MAGE1";
+  private static final String THIEF_NAME = "THIEF";
+  private static final String KNIGHT_NAME = "KNIGHT";
+  private static final String KNIFE_NAME = "KNIFE";
+  private ICharacter enemytest;
+  private Thief thieftest;
+  private ICharacter blackmtest;
+  private ICharacter knighttest;
 
   @BeforeEach
   void setUp() {
     basicSetUp();
     testCharacters.add(new Enemy(ENEMY_NAME, 10, turns));
+    enemytest = new Enemy(ENEMY_NAME, 11, turns);
+    thieftest = new Thief(THIEF_NAME, turns);
+    blackmtest = new Black_Mage(BLACKM_NAME, turns);
+    knighttest = new Knight(KNIGHT_NAME, turns);
   }
 
   @Test
@@ -24,6 +33,7 @@ class EnemyTest extends AbstractCharacterTest {
         testCharacters.get(0),
         new Enemy(ENEMY_NAME, 11, turns),
         new Thief(ENEMY_NAME, turns));
+
   }
   @Test
   void waitTurnTest() {
@@ -44,11 +54,24 @@ class EnemyTest extends AbstractCharacterTest {
   }
 
   @Test
-  void attackedByAxeTest(){
-    Enemy enemytest = new Enemy(ENEMY_NAME, 11, turns);
-    int previous_life = enemytest.getLife();
-    enemytest.attackedByAxe();
-    Assertions.assertEquals(previous_life-enemytest.getLife(), 8-enemytest.getDp());
+  void attackTest(){
+    ICharacter testcharacter = new Thief(ENEMY_NAME, turns);
+    int previous_life = testcharacter.getLife();
+    enemytest.attack(testcharacter);
+    Enemy enemy = (Enemy) enemytest;
+    Assertions.assertEquals(previous_life-testcharacter.getLife(), enemy.getAttack_points()-testcharacter.getDp());
+    while(testcharacter.getStatus()){
+      enemytest.attack(testcharacter);
+    }
+    Assertions.assertFalse(testcharacter.getStatus());
+    thieftest.equipKnife(KNIFE_NAME);
+    while(enemytest.getStatus()){
+      thieftest.attack(enemytest);
+    }
+    previous_life = thieftest.getLife();
+    enemytest.attack(thieftest);
+    Assertions.assertEquals(previous_life, thieftest.getLife());
+
   }
 
 }

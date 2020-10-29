@@ -27,7 +27,10 @@ public class Thief extends AbstractPlayerCharacter {
      *      knife's name
      */
     public void equipKnife(String knifeName) {
-        this.equippedWeapon = new KnifeWeapon((knifeName));
+
+        if (this.status){
+            this.equippedWeapon = new KnifeWeapon((knifeName));
+        }
     }
 
     /**
@@ -36,7 +39,10 @@ public class Thief extends AbstractPlayerCharacter {
      *      bow's name
      */
     public void equipBow(String bowname) {
-        this.equippedWeapon = new BowWeapon(bowname);
+
+        if (this.status){
+            this.equippedWeapon = new BowWeapon(bowname);
+        }
     }
 
     /**
@@ -45,6 +51,9 @@ public class Thief extends AbstractPlayerCharacter {
      *      sword's name
      */
     public void equipSword(String swordname) {
-        this.equippedWeapon = new SwordWeapon(swordname);
+
+        if (this.status){
+            this.equippedWeapon = new SwordWeapon(swordname);
+        }
     }
 }

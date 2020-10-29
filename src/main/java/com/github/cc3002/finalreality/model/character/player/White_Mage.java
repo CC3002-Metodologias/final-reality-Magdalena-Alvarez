@@ -28,7 +28,10 @@ public class White_Mage extends AbstractPlayerCharacter{
      *      staff's name
      */
     public void equipStaff(String staff_name){
-        this.equippedWeapon = new StaffWeapon(staff_name);
+
+        if (this.status){
+            this.equippedWeapon = new StaffWeapon(staff_name);
+        }
     }
 
     /**
