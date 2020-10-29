@@ -12,7 +12,7 @@ class EnemyTest extends AbstractCharacterTest {
   private static final String THIEF_NAME = "THIEF";
   private static final String KNIGHT_NAME = "KNIGHT";
   private static final String KNIFE_NAME = "KNIFE";
-  private ICharacter enemytest;
+  private Enemy enemytest;
   private Thief thieftest;
   private ICharacter blackmtest;
   private ICharacter knighttest;
@@ -58,8 +58,7 @@ class EnemyTest extends AbstractCharacterTest {
     ICharacter testcharacter = new Thief(ENEMY_NAME, turns);
     int previous_life = testcharacter.getLife();
     enemytest.attack(testcharacter);
-    Enemy enemy = (Enemy) enemytest;
-    Assertions.assertEquals(previous_life-testcharacter.getLife(), enemy.getAttack_points()-testcharacter.getDp());
+    Assertions.assertEquals(previous_life-testcharacter.getLife(), enemytest.getAttack_points()-testcharacter.getDp());
     while(testcharacter.getStatus()){
       enemytest.attack(testcharacter);
     }

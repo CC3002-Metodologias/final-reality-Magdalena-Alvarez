@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
  * @author Ignacio Slater Muñoz.
  * @author <Magdalena Álvarez>
  */
-public abstract class AbstractPlayerCharacter extends AbstractCharacter implements IPlayer, ICharacter {
+public abstract class AbstractPlayerCharacter extends AbstractCharacter implements IPlayer{
   protected IWeapon equippedWeapon = null;
 
   /**
