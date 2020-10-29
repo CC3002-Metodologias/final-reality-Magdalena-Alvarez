@@ -14,17 +14,12 @@ class EnemyTest extends AbstractCharacterTest {
   private static final String KNIFE_NAME = "KNIFE";
   private Enemy enemytest;
   private Thief thieftest;
-  private ICharacter blackmtest;
-  private ICharacter knighttest;
-
   @BeforeEach
   void setUp() {
     basicSetUp();
     testCharacters.add(new Enemy(ENEMY_NAME, 10, turns));
     enemytest = new Enemy(ENEMY_NAME, 11, turns);
     thieftest = new Thief(THIEF_NAME, turns);
-    blackmtest = new Black_Mage(BLACKM_NAME, turns);
-    knighttest = new Knight(KNIGHT_NAME, turns);
   }
 
   @Test
