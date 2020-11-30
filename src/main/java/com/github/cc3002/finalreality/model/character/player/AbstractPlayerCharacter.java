@@ -52,16 +52,19 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
     scheduledExecutor
             .schedule(this::addToQueue, equippedWeapon.getWeight() / 10, TimeUnit.SECONDS);
   }
-/*
-  /**
-   * Equips a weapon to the player character.
-   * @param weapon
-   *    weapon that is going be equipped
 
-  public void equip(Weapon weapon) {
-     this.equippedWeapon = weapon;
+  public void setEquippedWeapon(IWeapon equippedWeapon) {
+    this.equippedWeapon = equippedWeapon;
   }
-*/
+
+
+    /**
+     * Equips a weapon to the player character.
+     * @param weapon
+     *    weapon that is going be equipped
+    */
+    public abstract void equip(IWeapon weapon);
+
   @Override
   public IWeapon getEquippedWeapon() {
     return equippedWeapon;

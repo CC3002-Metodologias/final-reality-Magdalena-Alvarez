@@ -1,6 +1,8 @@
 package com.github.cc3002.finalreality.model.character;
 
 import com.github.cc3002.finalreality.model.character.player.*;
+import com.github.cc3002.finalreality.model.weapon.BowWeapon;
+import com.github.cc3002.finalreality.model.weapon.KnifeWeapon;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,57 +10,42 @@ import org.junit.jupiter.api.Test;
 class EnemyTest extends AbstractCharacterTest {
 
   private static final String ENEMY_NAME = "Goblin";
-  private static final String BLACKM_NAME = "MAGE1";
   private static final String THIEF_NAME = "THIEF";
-  private static final String KNIGHT_NAME = "KNIGHT";
   private static final String KNIFE_NAME = "KNIFE";
   private Enemy enemytest;
   private Thief thieftest;
+  private final KnifeWeapon knifeTest= new KnifeWeapon(KNIFE_NAME);
   @BeforeEach
   void setUp() {
     basicSetUp();
-    testCharacters.add(new Enemy(ENEMY_NAME, 10, turns));
-    enemytest = new Enemy(ENEMY_NAME, 11, turns);
-    thieftest = new Thief(THIEF_NAME, turns);
+    enemytest = new Enemy(ENEMY_NAME, 10, turns);
+    thieftest = new Thief(ENEMY_NAME, turns);
   }
 
   @Test
   void constructorTest() {
     checkConstruction(new Enemy(ENEMY_NAME, 10, turns),
-        testCharacters.get(0),
+        enemytest,
         new Enemy(ENEMY_NAME, 11, turns),
-        new Thief(ENEMY_NAME, turns));
+        thieftest);
 
   }
   @Test
   void waitTurnTest() {
-    Assertions.assertTrue(turns.isEmpty());
-    testCharacters.get(0).waitTurn();
-    try {
-      // Thread.sleep is not accurate so this values may be changed to adjust the
-      // acceptable error margin.
-      // We're testing that the character waits approximately 1 second.
-      Thread.sleep(900);
-      Assertions.assertEquals(0, turns.size());
-      Thread.sleep(200);
-      Assertions.assertEquals(1, turns.size());
-      Assertions.assertEquals(testCharacters.get(0), turns.peek());
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
+    checkWaitTurn(enemytest);
   }
 
   @Test
   void attackTest(){
-    ICharacter testcharacter = new Thief(ENEMY_NAME, turns);
-    int previous_life = testcharacter.getLife();
-    enemytest.attack(testcharacter);
-    Assertions.assertEquals(previous_life-testcharacter.getLife(), enemytest.getAttack_points()-testcharacter.getDp());
-    while(testcharacter.getStatus()){
-      enemytest.attack(testcharacter);
+    int previous_life = thieftest.getLife();
+    enemytest.attack(thieftest);
+    Assertions.assertEquals(previous_life-thieftest.getLife(), enemytest.getAttack_points()-thieftest.getDp());
+    while(thieftest.getStatus()){
+      enemytest.attack(thieftest);
     }
-    Assertions.assertFalse(testcharacter.getStatus());
-    thieftest.equipKnife(KNIFE_NAME);
+    Assertions.assertFalse(thieftest.getStatus());
+    thieftest = new Thief(THIEF_NAME, turns);
+    thieftest.equip(knifeTest);
     while(enemytest.getStatus()){
       thieftest.attack(enemytest);
     }

@@ -1,6 +1,7 @@
 package com.github.cc3002.finalreality.model.weapon;
 
 import com.github.cc3002.finalreality.model.character.ICharacter;
+import com.github.cc3002.finalreality.model.character.player.*;
 
 public class AxeWeapon extends AbstractWeapon {
     /**
@@ -17,6 +18,15 @@ public class AxeWeapon extends AbstractWeapon {
         character.attackedByAxe();
     }
 
-
+    @Override
+    public void equippedByEngineer(Engineer engineer) {
+        engineer.setEquippedWeapon(this);
     }
+
+    @Override
+    public void equippedByKnight(Knight knight) {
+        knight.setEquippedWeapon(this);
+    }
+
+}
 

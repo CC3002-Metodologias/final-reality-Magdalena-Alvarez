@@ -1,10 +1,7 @@
 package com.github.cc3002.finalreality.model.character.player;
 
 import com.github.cc3002.finalreality.model.character.ICharacter;
-import com.github.cc3002.finalreality.model.weapon.AxeWeapon;
-import com.github.cc3002.finalreality.model.weapon.BowWeapon;
-import com.github.cc3002.finalreality.model.weapon.AbstractWeapon;
-import com.github.cc3002.finalreality.model.weapon.WeaponType;
+import com.github.cc3002.finalreality.model.weapon.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.BlockingQueue;
@@ -22,28 +19,10 @@ public class Engineer extends AbstractPlayerCharacter{
         super(name, turnsQueue, CharacterClass.ENGINEER);
     }
 
-    /**
-     * Equips an Axe to the Engineer
-     * @param axename
-     *      Axe's name
-     */
-    public void equipAxe(String axename){
-
+    @Override
+    public void equip(IWeapon weapon) {
         if (this.status){
-            this.equippedWeapon = new AxeWeapon(axename);
+            weapon.equippedByEngineer(this);
         }
     }
-    /**
-     * Equips an Bow to the Engineer
-     * @param bowname
-     *      Bow's name
-     */
-    public void equipBow(String bowname) {
-        if (this.status) {
-            this.equippedWeapon = new BowWeapon(bowname);
-        }
-    }
-
-
-
 }

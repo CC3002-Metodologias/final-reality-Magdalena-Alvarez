@@ -1,6 +1,7 @@
 package com.github.cc3002.finalreality.model.weapon;
 
 import com.github.cc3002.finalreality.model.character.ICharacter;
+import com.github.cc3002.finalreality.model.character.player.*;
 
 import java.util.Objects;
 
@@ -49,6 +50,31 @@ public abstract class AbstractWeapon implements IWeapon {
   }
 
   public abstract void attack(ICharacter character);
+
+  @Override
+  public void equippedByWhite_Mage(White_Mage whiteMage) {
+
+  }
+
+  @Override
+  public void equippedByBlack_Mage(Black_Mage blackMage) {
+
+  }
+
+  @Override
+  public void equippedByEngineer(Engineer engineer) {
+
+  }
+
+  @Override
+  public void equippedByKnight(Knight knight) {
+
+  }
+
+  @Override
+  public void equippedByThief(Thief thief) {
+
+  }
 
   @Override
   public boolean equals(final Object o) {

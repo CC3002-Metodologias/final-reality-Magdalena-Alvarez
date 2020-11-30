@@ -1,5 +1,6 @@
 package com.github.cc3002.finalreality.model.character.player;
 import com.github.cc3002.finalreality.model.character.ICharacter;
+import com.github.cc3002.finalreality.model.weapon.IWeapon;
 import com.github.cc3002.finalreality.model.weapon.StaffWeapon;
 import org.jetbrains.annotations.NotNull;
 
@@ -23,24 +24,19 @@ public class White_Mage extends AbstractPlayerCharacter{
     }
 
     /**
-     * Equips a staff to the white mage
-     * @param staff_name
-     *      staff's name
-     */
-    public void equipStaff(String staff_name){
-
-        if (this.status){
-            this.equippedWeapon = new StaffWeapon(staff_name);
-        }
-    }
-
-    /**
      * returns mage's mana
      * @return
      *      mage's mana
      */
     public int getMana() {
         return mana;
+    }
+
+    @Override
+    public void equip(IWeapon weapon) {
+        if (this.status){
+            weapon.equippedByWhite_Mage(this);
+        }
     }
 
 }

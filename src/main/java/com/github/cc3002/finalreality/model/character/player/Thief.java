@@ -2,6 +2,7 @@ package com.github.cc3002.finalreality.model.character.player;
 
 import com.github.cc3002.finalreality.model.character.ICharacter;
 import com.github.cc3002.finalreality.model.weapon.BowWeapon;
+import com.github.cc3002.finalreality.model.weapon.IWeapon;
 import com.github.cc3002.finalreality.model.weapon.KnifeWeapon;
 import com.github.cc3002.finalreality.model.weapon.SwordWeapon;
 import org.jetbrains.annotations.NotNull;
@@ -21,39 +22,10 @@ public class Thief extends AbstractPlayerCharacter {
         super(name, turnsQueue, CharacterClass.THIEF);
     }
 
-    /**
-     * Equip a knife to the Thief
-     * @param knifeName
-     *      knife's name
-     */
-    public void equipKnife(String knifeName) {
-
+    @Override
+    public void equip(IWeapon weapon) {
         if (this.status){
-            this.equippedWeapon = new KnifeWeapon((knifeName));
-        }
-    }
-
-    /**
-     * Equips a Bow to the Thief
-     * @param bowname
-     *      bow's name
-     */
-    public void equipBow(String bowname) {
-
-        if (this.status){
-            this.equippedWeapon = new BowWeapon(bowname);
-        }
-    }
-
-    /**
-     * Equips a Sword to the Thief
-     * @param swordname
-     *      sword's name
-     */
-    public void equipSword(String swordname) {
-
-        if (this.status){
-            this.equippedWeapon = new SwordWeapon(swordname);
+            weapon.equippedByThief(this);
         }
     }
 }
