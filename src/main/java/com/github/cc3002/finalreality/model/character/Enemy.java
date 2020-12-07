@@ -1,12 +1,15 @@
 package com.github.cc3002.finalreality.model.character;
 
 import com.github.cc3002.finalreality.model.character.player.CharacterClass;
+
+import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import com.github.cc3002.finalreality.model.character.player.AbstractPlayerCharacter;
+import com.github.cc3002.finalreality.model.character.player.IPlayer;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -19,6 +22,7 @@ public class Enemy extends AbstractCharacter {
 
   private final int weight;
   private final int attack_points;
+  private final Random index = new Random(4234);
 
   /**
    * Creates a new enemy with a name, a weight and the queue with the characters ready to
@@ -51,6 +55,7 @@ public class Enemy extends AbstractCharacter {
   /**
    * Returns the enemy's attack points
    * @return
+   *    attack points
    */
   public int getAttack_points() {
     return attack_points;
@@ -62,10 +67,20 @@ public class Enemy extends AbstractCharacter {
       character.attackedByEnemy();
     }
   }
+
   @Override
   public void attackedByEnemy() {
   }
 
+  /**
+   * Begins the enemys turn attacking a random player from the party
+   * @param party
+   * list with user's players
+   */
+  public void startTurn(List<IPlayer> party) {
+    int i=index.nextInt(6);
+    this.attack(party.get(i));
+  }
 
   @Override
   public boolean equals(final Object o) {

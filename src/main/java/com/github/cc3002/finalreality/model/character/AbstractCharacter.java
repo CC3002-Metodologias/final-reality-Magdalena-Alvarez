@@ -1,6 +1,9 @@
 package com.github.cc3002.finalreality.model.character;
 
 import com.github.cc3002.finalreality.model.character.player.CharacterClass;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.concurrent.BlockingQueue;
 //import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -22,6 +25,7 @@ public abstract class AbstractCharacter implements ICharacter {
   protected int dp;
   protected boolean status;
   protected ScheduledExecutorService scheduledExecutor;
+  protected final PropertyChangeSupport c = new PropertyChangeSupport(this);
 
 
   protected AbstractCharacter(@NotNull BlockingQueue<ICharacter> turnsQueue,
@@ -35,10 +39,7 @@ public abstract class AbstractCharacter implements ICharacter {
 
   }
 
-
   public abstract void waitTurn();
-  // revisar si es necesario o no
-
   /**
    * Adds this character to the turns queue.
    */
@@ -71,12 +72,17 @@ public abstract class AbstractCharacter implements ICharacter {
   public boolean getStatus(){ return status;}
 
   public abstract void attack(ICharacter character);
+
+  public void addListener(PropertyChangeListener listener){
+    c.addPropertyChangeListener(listener);
+  }
   @Override
   public void attackedByAxe(){
 
     this.life-= 8- this.dp;
     if (this.life <=0) {
       this.status = false;
+      c.firePropertyChange("StatusCharacter",true, false);
     }
   }
 
@@ -85,6 +91,7 @@ public abstract class AbstractCharacter implements ICharacter {
     this.life-= 15- this.dp;
     if (this.life <=0) {
       this.status = false;
+      c.firePropertyChange("StatusCharacter",true, false);
     }
   }
 
@@ -93,6 +100,7 @@ public abstract class AbstractCharacter implements ICharacter {
     this.life-=5-this.dp;
     if (this.life <=0) {
       this.status = false;
+      c.firePropertyChange("StatusCharacter",true, false);
     }
   }
 
@@ -101,6 +109,7 @@ public abstract class AbstractCharacter implements ICharacter {
     this.life-= 15-this.dp;
     if (this.life <=0) {
       this.status = false;
+      c.firePropertyChange("StatusCharacter",true, false);
     }
   }
 
@@ -109,6 +118,7 @@ public abstract class AbstractCharacter implements ICharacter {
     this.life-= 5-this.dp;
     if (this.life <=0) {
       this.status = false;
+      c.firePropertyChange("StatusCharacter",true, false);
     }
   }
   public abstract void attackedByEnemy();

@@ -75,4 +75,5 @@ public interface ICharacter {
    * Descontar el ataque del enemigo a los puntos de vida
    */
   void attackedByEnemy();
+
 }

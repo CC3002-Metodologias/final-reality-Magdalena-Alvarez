@@ -17,40 +17,53 @@ public class GameController {
     private int numPlayers = 0;
     private int numEnemys = 0;
     private int maxPlayers = 5;
+    private int alivePlayers = 0;
     private int maxEnemys = 10;
-    private BlockingQueue<ICharacter> turns;
-    public GameController( @NotNull BlockingQueue<ICharacter> turnsQueue) {
+    private final BlockingQueue<ICharacter> turns;
+    private boolean result;
+    private final PlayerHandler pHandler = new PlayerHandler(this);
+
+    public GameController(@NotNull BlockingQueue<ICharacter> turnsQueue) {
         this.turns = turnsQueue;
     }
-
+    public void setResult(boolean res) {
+        this.result = res;
+    }
     public void createBlackMage(String name){
         if (numPlayers<maxPlayers){
-            party.add(new Black_Mage(name, turns));
+            var player = new Black_Mage(name, turns);
+            party.add(player);
+            player.addListener(pHandler);
             numPlayers+=1;
+            alivePlayers+=1;
         }
     }
     public void createEngineer(String name){
         if (numPlayers<maxPlayers){
             party.add(new Engineer(name, turns));
             numPlayers+=1;
+            alivePlayers+=1;
         }
     }
     public void createKnight(String name){
         if (numPlayers<maxPlayers){
             party.add(new Knight(name, turns));
             numPlayers+=1;
+            alivePlayers+=1;
         }
     }
     public void createThief(String name){
         if (numPlayers<maxPlayers){
             party.add(new Thief(name, turns));
             numPlayers+=1;
+            alivePlayers+=1;
         }
     }
     public void createWhiteMage(String name){
         if (numPlayers<maxPlayers){
             party.add(new White_Mage(name, turns));
             numPlayers+=1;
+            alivePlayers+=1;
         }
     }
     public void createAxe(String name){
@@ -105,5 +118,21 @@ public class GameController {
     }
     public void equip(IPlayer player, int i){
         player.equip(inventary.get(i));
+    }
+
+    public void deadPlayer(){
+        alivePlayers-=1;
+        if (alivePlayers==0){
+            setResult(false);
+        }
+    }
+    public void deadEnemy(){
+        numEnemys-=1;
+        if (numEnemys==0){
+            setResult(true);
+        }
+    }
+    public void startTurn(){
+        
     }
 }

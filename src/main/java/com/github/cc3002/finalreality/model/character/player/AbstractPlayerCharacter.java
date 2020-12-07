@@ -3,6 +3,9 @@ package com.github.cc3002.finalreality.model.character.player;
 import com.github.cc3002.finalreality.model.character.AbstractCharacter;
 //import com.github.cc3002.finalreality.model.character.Enemy;
 import com.github.cc3002.finalreality.model.character.ICharacter;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
@@ -31,8 +34,6 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
    * @param characterClass
    *     the class of this character
    */
-
-
   public AbstractPlayerCharacter(@NotNull String name,
       @NotNull BlockingQueue<ICharacter> turnsQueue,
       final CharacterClass characterClass) {
@@ -80,6 +81,7 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
     this.life-= 8-this.dp;
     if (this.life <=0){
       this.status = false;
+      c.firePropertyChange("StatusCharacter",true, false);
     }
   }
 
