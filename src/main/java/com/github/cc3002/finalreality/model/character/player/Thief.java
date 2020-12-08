@@ -7,6 +7,7 @@ import com.github.cc3002.finalreality.model.weapon.KnifeWeapon;
 import com.github.cc3002.finalreality.model.weapon.SwordWeapon;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 
 public class Thief extends AbstractPlayerCharacter {
@@ -27,5 +28,21 @@ public class Thief extends AbstractPlayerCharacter {
         if (this.status){
             weapon.equippedByThief(this);
         }
+    }
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Thief)) {
+            return false;
+        }
+        final Thief that = (Thief) o;
+        return getCharacterClass() == that.getCharacterClass()
+                && getName().equals(that.getName());
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(getCharacterClass(), getName());
     }
 }

@@ -34,8 +34,6 @@ class WeaponTest {
   private IPlayer testplayer;
 
 
-
-
   @BeforeEach
   void setUp() {
     turns = new LinkedBlockingQueue<>();
@@ -71,8 +69,16 @@ class WeaponTest {
     assertEquals(expectedBow.hashCode(), testBow.hashCode());
     assertEquals(expectedKnife, testKnife);
     assertEquals(expectedKnife.hashCode(), testKnife.hashCode());
-    assertNotEquals(testplayer, testBow);
-    assertNotEquals(testplayer.hashCode(),testBow.hashCode());
+    assertNotEquals(testBow,testplayer);
+    assertNotEquals(testBow.hashCode(),testplayer.hashCode());
+    assertNotEquals( testAxe, testplayer);
+    assertNotEquals(testAxe.hashCode(), testplayer.hashCode());
+    assertNotEquals(testStaff, testplayer);
+    assertNotEquals(testStaff.hashCode(), testplayer.hashCode());
+    assertNotEquals(testSword, testplayer);
+    assertNotEquals(testSword.hashCode(), testplayer.hashCode());
+    assertNotEquals(testKnife, testplayer);
+    assertNotEquals(testKnife.hashCode(), testplayer.hashCode());
     assertNotEquals(expectedAxe, testBow);
     assertNotEquals(expectedKnife, testKnife2);
     assertNotEquals(expectedStaff, testStaff2);

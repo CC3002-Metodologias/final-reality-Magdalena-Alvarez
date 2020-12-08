@@ -28,3 +28,5 @@ only the player characters can, and they follow the following rules:
 * Thieves can only equip a sword, a knife or a bow.
 * Black Mages can only equip a knife or a staff.
 * White Mages can only equip a staff.      
+
+When a character is playing its turn 

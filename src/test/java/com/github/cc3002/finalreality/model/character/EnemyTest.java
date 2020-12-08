@@ -27,7 +27,7 @@ class EnemyTest extends AbstractCharacterTest {
     checkConstruction(new Enemy(ENEMY_NAME, 10, turns),
         enemytest,
         new Enemy(ENEMY_NAME, 11, turns),
-        thieftest);
+        thieftest,new Enemy(KNIFE_NAME, 12, turns));
 
   }
   @Test

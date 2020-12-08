@@ -34,7 +34,7 @@ public class KnightTest extends AbstractPlayerCharacterTest{
     void constructorTest(){
         var expectedKnight = new Knight(knightName,turns);
         checkConstruction(expectedKnight,testKnight,
-                new Black_Mage(ENEMY_NAME,turns),new Enemy(ENEMY_NAME, 11, turns));
+                new Black_Mage(ENEMY_NAME,turns),new Enemy(ENEMY_NAME, 11, turns),new Knight(ENEMY_NAME,turns));
     }
 
     @Test

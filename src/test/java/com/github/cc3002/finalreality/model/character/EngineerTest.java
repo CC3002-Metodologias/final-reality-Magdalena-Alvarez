@@ -33,7 +33,7 @@ public class EngineerTest extends AbstractPlayerCharacterTest {
     void constructorTest(){
         var expectedEngineer = new Engineer(EngineerName,turns);
         checkConstruction(expectedEngineer,testEngineer,
-                new Black_Mage(ENEMY_NAME,turns),new Enemy(ENEMY_NAME, 11, turns));
+                new Black_Mage(ENEMY_NAME,turns),new Enemy(ENEMY_NAME, 11, turns),new Engineer(ENEMY_NAME, turns));
     }
 
     @Test

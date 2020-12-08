@@ -7,6 +7,7 @@ import com.github.cc3002.finalreality.model.weapon.KnifeWeapon;
 import com.github.cc3002.finalreality.model.weapon.StaffWeapon;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 
 public class Black_Mage extends AbstractPlayerCharacter {
@@ -41,4 +42,20 @@ public class Black_Mage extends AbstractPlayerCharacter {
         return mana;
     }
 
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Black_Mage)) {
+            return false;
+        }
+        final Black_Mage that = (Black_Mage) o;
+        return getCharacterClass() == that.getCharacterClass()
+                && getName().equals(that.getName());
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(getCharacterClass(), getName());
+    }
 }

@@ -32,7 +32,7 @@ public class White_MageTest extends  AbstractPlayerCharacterTest{
     void constructorTest(){
         var expectedWhite_Mage = new White_Mage(White_MageName,turns);
         checkConstruction(expectedWhite_Mage,testWhite_Mage,
-                new Black_Mage(ENEMY_NAME,turns),new Enemy(ENEMY_NAME, 11, turns));
+                new Black_Mage(ENEMY_NAME,turns),new Enemy(ENEMY_NAME, 11, turns),new White_Mage(ENEMY_NAME, turns));
     }
 
     @Test

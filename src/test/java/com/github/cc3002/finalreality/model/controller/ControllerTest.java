@@ -93,7 +93,7 @@ public class ControllerTest {
     @Test
     void gameTestVictory() throws InterruptedException {
         starGame();
-        for (int i = 0; i<c.getNumEnemys();i++){
+        for (int i = 0; i<c.getNumenemies();i++){
             while (c.getCharacterStatus(c.getEnemy(i))) {
                 Thread.sleep(1200);
                 ICharacter playingCharacter = c.startTurn();

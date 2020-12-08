@@ -50,10 +50,11 @@ public abstract class AbstractCharacterTest {
   protected void checkConstruction(final ICharacter expectedCharacter,
       final ICharacter testEqualCharacter,
       final ICharacter sameClassDifferentCharacter,
-      final ICharacter differentClassCharacter) {
+      final ICharacter differentClassCharacter, final ICharacter sameClassDifferentName) {
     assertEquals(expectedCharacter, testEqualCharacter);
     assertNotEquals(sameClassDifferentCharacter, testEqualCharacter);
     assertNotEquals(testEqualCharacter, differentClassCharacter);
+    assertNotEquals(testEqualCharacter, sameClassDifferentName);
     assertEquals(expectedCharacter.hashCode(), testEqualCharacter.hashCode());
   }
 

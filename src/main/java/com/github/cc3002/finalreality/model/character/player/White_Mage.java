@@ -4,6 +4,7 @@ import com.github.cc3002.finalreality.model.weapon.IWeapon;
 import com.github.cc3002.finalreality.model.weapon.StaffWeapon;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 public class White_Mage extends AbstractPlayerCharacter{
     protected int mana;
@@ -37,6 +38,22 @@ public class White_Mage extends AbstractPlayerCharacter{
         if (this.status){
             weapon.equippedByWhite_Mage(this);
         }
+    }
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof White_Mage)) {
+            return false;
+        }
+        final White_Mage that = (White_Mage) o;
+        return getCharacterClass() == that.getCharacterClass()
+                && getName().equals(that.getName());
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(getCharacterClass(), getName());
     }
 
 }

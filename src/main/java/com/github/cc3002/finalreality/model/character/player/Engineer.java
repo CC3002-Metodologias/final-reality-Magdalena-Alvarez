@@ -4,6 +4,7 @@ import com.github.cc3002.finalreality.model.character.ICharacter;
 import com.github.cc3002.finalreality.model.weapon.*;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 
 public class Engineer extends AbstractPlayerCharacter{
@@ -24,5 +25,21 @@ public class Engineer extends AbstractPlayerCharacter{
         if (this.status){
             weapon.equippedByEngineer(this);
         }
+    }
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Engineer)) {
+            return false;
+        }
+        final Engineer that = (Engineer) o;
+        return getCharacterClass() == that.getCharacterClass()
+                && getName().equals(that.getName());
+    }
+    @Override
+    public int hashCode(){
+        return Objects.hash(getCharacterClass(),getName());
     }
 }

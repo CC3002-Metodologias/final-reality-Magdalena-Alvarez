@@ -46,6 +46,7 @@ public interface ICharacter {
   /**
    * Attacks a character
    * @param character
+   *  character to attach
    */
 
   void attack(ICharacter character);

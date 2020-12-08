@@ -58,13 +58,7 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
     this.equippedWeapon = equippedWeapon;
   }
 
-
-    /**
-     * Equips a weapon to the player character.
-     * @param weapon
-     *    weapon that is going be equipped
-    */
-    public abstract void equip(IWeapon weapon);
+  public abstract void equip(IWeapon weapon);
 
   @Override
   public IWeapon getEquippedWeapon() {

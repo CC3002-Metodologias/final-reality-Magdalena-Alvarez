@@ -33,7 +33,7 @@ public class ThiefTest extends AbstractPlayerCharacterTest{
     void constructorTest(){
         var expectedThief = new Thief(ThiefName,turns);
         checkConstruction(expectedThief,testThief,
-                new Black_Mage(ENEMY_NAME,turns),new Enemy(ENEMY_NAME, 11, turns));
+                new Black_Mage(ENEMY_NAME,turns),new Enemy(ENEMY_NAME, 11, turns),new Thief(ENEMY_NAME,turns));
     }
 
     @Test
