@@ -22,7 +22,6 @@ public class Enemy extends AbstractCharacter {
 
   private final int weight;
   private final int attack_points;
-  private final Random index = new Random(4234);
 
   /**
    * Creates a new enemy with a name, a weight and the queue with the characters ready to
@@ -70,16 +69,6 @@ public class Enemy extends AbstractCharacter {
 
   @Override
   public void attackedByEnemy() {
-  }
-
-  /**
-   * Begins the enemys turn attacking a random player from the party
-   * @param party
-   * list with user's players
-   */
-  public void startTurn(List<IPlayer> party) {
-    int i=index.nextInt(6);
-    this.attack(party.get(i));
   }
 
   @Override

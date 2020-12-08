@@ -11,84 +11,129 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;
 
 public class GameController {
-    public List<IPlayer> party = new ArrayList<>();
-    public List<Enemy> enemys = new ArrayList<>();
-    public List<IWeapon> inventary = new ArrayList<>();
+    private List<IPlayer> party = new ArrayList<>();
+    private List<Enemy> enemys = new ArrayList<>();
+    public List<IWeapon> inventory = new ArrayList<>();
     private int numPlayers = 0;
     private int numEnemys = 0;
     private int maxPlayers = 5;
     private int alivePlayers = 0;
     private int maxEnemys = 10;
+    private int aliveEnemys =0;
     private final BlockingQueue<ICharacter> turns;
     private boolean result;
     private final PlayerHandler pHandler = new PlayerHandler(this);
+    private final EnemyHandler eHandler = new EnemyHandler(this);
 
+    /**
+     * create a new controller.
+     * @param turnsQueue
+     *      the queue with the characters waiting for their turn
+     */
     public GameController(@NotNull BlockingQueue<ICharacter> turnsQueue) {
         this.turns = turnsQueue;
     }
-    public void setResult(boolean res) {
-        this.result = res;
-    }
+    /**
+     * get the game's result.
+     * @return
+     *      true you win, false if ypu lose
+     */
+    public boolean getResult(){return result;}
+
+    /**
+     * Creates a new Black Mage and adds to the player list
+     * @param name
+     *      name for the new Black Mage
+     */
     public void createBlackMage(String name){
         if (numPlayers<maxPlayers){
             var player = new Black_Mage(name, turns);
             party.add(player);
             player.addListener(pHandler);
-            numPlayers+=1;
             alivePlayers+=1;
         }
+        numPlayers+=1;
     }
+
+    /**
+     * creates a new Engineer and adds to the player list
+     * @param name
+     *      name for the new Engineer
+     */
     public void createEngineer(String name){
         if (numPlayers<maxPlayers){
-            party.add(new Engineer(name, turns));
-            numPlayers+=1;
+            var player = new Engineer(name, turns);
+            party.add(player);
+            player.addListener(pHandler);
             alivePlayers+=1;
         }
+        numPlayers+=1;
     }
+
+    /**
+     * creates a new Knight and adds to the player list until reaching the 
+     * @param name
+     *      name for new Knight
+     */
     public void createKnight(String name){
         if (numPlayers<maxPlayers){
-            party.add(new Knight(name, turns));
-            numPlayers+=1;
+            var player = new Knight(name, turns);
+            party.add(player);
+            player.addListener(pHandler);
             alivePlayers+=1;
         }
+        numPlayers+=1;
     }
     public void createThief(String name){
         if (numPlayers<maxPlayers){
-            party.add(new Thief(name, turns));
-            numPlayers+=1;
+            var player = new Thief(name, turns);
+            party.add(player);
+            player.addListener(pHandler);
             alivePlayers+=1;
         }
+        numPlayers+=1;
     }
     public void createWhiteMage(String name){
         if (numPlayers<maxPlayers){
-            party.add(new White_Mage(name, turns));
-            numPlayers+=1;
+            var player = new White_Mage(name, turns);
+            party.add(player);
+            player.addListener(pHandler);
             alivePlayers+=1;
         }
+        numPlayers+=1;
     }
     public void createAxe(String name){
-        inventary.add(new AxeWeapon(name));
+        inventory.add(new AxeWeapon(name));
     }
     public void createBow(String name){
-        inventary.add(new BowWeapon(name));
+        inventory.add(new BowWeapon(name));
     }
     public void createKnife(String name){
-        inventary.add(new KnifeWeapon(name));
+        inventory.add(new KnifeWeapon(name));
     }
     public void createStaff(String name){
-        inventary.add(new StaffWeapon(name));
+        inventory.add(new StaffWeapon(name));
     }
     public void createSword(String name){
-        inventary.add(new SwordWeapon(name));
+        inventory.add(new SwordWeapon(name));
     }
     public void createEnemy(String name, int weight){
         if (numEnemys<maxEnemys){
-            enemys.add(new Enemy(name, weight, turns));
+            var enemy = new Enemy(name, weight, turns);
+            enemys.add(enemy);
+            enemy.addListener(eHandler);
+            aliveEnemys+=1;
         }
+        numEnemys+=1;
     }
     public IPlayer getPlayer(int i){
         return party.get(i);
     }
+    public IWeapon getEquippedWeapon(IPlayer player){
+        return player.getEquippedWeapon();
+    }
+    public int getNumPlayers(){return numPlayers;}
+    public int getNumEnemys(){return numEnemys;}
     public List<IPlayer> getParty(){
         return this.party;
     }
@@ -113,26 +158,39 @@ public class GameController {
     public int getWeight(Enemy enemy){
         return enemy.getWeight();
     }
-    public List<IWeapon> getInventary(){
-        return this.inventary;
+    public IWeapon getFromInventory(int i){
+        return inventory.get(i);
     }
     public void equip(IPlayer player, int i){
-        player.equip(inventary.get(i));
+        player.equip(inventory.get(i));
     }
-
+    public void attack(ICharacter attacker, ICharacter victim){
+        attacker.attack(victim);
+    }
     public void deadPlayer(){
         alivePlayers-=1;
         if (alivePlayers==0){
-            setResult(false);
+            result =false;
         }
     }
     public void deadEnemy(){
-        numEnemys-=1;
-        if (numEnemys==0){
-            setResult(true);
+        aliveEnemys-=1;
+        if (aliveEnemys<=0){
+            result =true;
         }
     }
-    public void startTurn(){
-        
+    public void startGame(){
+        for (int i=0; i<party.size();i++){
+            getPlayer(i).waitTurn();
+        }
+        for(int i = 0; i<enemys.size();i++){
+            getEnemy(i).waitTurn();
+        }
+    }
+    public ICharacter startTurn(){
+        return turns.poll();
+    }
+    public void endTurn(ICharacter character){
+        character.waitTurn();
     }
 }
