@@ -7,6 +7,7 @@ import com.github.cc3002.finalreality.model.character.player.Thief;
 import com.github.cc3002.finalreality.model.weapon.BowWeapon;
 import com.github.cc3002.finalreality.model.weapon.KnifeWeapon;
 import com.github.cc3002.finalreality.model.weapon.BowWeapon;
+import com.github.cc3002.finalreality.model.weapon.SwordWeapon;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,13 +17,14 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ThiefTest extends AbstractPlayerCharacterTest{
     private static final String ThiefName = "Jeff";
     private static final String BOW_NAME = "Super Bow";
-    private static final String BOW_NAME2 = "Super Bow2";
+    private static final String Knife_NAME = "Super knife";
+    private static final String swordName = "slayer";
     private static final String ENEMY_NAME = "ENEMY";
     private Thief testThief;
     private Enemy enemytest;
     private final BowWeapon BowTest= new BowWeapon(BOW_NAME);
-    private final BowWeapon BowTest2= new BowWeapon(BOW_NAME2);
-
+    private final KnifeWeapon knifeTest= new KnifeWeapon(Knife_NAME);
+    private final SwordWeapon swordTest = new SwordWeapon(swordName);
     @BeforeEach
     void setUp(){
         basicSetUp();
@@ -39,7 +41,7 @@ public class ThiefTest extends AbstractPlayerCharacterTest{
     @Test
     void equipTest(){
         checkEquippedWeapon(testThief, BowTest);
-        checkDead(testThief, BowTest2,enemytest);
+        checkDead(testThief, knifeTest,enemytest);
     }
     @Test
     void attackTest(){
@@ -49,7 +51,7 @@ public class ThiefTest extends AbstractPlayerCharacterTest{
 
     @Test
     void waitTurnTest() {
-        testThief.equip(BowTest);
+        testThief.equip(swordTest);
         checkWaitTurn(testThief);
     }
 }

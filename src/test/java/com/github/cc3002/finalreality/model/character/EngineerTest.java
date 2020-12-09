@@ -20,6 +20,8 @@ public class EngineerTest extends AbstractPlayerCharacterTest {
     private static final String ENEMY_NAME = "ENEMY";
     private final AxeWeapon axeTest= new AxeWeapon(AXE_NAME);
     private final AxeWeapon axeTest2= new AxeWeapon(AXE_NAME2);
+    private final String bowName = "super Bow";
+    private final BowWeapon bowTest = new BowWeapon(bowName);
     private Engineer testEngineer;
     private Enemy enemytest;
 
@@ -48,7 +50,7 @@ public class EngineerTest extends AbstractPlayerCharacterTest {
 
     @Test
     void waitTurnTest() {
-        testEngineer.equip(axeTest);
+        testEngineer.equip(bowTest);
         checkWaitTurn(testEngineer);
     }
 

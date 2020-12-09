@@ -17,12 +17,14 @@ import static org.junit.jupiter.api.Assertions.*;
 public class KnightTest extends AbstractPlayerCharacterTest{
     private static final String knightName = "Johann";
     private static final String SWORD_NAME = "Slayer";
-    private static final String SWORD_NAME2 = "Slayer2";
     private static final String ENEMY_NAME = "EMEMY";
     private static Knight testKnight;
     private Enemy enemytest;
     private final SwordWeapon swordTest= new SwordWeapon(SWORD_NAME);
-    private final SwordWeapon swordTest2= new SwordWeapon(SWORD_NAME2);
+    private final String axeName = "super Axe";
+    private final String knifeName = "super Knife";
+    private final AxeWeapon AxeTest= new AxeWeapon(axeName);
+    private final KnifeWeapon knifeTest = new KnifeWeapon(knifeName);
 
     @BeforeEach
     void setUp(){
@@ -40,7 +42,7 @@ public class KnightTest extends AbstractPlayerCharacterTest{
     @Test
     void equipTest(){
         checkEquippedWeapon(testKnight, swordTest);
-        checkDead(testKnight, swordTest2,enemytest);
+        checkDead(testKnight, AxeTest,enemytest);
     }
     @Test
     void attackTest(){
@@ -50,7 +52,7 @@ public class KnightTest extends AbstractPlayerCharacterTest{
 
     @Test
     void waitTurnTest() {
-        testKnight.equip(swordTest);
+        testKnight.equip(knifeTest);
         checkWaitTurn(testKnight);
     }
 

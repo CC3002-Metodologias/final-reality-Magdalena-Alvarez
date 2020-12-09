@@ -42,12 +42,6 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
   }
 
   @Override
-  public int hashCode() {
-    return Objects.hash(getCharacterClass());
-  }
-
-
-  @Override
   public void waitTurn() {
     scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
     scheduledExecutor
@@ -79,17 +73,5 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
     }
   }
 
-  @Override
-  public boolean equals(final Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (!(o instanceof IPlayer)) {
-      return false;
-    }
-    final IPlayer that = (IPlayer) o;
-    return getCharacterClass() == that.getCharacterClass()
-        && getName().equals(that.getName());
-  }
 
 }

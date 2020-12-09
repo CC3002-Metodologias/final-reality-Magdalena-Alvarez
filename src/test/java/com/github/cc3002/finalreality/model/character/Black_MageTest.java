@@ -21,6 +21,8 @@ public class Black_MageTest extends AbstractPlayerCharacterTest{
     private final KnifeWeapon knifeTest= new KnifeWeapon(KNIFE_NAME);
     private static final String KNIFE_NAME2 = "Super Knife2";
     private final KnifeWeapon knifeTest2= new KnifeWeapon(KNIFE_NAME2);
+    private final String StaffName = "Super Staff";
+    private final StaffWeapon staffTest = new StaffWeapon(StaffName);
 
     @BeforeEach
     void setUp(){
@@ -42,7 +44,7 @@ public class Black_MageTest extends AbstractPlayerCharacterTest{
     }
     @Test
     void waitTurnTest() {
-        testBlack_Mage.equip(knifeTest);
+        testBlack_Mage.equip(staffTest);
         checkWaitTurn(testBlack_Mage);
     }
     @Test

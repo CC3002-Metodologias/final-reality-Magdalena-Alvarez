@@ -75,24 +75,4 @@ public abstract class AbstractWeapon implements IWeapon {
   public void equippedByThief(Thief thief) {
 
   }
-
-  @Override
-  public boolean equals(final Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (!(o instanceof IWeapon)) {
-      return false;
-    }
-    final IWeapon weapon = (IWeapon) o;
-    return getType() == weapon.getType() && getDamage() == weapon.getDamage() &&
-        getWeight() == weapon.getWeight() &&
-        getName().equals(weapon.getName());
-
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(getName(), getDamage(), getWeight(), getType());
-  }
 }
