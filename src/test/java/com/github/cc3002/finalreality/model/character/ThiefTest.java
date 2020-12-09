@@ -1,80 +1,57 @@
 package com.github.cc3002.finalreality.model.character;
 
+import com.github.cc3002.finalreality.model.character.player.Black_Mage;
+import com.github.cc3002.finalreality.model.character.player.Thief;
 import com.github.cc3002.finalreality.model.character.player.Thief;
 import com.github.cc3002.finalreality.model.character.player.Thief;
 import com.github.cc3002.finalreality.model.weapon.BowWeapon;
 import com.github.cc3002.finalreality.model.weapon.KnifeWeapon;
+import com.github.cc3002.finalreality.model.weapon.BowWeapon;
 import com.github.cc3002.finalreality.model.weapon.SwordWeapon;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class ThiefTest extends PlayerCharacterTest{
+public class ThiefTest extends AbstractPlayerCharacterTest{
     private static final String ThiefName = "Jeff";
-    private static final String KNIFE_NAME = "Super Knife";
     private static final String BOW_NAME = "Super Bow";
-    private static final String SWORD_NAME = "Slayer";
+    private static final String Knife_NAME = "Super knife";
+    private static final String swordName = "slayer";
+    private static final String ENEMY_NAME = "ENEMY";
     private Thief testThief;
-    //protected Weapon testWeapon = new Weapon("Sword",15,10, WeaponType.SWORD);
+    private Enemy enemytest;
+    private final BowWeapon BowTest= new BowWeapon(BOW_NAME);
+    private final KnifeWeapon knifeTest= new KnifeWeapon(Knife_NAME);
+    private final SwordWeapon swordTest = new SwordWeapon(swordName);
     @BeforeEach
     void setUp(){
         basicSetUp();
         testThief = new Thief(ThiefName,turns);
+        enemytest = new Enemy(ENEMY_NAME, 11, turns);
     }
     @Test
     void constructorTest(){
         var expectedThief = new Thief(ThiefName,turns);
-        assertEquals(expectedThief,testThief);
+        checkConstruction(expectedThief,testThief,
+                new Black_Mage(ENEMY_NAME,turns),new Enemy(ENEMY_NAME, 11, turns),new Thief(ENEMY_NAME,turns));
     }
 
     @Test
-    void equipKnifeTest() {
-        var expectedknife = new KnifeWeapon(KNIFE_NAME);
-        assertNull(testThief.getEquippedWeapon());
-        testThief.equipKnife(KNIFE_NAME);
-        assertEquals(expectedknife, testThief.getEquippedWeapon());
+    void equipTest(){
+        checkEquippedWeapon(testThief, BowTest);
+        checkDead(testThief, knifeTest,enemytest);
     }
-
     @Test
-    void equipBowTest() {
-        var expectedbow = new BowWeapon(BOW_NAME);
-        assertNull(testThief.getEquippedWeapon());
-        testThief.equipBow(BOW_NAME);
-        assertEquals(expectedbow, testThief.getEquippedWeapon());
-    }
-
-    @Test
-    void equipSwordTest() {
-        var expectedsword = new SwordWeapon(SWORD_NAME);
-        assertNull(testThief.getEquippedWeapon());
-        testThief.equipSword(SWORD_NAME);
-        assertEquals(expectedsword, testThief.getEquippedWeapon());
-    }
-    protected void tryToEquipKNIFE(Thief character) {
-
-        character.equipKnife(KNIFE_NAME);
+    void attackTest(){
+        checkAttack(testThief,BowTest,enemytest);
     }
 
 
     @Test
     void waitTurnTest() {
-        Assertions.assertTrue(turns.isEmpty());
-        tryToEquipKNIFE(testThief);
-        testThief.waitTurn();
-        try {
-            // Thread.sleep is not accurate so this values may be changed to adjust the
-            // acceptable error margin.
-            // We're testing that the character waits approximately 1 second.
-            Thread.sleep(900);
-            Assertions.assertEquals(0, turns.size());
-            Thread.sleep(200);
-            Assertions.assertEquals(1, turns.size());
-            Assertions.assertEquals(testThief, turns.peek());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        testThief.equip(swordTest);
+        checkWaitTurn(testThief);
     }
 }

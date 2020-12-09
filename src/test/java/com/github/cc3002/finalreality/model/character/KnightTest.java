@@ -1,85 +1,59 @@
 package com.github.cc3002.finalreality.model.character;
 
+import com.github.cc3002.finalreality.model.character.player.Black_Mage;
+import com.github.cc3002.finalreality.model.character.player.Knight;
 import com.github.cc3002.finalreality.model.character.player.Knight;
 import com.github.cc3002.finalreality.model.character.player.Knight;
 import com.github.cc3002.finalreality.model.weapon.KnifeWeapon;
+import com.github.cc3002.finalreality.model.weapon.StaffWeapon;
 import com.github.cc3002.finalreality.model.weapon.SwordWeapon;
-import com.github.cc3002.finalreality.model.weapon.BowWeapon;
+import com.github.cc3002.finalreality.model.weapon.AxeWeapon;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class KnightTest extends PlayerCharacterTest{
+import static org.junit.jupiter.api.Assertions.*;
 
-   // protected List<PlayerCharacter> testPlayerCharacters = new ArrayList<>();
+public class KnightTest extends AbstractPlayerCharacterTest{
     private static final String knightName = "Johann";
     private static final String SWORD_NAME = "Slayer";
-    private static final String BOW_NAME = "Super Bow";
-    private static final String KNIFE_NAME = "Super Knife";
+    private static final String ENEMY_NAME = "EMEMY";
     private static Knight testKnight;
-
+    private Enemy enemytest;
+    private final SwordWeapon swordTest= new SwordWeapon(SWORD_NAME);
+    private final String axeName = "super Axe";
+    private final String knifeName = "super Knife";
+    private final AxeWeapon AxeTest= new AxeWeapon(axeName);
+    private final KnifeWeapon knifeTest = new KnifeWeapon(knifeName);
 
     @BeforeEach
     void setUp(){
         basicSetUp();
         testKnight = new Knight(knightName,turns);
+        enemytest = new Enemy(ENEMY_NAME, 11, turns);
     }
     @Test
     void constructorTest(){
         var expectedKnight = new Knight(knightName,turns);
-        assertEquals(expectedKnight,testKnight);
-        //testPlayerCharacters.add(testKnight);
+        checkConstruction(expectedKnight,testKnight,
+                new Black_Mage(ENEMY_NAME,turns),new Enemy(ENEMY_NAME, 11, turns),new Knight(ENEMY_NAME,turns));
     }
 
     @Test
-    void equipSwordTest() {
-        var expectedsword = new SwordWeapon(SWORD_NAME);
-        assertNull(testKnight.getEquippedWeapon());
-        testKnight.equipSword(SWORD_NAME);
-        assertEquals(expectedsword, testKnight.getEquippedWeapon());
+    void equipTest(){
+        checkEquippedWeapon(testKnight, swordTest);
+        checkDead(testKnight, AxeTest,enemytest);
     }
-
     @Test
-    void equipBowTest() {
-        var expectedbow = new BowWeapon(BOW_NAME);
-        assertNull(testKnight.getEquippedWeapon());
-        testKnight.equipBow(BOW_NAME);
-        assertEquals(expectedbow, testKnight.getEquippedWeapon());
-    }
-
-    @Test
-    void equipKnifeTest() {
-        var expectedknife = new KnifeWeapon(KNIFE_NAME);
-        assertNull(testKnight.getEquippedWeapon());
-        testKnight.equipKnife(KNIFE_NAME);
-        assertEquals(expectedknife, testKnight.getEquippedWeapon());
-    }
-
-    protected void tryToEquipSword(Knight character) {
-
-        character.equipSword(SWORD_NAME);
+    void attackTest(){
+        checkAttack(testKnight,swordTest,enemytest);
     }
 
 
     @Test
     void waitTurnTest() {
-        Assertions.assertTrue(turns.isEmpty());
-        tryToEquipSword(testKnight);
-        testKnight.waitTurn();
-        try {
-            // Thread.sleep is not accurate so this values may be changed to adjust the
-            // acceptable error margin.
-            // We're testing that the character waits approximately 1 second.
-            Thread.sleep(900);
-            Assertions.assertEquals(0, turns.size());
-            Thread.sleep(200);
-            Assertions.assertEquals(1, turns.size());
-            Assertions.assertEquals(testKnight, turns.peek());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        testKnight.equip(knifeTest);
+        checkWaitTurn(testKnight);
     }
 
 }

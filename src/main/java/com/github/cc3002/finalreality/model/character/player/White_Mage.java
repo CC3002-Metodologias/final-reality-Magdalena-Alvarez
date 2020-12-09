@@ -1,10 +1,12 @@
 package com.github.cc3002.finalreality.model.character.player;
 import com.github.cc3002.finalreality.model.character.ICharacter;
+import com.github.cc3002.finalreality.model.weapon.IWeapon;
 import com.github.cc3002.finalreality.model.weapon.StaffWeapon;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
-public class White_Mage extends PlayerCharacter{
+public class White_Mage extends AbstractPlayerCharacter{
     protected int mana;
     protected int Mage_mana = 100;
 
@@ -23,21 +25,35 @@ public class White_Mage extends PlayerCharacter{
     }
 
     /**
-     * Equips a staff to the white mage
-     * @param staff_name
-     *      staff's name
-     */
-    public void equipStaff(String staff_name){
-        this.equippedWeapon = new StaffWeapon(staff_name);
-    }
-
-    /**
      * returns mage's mana
      * @return
      *      mage's mana
      */
     public int getMana() {
         return mana;
+    }
+
+    @Override
+    public void equip(IWeapon weapon) {
+        if (this.status){
+            weapon.equippedByWhite_Mage(this);
+        }
+    }
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof White_Mage)) {
+            return false;
+        }
+        final White_Mage that = (White_Mage) o;
+        return getCharacterClass() == that.getCharacterClass()
+                && getName().equals(that.getName());
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(getCharacterClass(), getName());
     }
 
 }

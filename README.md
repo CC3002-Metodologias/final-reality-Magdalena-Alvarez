@@ -28,3 +28,7 @@ only the player characters can, and they follow the following rules:
 * Thieves can only equip a sword, a knife or a bow.
 * Black Mages can only equip a knife or a staff.
 * White Mages can only equip a staff.      
+
+When it's the turn of a character, it executes an action, attacks another character for example, and then goes back to the queue.
+
+The user wins the game if kills all the enemies, and lose if all the players of the party die. The user has to be careful with the attacks, because the friendly fire exists.

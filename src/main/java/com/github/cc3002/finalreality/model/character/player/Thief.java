@@ -2,13 +2,15 @@ package com.github.cc3002.finalreality.model.character.player;
 
 import com.github.cc3002.finalreality.model.character.ICharacter;
 import com.github.cc3002.finalreality.model.weapon.BowWeapon;
+import com.github.cc3002.finalreality.model.weapon.IWeapon;
 import com.github.cc3002.finalreality.model.weapon.KnifeWeapon;
 import com.github.cc3002.finalreality.model.weapon.SwordWeapon;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 
-public class Thief extends PlayerCharacter {
+public class Thief extends AbstractPlayerCharacter {
     /**
      * Creates a new character that it's class is thief.
      *
@@ -21,30 +23,26 @@ public class Thief extends PlayerCharacter {
         super(name, turnsQueue, CharacterClass.THIEF);
     }
 
-    /**
-     * Equip a knife to the Thief
-     * @param knifeName
-     *      knife's name
-     */
-    public void equipKnife(String knifeName) {
-        this.equippedWeapon = new KnifeWeapon((knifeName));
+    @Override
+    public void equip(IWeapon weapon) {
+        if (this.status){
+            weapon.equippedByThief(this);
+        }
     }
-
-    /**
-     * Equips a Bow to the Thief
-     * @param bowname
-     *      bow's name
-     */
-    public void equipBow(String bowname) {
-        this.equippedWeapon = new BowWeapon(bowname);
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Thief)) {
+            return false;
+        }
+        final Thief that = (Thief) o;
+        return getCharacterClass() == that.getCharacterClass()
+                && getName().equals(that.getName());
     }
-
-    /**
-     * Equips a Sword to the Thief
-     * @param swordname
-     *      sword's name
-     */
-    public void equipSword(String swordname) {
-        this.equippedWeapon = new SwordWeapon(swordname);
+    @Override
+    public int hashCode() {
+        return Objects.hash(getCharacterClass(), getName());
     }
 }

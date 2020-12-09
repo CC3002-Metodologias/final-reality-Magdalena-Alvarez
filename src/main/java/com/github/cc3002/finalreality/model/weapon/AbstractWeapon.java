@@ -1,5 +1,8 @@
 package com.github.cc3002.finalreality.model.weapon;
 
+import com.github.cc3002.finalreality.model.character.ICharacter;
+import com.github.cc3002.finalreality.model.character.player.*;
+
 import java.util.Objects;
 
 /**
@@ -8,7 +11,7 @@ import java.util.Objects;
  * @author Ignacio Slater Muñoz.
  * @author <Magdalena Álvarez>
  */
-public class Weapon {
+public abstract class AbstractWeapon implements IWeapon {
 
   protected final String name;
   protected int damage;
@@ -20,7 +23,7 @@ public class Weapon {
    *
    * @see WeaponType
    */
-  public Weapon(final String name, final int damage, final int weight,
+  public AbstractWeapon(final String name, final int damage, final int weight,
       final WeaponType type) {
     this.name = name;
     this.damage = damage;
@@ -29,40 +32,47 @@ public class Weapon {
   }
 
 
-
+  @Override
   public String getName() {
     return name;
   }
-
+  @Override
   public int getDamage() {
     return damage;
   }
-
+  @Override
   public int getWeight() {
     return weight;
   }
-
+  @Override
   public WeaponType getType() {
     return type;
   }
 
+  public abstract void attack(ICharacter character);
+
   @Override
-  public boolean equals(final Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (!(o instanceof Weapon)) {
-      return false;
-    }
-    final Weapon weapon = (Weapon) o;
-    return getType() == weapon.getType() && getDamage() == weapon.getDamage() &&
-        getWeight() == weapon.getWeight() &&
-        getName().equals(weapon.getName());
+  public void equippedByWhite_Mage(White_Mage whiteMage) {
 
   }
 
   @Override
-  public int hashCode() {
-    return Objects.hash(getName(), getDamage(), getWeight(), getType());
+  public void equippedByBlack_Mage(Black_Mage blackMage) {
+
+  }
+
+  @Override
+  public void equippedByEngineer(Engineer engineer) {
+
+  }
+
+  @Override
+  public void equippedByKnight(Knight knight) {
+
+  }
+
+  @Override
+  public void equippedByThief(Thief thief) {
+
   }
 }

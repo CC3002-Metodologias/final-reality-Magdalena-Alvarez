@@ -1,8 +1,9 @@
 package com.github.cc3002.finalreality.model.character;
 
 import com.github.cc3002.finalreality.model.character.player.CharacterClass;
-//import com.github.cc3002.finalreality.model.character.player.PlayerCharacter;
-import com.github.cc3002.finalreality.model.weapon.Weapon;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.concurrent.BlockingQueue;
 //import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -20,23 +21,25 @@ public abstract class AbstractCharacter implements ICharacter {
   protected final BlockingQueue<ICharacter> turnsQueue;
   protected final String name;
   private final CharacterClass characterClass;
-  protected int life = 0;
-  protected int dp = 0;
+  protected int life;
+  protected int dp;
+  protected boolean status;
   protected ScheduledExecutorService scheduledExecutor;
+  protected final PropertyChangeSupport c = new PropertyChangeSupport(this);
+
 
   protected AbstractCharacter(@NotNull BlockingQueue<ICharacter> turnsQueue,
-      @NotNull String name, CharacterClass characterClass) {
+                              @NotNull String name, CharacterClass characterClass) {
     this.turnsQueue = turnsQueue;
     this.name = name;
     this.characterClass = characterClass;
     this.life = 50;
-    this.dp = 20;
+    this.dp = 5;
+    this.status = true;
+
   }
 
-
   public abstract void waitTurn();
-  // revisar si es necesario o no
-
   /**
    * Adds this character to the turns queue.
    */
@@ -64,4 +67,59 @@ public abstract class AbstractCharacter implements ICharacter {
   public int getDp() {
     return dp;
   }
+
+  @Override
+  public boolean getStatus(){ return status;}
+
+  public abstract void attack(ICharacter character);
+
+  public void addListener(PropertyChangeListener listener){
+    c.addPropertyChangeListener(listener);
+  }
+  @Override
+  public void attackedByAxe(){
+
+    this.life-= 8- this.dp;
+    if (this.life <=0) {
+      this.status = false;
+      c.firePropertyChange("StatusCharacter",true, false);
+    }
+  }
+
+  @Override
+  public void attackedByBow(){
+    this.life-= 15- this.dp;
+    if (this.life <=0) {
+      this.status = false;
+      c.firePropertyChange("StatusCharacter",true, false);
+    }
+  }
+
+  @Override
+  public void attackedByKnife() {
+    this.life-=5-this.dp;
+    if (this.life <=0) {
+      this.status = false;
+      c.firePropertyChange("StatusCharacter",true, false);
+    }
+  }
+
+  @Override
+  public void attackedBySword() {
+    this.life-= 15-this.dp;
+    if (this.life <=0) {
+      this.status = false;
+      c.firePropertyChange("StatusCharacter",true, false);
+    }
+  }
+
+  @Override
+  public void attackedByStaff() {
+    this.life-= 5-this.dp;
+    if (this.life <=0) {
+      this.status = false;
+      c.firePropertyChange("StatusCharacter",true, false);
+    }
+  }
+  public abstract void attackedByEnemy();
 }

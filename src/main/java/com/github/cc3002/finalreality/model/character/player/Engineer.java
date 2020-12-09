@@ -1,15 +1,13 @@
 package com.github.cc3002.finalreality.model.character.player;
 
 import com.github.cc3002.finalreality.model.character.ICharacter;
-import com.github.cc3002.finalreality.model.weapon.AxeWeapon;
-import com.github.cc3002.finalreality.model.weapon.BowWeapon;
-import com.github.cc3002.finalreality.model.weapon.Weapon;
-import com.github.cc3002.finalreality.model.weapon.WeaponType;
+import com.github.cc3002.finalreality.model.weapon.*;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 
-public class Engineer extends PlayerCharacter{
+public class Engineer extends AbstractPlayerCharacter{
     /**
      * Creates a new character that it's class is engineer.
      *
@@ -22,20 +20,26 @@ public class Engineer extends PlayerCharacter{
         super(name, turnsQueue, CharacterClass.ENGINEER);
     }
 
-    /**
-     * Equips an Axe to the Engineer
-     * @param axename
-     *      Axe's name
-     */
-    public void equipAxe(String axename){
-        this.equippedWeapon = new AxeWeapon(axename);
+    @Override
+    public void equip(IWeapon weapon) {
+        if (this.status){
+            weapon.equippedByEngineer(this);
+        }
     }
-    /**
-     * Equips an Bow to the Engineer
-     * @param bowname
-     *      Bow's name
-     */
-    public void equipBow(String bowname) {
-        this.equippedWeapon = new BowWeapon(bowname);
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Engineer)) {
+            return false;
+        }
+        final Engineer that = (Engineer) o;
+        return getCharacterClass() == that.getCharacterClass()
+                && getName().equals(that.getName());
+    }
+    @Override
+    public int hashCode(){
+        return Objects.hash(getCharacterClass(),getName());
     }
 }

@@ -3,8 +3,8 @@ package com.github.cc3002.finalreality.model.character;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import com.github.cc3002.finalreality.model.character.player.PlayerCharacter;
-import com.github.cc3002.finalreality.model.weapon.Weapon;
+import com.github.cc3002.finalreality.model.character.player.AbstractPlayerCharacter;
+import com.github.cc3002.finalreality.model.weapon.AbstractWeapon;
 import com.github.cc3002.finalreality.model.weapon.WeaponType;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,6 @@ import org.junit.jupiter.api.Test;
 public abstract class AbstractCharacterTest {
 
   protected BlockingQueue<ICharacter> turns;
-  protected List<ICharacter> testCharacters;
 
   /**
    * Checks that the character waits the appropriate amount of time for it's turn.
@@ -32,20 +31,34 @@ public abstract class AbstractCharacterTest {
   //void waitTurnTest(){
    // this.waitTurnTest();
   //}
-
+  protected void checkWaitTurn(ICharacter character) {
+    Assertions.assertTrue(turns.isEmpty());
+    character.waitTurn();
+    try {
+      // Thread.sleep is not accurate so this values may be changed to adjust the
+      // acceptable error margin.
+      // We're testing that the character waits approximately 1 second.
+      Thread.sleep(900);
+      Assertions.assertEquals(0, turns.size());
+      Thread.sleep(200);
+      Assertions.assertEquals(1, turns.size());
+      Assertions.assertEquals(character, turns.peek());
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
   protected void checkConstruction(final ICharacter expectedCharacter,
       final ICharacter testEqualCharacter,
       final ICharacter sameClassDifferentCharacter,
-      final ICharacter differentClassCharacter) {
+      final ICharacter differentClassCharacter, final ICharacter sameClassDifferentName) {
     assertEquals(expectedCharacter, testEqualCharacter);
     assertNotEquals(sameClassDifferentCharacter, testEqualCharacter);
     assertNotEquals(testEqualCharacter, differentClassCharacter);
+    assertNotEquals(testEqualCharacter, sameClassDifferentName);
     assertEquals(expectedCharacter.hashCode(), testEqualCharacter.hashCode());
   }
 
   protected void basicSetUp() {
     turns = new LinkedBlockingQueue<>();
-    //testWeapon = new Weapon("Test", 15, 10, WeaponType.AXE);
-    testCharacters = new ArrayList<>();
   }
 }

@@ -3,12 +3,16 @@ package com.github.cc3002.finalreality.model.character.player;
 import com.github.cc3002.finalreality.model.character.AbstractCharacter;
 //import com.github.cc3002.finalreality.model.character.Enemy;
 import com.github.cc3002.finalreality.model.character.ICharacter;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import com.github.cc3002.finalreality.model.weapon.Weapon;
+import com.github.cc3002.finalreality.model.weapon.IWeapon;
+import com.github.cc3002.finalreality.model.weapon.AbstractWeapon;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -17,8 +21,8 @@ import org.jetbrains.annotations.NotNull;
  * @author Ignacio Slater Muñoz.
  * @author <Magdalena Álvarez>
  */
-public class PlayerCharacter extends AbstractCharacter {
-  protected Weapon equippedWeapon = null;
+public abstract class AbstractPlayerCharacter extends AbstractCharacter implements IPlayer{
+  protected IWeapon equippedWeapon = null;
 
   /**
    * Creates a new character.
@@ -30,20 +34,12 @@ public class PlayerCharacter extends AbstractCharacter {
    * @param characterClass
    *     the class of this character
    */
-
-
-  public PlayerCharacter(@NotNull String name,
+  public AbstractPlayerCharacter(@NotNull String name,
       @NotNull BlockingQueue<ICharacter> turnsQueue,
       final CharacterClass characterClass) {
     super(turnsQueue, name, characterClass);
 
   }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(getCharacterClass());
-  }
-
 
   @Override
   public void waitTurn() {
@@ -52,35 +48,30 @@ public class PlayerCharacter extends AbstractCharacter {
             .schedule(this::addToQueue, equippedWeapon.getWeight() / 10, TimeUnit.SECONDS);
   }
 
-  /**
-   * Equips a weapon to the player character.
-   * @param weapon
-   *    weapon that is going be equipped
-   */
-  public void equip(Weapon weapon) {
-     this.equippedWeapon = weapon;
+  public void setEquippedWeapon(IWeapon equippedWeapon) {
+    this.equippedWeapon = equippedWeapon;
   }
 
-  /**
-   * Gets the weapon that is equipped in the player character.
-   * @return
-   *    the weapon that is equipped
-   */
-  public Weapon getEquippedWeapon() {
-    return equippedWeapon;
-  }
+  public abstract void equip(IWeapon weapon);
 
   @Override
-  public boolean equals(final Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (!(o instanceof PlayerCharacter)) {
-      return false;
-    }
-    final PlayerCharacter that = (PlayerCharacter) o;
-    return getCharacterClass() == that.getCharacterClass()
-        && getName().equals(that.getName());
+  public IWeapon getEquippedWeapon() {
+    return equippedWeapon;
   }
+  @Override
+  public void attack(ICharacter character){
+    if (this.equippedWeapon != null && this.status) {
+      this.equippedWeapon.attack(character);
+    }
+  }
+  @Override
+  public void attackedByEnemy() {
+    this.life-= 8-this.dp;
+    if (this.life <=0){
+      this.status = false;
+      c.firePropertyChange("StatusCharacter",true, false);
+    }
+  }
+
 
 }

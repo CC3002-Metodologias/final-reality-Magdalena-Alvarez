@@ -1,13 +1,16 @@
 package com.github.cc3002.finalreality.model.character.player;
 
+import com.github.cc3002.finalreality.model.character.Enemy;
 import com.github.cc3002.finalreality.model.character.ICharacter;
+import com.github.cc3002.finalreality.model.weapon.IWeapon;
 import com.github.cc3002.finalreality.model.weapon.KnifeWeapon;
 import com.github.cc3002.finalreality.model.weapon.StaffWeapon;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 
-public class Black_Mage extends PlayerCharacter {
+public class Black_Mage extends AbstractPlayerCharacter {
     protected int mana;
     protected int Mage_mana = 100;
     /**
@@ -22,21 +25,12 @@ public class Black_Mage extends PlayerCharacter {
         super(name, turnsQueue, CharacterClass.BLACK_MAGE);
         this.mana = Mage_mana;
     }
-    /**
-     * Equips a Staff to the Black Mage
-     * @param staff_name
-     *      staff's name
-     */
-    public void equipStaff(String staff_name){
-        this.equippedWeapon = new StaffWeapon(staff_name);
-    }
-    /**
-     * Equips a Knife to the Black Mage
-     * @param knife_name
-     *      knife's name
-     */
-    public void equipKnife(String knife_name){
-        this.equippedWeapon = new KnifeWeapon(knife_name);
+
+    @Override
+    public void equip(IWeapon weapon) {
+        if (this.status){
+            weapon.equippedByBlack_Mage(this);
+        }
     }
 
     /**
@@ -46,5 +40,22 @@ public class Black_Mage extends PlayerCharacter {
      */
     public int getMana() {
         return mana;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Black_Mage)) {
+            return false;
+        }
+        final Black_Mage that = (Black_Mage) o;
+        return getCharacterClass() == that.getCharacterClass()
+                && getName().equals(that.getName());
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(getCharacterClass(), getName());
     }
 }

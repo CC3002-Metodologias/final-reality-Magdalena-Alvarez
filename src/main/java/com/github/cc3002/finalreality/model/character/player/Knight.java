@@ -1,14 +1,13 @@
 package com.github.cc3002.finalreality.model.character.player;
 
 import com.github.cc3002.finalreality.model.character.ICharacter;
-import com.github.cc3002.finalreality.model.weapon.BowWeapon;
-import com.github.cc3002.finalreality.model.weapon.KnifeWeapon;
-import com.github.cc3002.finalreality.model.weapon.SwordWeapon;
+import com.github.cc3002.finalreality.model.weapon.*;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 
-public class Knight extends PlayerCharacter {
+public class Knight extends AbstractPlayerCharacter {
 
     /**
      * Creates a new character that it's class is knight.
@@ -22,30 +21,26 @@ public class Knight extends PlayerCharacter {
         super(name, turnsQueue, CharacterClass.KNIGHT);
     }
 
-
-    /**
-     * Equips a Bow to the Knight
-     * @param bowname
-     *      bow's name
-     */
-    public void equipBow(String bowname) {
-        this.equippedWeapon = new BowWeapon(bowname);
+    @Override
+    public void equip(IWeapon weapon) {
+        if (this.status) {
+            weapon.equippedByKnight(this);
+        }
     }
-    /**
-     * Equips a Bow to the Knight
-     * @param swordName
-     *      sword's name
-     */
-    public void equipSword(String swordName) {
-        this.equippedWeapon = new SwordWeapon((swordName));
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Knight)) {
+            return false;
+        }
+        final Knight that = (Knight) o;
+        return getCharacterClass() == that.getCharacterClass()
+                && getName().equals(that.getName());
     }
-
-    /**
-     * Equips a Knife to the Knight
-     * @param knifeName
-     *      knife's name
-     */
-    public void equipKnife(String knifeName) {
-        this.equippedWeapon = new KnifeWeapon((knifeName));
+    @Override
+    public int hashCode() {
+        return Objects.hash(getCharacterClass(), getName());
     }
 }
