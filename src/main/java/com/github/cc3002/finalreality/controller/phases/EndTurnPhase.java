@@ -11,6 +11,6 @@ public class EndTurnPhase extends Phase {
 
     @Override
     public void toStartTurnPhase() {
-        controller.setPhase(new StartTurnPhase());
+        changePhase(new StartTurnPhase());
     }
 }

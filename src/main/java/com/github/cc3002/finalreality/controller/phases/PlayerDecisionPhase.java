@@ -23,6 +23,6 @@ public class PlayerDecisionPhase extends Phase{
 
     @Override
     public void toPlayerSelectingPhase() {
-        super.toPlayerSelectingPhase();
+        changePhase(new PlayerSelectingPhase(playingChar));
     }
 }

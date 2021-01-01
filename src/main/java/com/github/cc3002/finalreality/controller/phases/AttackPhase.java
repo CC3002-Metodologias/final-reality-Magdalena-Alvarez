@@ -15,6 +15,6 @@ public class AttackPhase extends Phase {
 
     @Override
     public void toEndTurnPhase() {
-        controller.setPhase(new EndTurnPhase(playingChar));
+        changePhase(new EndTurnPhase(playingChar));
     }
 }

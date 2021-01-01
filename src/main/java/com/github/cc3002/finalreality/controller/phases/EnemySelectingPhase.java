@@ -18,6 +18,6 @@ public class EnemySelectingPhase extends Phase{
 
     @Override
     public void toAttackPhase() {
-        controller.setPhase(new AttackPhase(target, playingChar));
+        changePhase(new AttackPhase(target, playingChar));
     }
 }

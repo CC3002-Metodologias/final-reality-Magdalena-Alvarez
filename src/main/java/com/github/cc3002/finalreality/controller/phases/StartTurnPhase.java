@@ -14,11 +14,11 @@ public class StartTurnPhase extends Phase{
 
     @Override
     public void toDecisionPhase() {
-        controller.setPhase(new PlayerDecisionPhase(playingChar));
+        changePhase(new PlayerDecisionPhase(playingChar));
     }
 
     @Override
     public void toEnemySelectingPhase() {
-        controller.setPhase(new EnemySelectingPhase((Enemy)playingChar));
+        changePhase(new EnemySelectingPhase((Enemy)playingChar));
     }
 }
