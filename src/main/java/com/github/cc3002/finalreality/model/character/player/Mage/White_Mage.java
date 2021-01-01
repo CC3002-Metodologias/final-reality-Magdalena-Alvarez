@@ -1,12 +1,14 @@
-package com.github.cc3002.finalreality.model.character.player;
+package com.github.cc3002.finalreality.model.character.player.Mage;
 import com.github.cc3002.finalreality.model.character.ICharacter;
+import com.github.cc3002.finalreality.model.character.player.AbstractPlayerCharacter;
+import com.github.cc3002.finalreality.model.character.player.CharacterClass;
 import com.github.cc3002.finalreality.model.weapon.IWeapon;
-import com.github.cc3002.finalreality.model.weapon.StaffWeapon;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
-public class White_Mage extends AbstractPlayerCharacter{
+
+public class White_Mage extends AbstractPlayerCharacter implements IMages{
     protected int mana;
     protected int Mage_mana = 100;
 
@@ -24,11 +26,7 @@ public class White_Mage extends AbstractPlayerCharacter{
         this.mana = Mage_mana;
     }
 
-    /**
-     * returns mage's mana
-     * @return
-     *      mage's mana
-     */
+
     public int getMana() {
         return mana;
     }

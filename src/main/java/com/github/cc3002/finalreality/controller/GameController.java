@@ -1,14 +1,16 @@
 package com.github.cc3002.finalreality.controller;
 
+import com.github.cc3002.finalreality.controller.phases.Phase;
 import com.github.cc3002.finalreality.model.character.Enemy;
 import com.github.cc3002.finalreality.model.character.ICharacter;
 import com.github.cc3002.finalreality.model.character.player.*;
+import com.github.cc3002.finalreality.model.character.player.Mage.Black_Mage;
+import com.github.cc3002.finalreality.model.character.player.Mage.White_Mage;
 import com.github.cc3002.finalreality.model.weapon.*;
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.Callable;
 
 public class GameController {
     private List<IPlayer> party = new ArrayList<>();
@@ -24,6 +26,7 @@ public class GameController {
     private boolean result;
     private final PlayerHandler pHandler = new PlayerHandler(this);
     private final EnemyHandler eHandler = new EnemyHandler(this);
+    private Phase phase;
 
     /**
      * create a new controller.
@@ -371,6 +374,13 @@ public class GameController {
      * @param character
      */
     public void endTurn(ICharacter character){
-        character.waitTurn();
+        if (character.getStatus()) {
+            character.waitTurn();
+        }
+    }
+
+    public void setPhase(Phase phase) {
+        this.phase = phase;
+        phase.setController(this);
     }
 }
