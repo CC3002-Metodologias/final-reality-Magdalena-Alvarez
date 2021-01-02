@@ -16,8 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ControllerTest {
     private final Random index = new Random(4234);
-    private BlockingQueue<ICharacter> turns = new LinkedBlockingQueue<>();
-    private final GameController c = new GameController(turns);
+    private final GameController c = new GameController();
     private final String BlackMageName = "Mage 1";
     private final String EnemyName = "Enemy";
     private final String EngineerName = "Engie";
