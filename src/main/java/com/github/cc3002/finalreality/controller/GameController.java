@@ -11,16 +11,17 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class GameController {
     private List<IPlayer> party = new ArrayList<>();
     private List<Enemy> enemies = new ArrayList<>();
-    public List<IWeapon> inventory = new ArrayList<>();
+    private List<IWeapon> inventory = new ArrayList<>();
     private int numPlayers = 0;
     private int numenemies = 0;
     private int maxPlayers = 5;
     private int alivePlayers = 0;
-    private int maxenemies = 10;
+    private int maxenemies = 8;
     private int aliveenemies =0;
     private final BlockingQueue<ICharacter> turns;
     private boolean result;
@@ -30,11 +31,9 @@ public class GameController {
 
     /**
      * create a new controller.
-     * @param turnsQueue
-     *      the queue with the characters waiting for their turn
      */
-    public GameController(@NotNull BlockingQueue<ICharacter> turnsQueue) {
-        this.turns = turnsQueue;
+    public GameController() {
+        this.turns = new LinkedBlockingQueue<>();
     }
     /**
      * get the game's result.
@@ -202,11 +201,29 @@ public class GameController {
     }
 
     /**
+     * returns i-weapon's name
+     * @param i
+     *      weapon's number
+     * @return
+     *      i-weapon's name
+     */
+    public String getWeaponName(int i){
+        return inventory.get(i).getName();
+    }
+
+    /**
      * returns the number of players
      * @return
      *      number of player
      */
     public int getNumPlayers(){return numPlayers;}
+
+    /**
+     * returns the number of alive players
+     * @return
+     *      number of player that are not dead
+     */
+    public int getAlivePlayers(){return alivePlayers;}
 
     /**
      * returns the number of enemies
@@ -216,12 +233,21 @@ public class GameController {
     public int getNumenemies(){return numenemies;}
 
     /**
+     * returns the number of alive enemies
+     * @return
+     *      number of enemies that are not dead
+     */
+    public int getAliveEnemies() {
+        return aliveenemies;
+    }
+
+    /**
      * returns the user's party 
      * @return
      *      list of players
      */
     public List<IPlayer> getParty(){
-        return this.party;
+        return List.copyOf(this.party);
     }
 
     /**
@@ -306,6 +332,10 @@ public class GameController {
         return inventory.get(i);
     }
 
+    public List<IWeapon> getInventory() {
+        return List.copyOf(inventory);
+    }
+
     /**
      * equips the i-th weapon to the player
      * @param player
@@ -352,7 +382,10 @@ public class GameController {
      * starts the game making all the character wait for their turn
      */
     public void startGame(){
-        for (int i=0; i<party.size();i++){
+        for (int i=0; i<5; i++){
+            createEnemy("Enemy"+i, 2*(i+1)+5);
+        }
+        for (int i=0; i<party.size();i++) {
             getPlayer(i).waitTurn();
         }
         for(int i = 0; i<enemies.size();i++){

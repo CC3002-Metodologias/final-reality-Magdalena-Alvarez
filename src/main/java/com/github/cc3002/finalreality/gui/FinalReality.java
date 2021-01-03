@@ -36,6 +36,7 @@ public class FinalReality extends Application {
   private Label weapon3 = new Label();
   private Label weapon4 = new Label();
   private Label weapon5 = new Label();
+  private int  cont1 =0, cont2 =0, cont3 =0, cont4 =0, cont5 =0;
 
   public static void main(String[] args) {
     launch(args);
@@ -61,6 +62,22 @@ public class FinalReality extends Application {
     Label labelnew = new Label("new group");
     labelnew.setLayoutX(900);
     labelnew.setLayoutY(20);
+    Button  buttonNew = new Button("Start");
+    buttonNew.setLayoutX(710);
+    buttonNew.setLayoutY(295);
+    newGroup.getChildren().add(labelnew);
+    newGroup.getChildren().add(backgroundSec);
+    buttonNew.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        newGroup.getChildren().add(label);
+        newGroup.getChildren().add(labelEn);
+        controller.startGame();
+        Scene sceneNew = new Scene(newGroup,1200,600);
+        primaryStage.setScene(sceneNew);
+
+      }
+    });
     //
     Group EquipGroup = new Group();
     Button  buttonEquip = new Button("Continue");
@@ -75,28 +92,14 @@ public class FinalReality extends Application {
         EquipGroup.getChildren().add(labelinv);
         Group players = equipping();
         EquipGroup.getChildren().add(players);
+        EquipGroup.getChildren().add(buttonNew);
         Scene sceneNew = new Scene(EquipGroup,1200,600);
         primaryStage.setScene(sceneNew);
 
       }
     });
     //
-    Button  buttonNew = new Button("Start");
-    buttonNew.setLayoutX(330);
-    buttonNew.setLayoutY(150);
-    newGroup.getChildren().add(labelnew);
-    newGroup.getChildren().add(backgroundSec);
-    buttonNew.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent event) {
-        newGroup.getChildren().add(label);
-        newGroup.getChildren().add(labelEn);
-        controller.startGame();
-        Scene sceneNew = new Scene(newGroup,1200,600);
-        primaryStage.setScene(sceneNew);
 
-      }
-    });
     root.getChildren().add(backgroundIn);
     root.getChildren().add(label);
     root.getChildren().add(labelinv);
@@ -249,9 +252,10 @@ public class FinalReality extends Application {
   }
   public Group equipping(){
     Group group = new Group();
-    int xPos = 500, xPos2 = xPos +150;
+    int xPos = 400, xPos2 = xPos +190;
     int yPos = 50;
-    int  cont1 =0, cont2 =0, cont3 =0, cont4 =0, cont5 =0;
+    int tope = controller.getInventory().size()-1;
+    setUpTimer2();
     String name1 = controller.getCharacterName(controller.getPlayer(0));
     Label player1 = new Label("Player 1 : "+ name1);
     player1.setLayoutX(xPos);
@@ -259,37 +263,128 @@ public class FinalReality extends Application {
     Button button1 = new Button("Equip Weapon: ");
     button1.setLayoutX(xPos2);
     button1.setLayoutY(yPos);
+    button1.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        controller.equip(controller.getPlayer(0),cont1);
+        if (cont1<tope){
+          cont1++;
+        }
+        else {
+          cont1=0;
+        }
+      }
+    });
     String name2 = controller.getCharacterName(controller.getPlayer(1));
     Label player2 = new Label("Player 2 : "+ name2);
     player2.setLayoutX(xPos);
     player2.setLayoutY(yPos+30);
+    Button button2 = new Button("Equip Weapon: ");
+    button2.setLayoutX(xPos2);
+    button2.setLayoutY(yPos+30);
+    button2.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        controller.equip(controller.getPlayer(1),cont2);
+        if (cont2<tope){
+          cont2++;
+        }
+        else {
+          cont2=0;
+        }
+      }
+    });
     String name3 = controller.getCharacterName(controller.getPlayer(2));
     Label player3 = new Label("Player 3 : "+ name3);
     player3.setLayoutX(xPos);
     player3.setLayoutY(yPos+60);
+    Button button3 = new Button("Equip Weapon: ");
+    button3.setLayoutX(xPos2);
+    button3.setLayoutY(yPos+60);
+    button3.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        controller.equip(controller.getPlayer(2), cont3);
+        if (cont3 < tope) {
+          cont3++;
+        } else {
+          cont3 = 0;
+        }
+      }
+    });
     String name4 = controller.getCharacterName(controller.getPlayer(3));
     Label player4 = new Label("Player 4 : "+ name4);
     player4.setLayoutX(xPos);
     player4.setLayoutY(yPos+90);
+    Button button4 = new Button("Equip Weapon: ");
+    button4.setLayoutX(xPos2);
+    button4.setLayoutY(yPos+90);
+    button4.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        controller.equip(controller.getPlayer(3), cont4);
+        if (cont4 < tope) {
+          cont4++;
+        } else {
+          cont4 = 0;
+        }
+      }
+    });
     String name5 = controller.getCharacterName(controller.getPlayer(4));
     Label player5 = new Label("Player 5 : "+ name5);
     player5.setLayoutX(xPos);
     player5.setLayoutY(yPos+120);
-
+    Button button5 = new Button("Equip Weapon: ");
+    button5.setLayoutX(xPos2);
+    button5.setLayoutY(yPos+120);
+    button5.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        controller.equip(controller.getPlayer(4), cont5);
+        if (cont5 < tope) {
+          cont5++;
+        } else {
+          cont5 = 0;
+        }
+      }
+    });
+    weapon1.setLayoutX(xPos2+180);
+    weapon1.setLayoutY(yPos);
+    weapon2.setLayoutX(xPos2+180);
+    weapon2.setLayoutY(yPos+30);
+    weapon3.setLayoutX(xPos2+180);
+    weapon3.setLayoutY(yPos+60);
+    weapon4.setLayoutX(xPos2+180);
+    weapon4.setLayoutY(yPos+90);
+    weapon5.setLayoutX(xPos2+180);
+    weapon5.setLayoutY(yPos+120);
     group.getChildren().add(player1);
     group.getChildren().add(player2);
     group.getChildren().add(player3);
     group.getChildren().add(player4);
     group.getChildren().add(player5);
+    group.getChildren().add(button1);
+    group.getChildren().add(button2);
+    group.getChildren().add(button3);
+    group.getChildren().add(button4);
+    group.getChildren().add(button5);
+    group.getChildren().add(weapon1);
+    group.getChildren().add(weapon2);
+    group.getChildren().add(weapon3);
+    group.getChildren().add(weapon4);
+    group.getChildren().add(weapon5);
+
     return group;
   }
   public void setUpTimer2(){
     AnimationTimer timer = new AnimationTimer() {
       @Override
       public void handle(long now) {
-        weapon1.setText("Character Alive : " + controller.getAlivePlayers());
-        weapon2.setText("Enemies Alive : " + controller.getAliveEnemies());
-        weapon3.setText("Inventory Size : " + controller.getInventory().size());
+        weapon1.setText( controller.getWeaponName(cont1));
+        weapon2.setText(controller.getWeaponName(cont2));
+        weapon3.setText(controller.getWeaponName(cont3));
+        weapon4.setText(controller.getWeaponName(cont4));
+        weapon5.setText(controller.getWeaponName(cont5));
       }
     };
     timer.start();
