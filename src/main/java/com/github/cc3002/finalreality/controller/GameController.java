@@ -201,14 +201,14 @@ public class GameController {
     }
 
     /**
-     * returns i-weapon's name
-     * @param i
-     *      weapon's number
+     * returns a weapon's name
+     * @param weapon
+     *      weapon
      * @return
-     *      i-weapon's name
+     *      weapon's name
      */
-    public String getWeaponName(int i){
-        return inventory.get(i).getName();
+    public String getWeaponName(IWeapon weapon){
+        return weapon.getName();
     }
 
     /**

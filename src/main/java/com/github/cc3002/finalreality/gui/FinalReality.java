@@ -31,12 +31,22 @@ public class FinalReality extends Application {
   private Label labelEn = new Label();
   private Label labelinv = new Label();
   private static final String RESOURCE_PATH = "src/main/resources/";
+  private Label equipped1 = new Label();
+  private Label equipped2 = new Label();
+  private Label equipped3 = new Label();
+  private Label equipped4 = new Label();
+  private Label equipped5 = new Label();
   private Label weapon1 = new Label();
   private Label weapon2 = new Label();
   private Label weapon3 = new Label();
   private Label weapon4 = new Label();
   private Label weapon5 = new Label();
   private int  cont1 =0, cont2 =0, cont3 =0, cont4 =0, cont5 =0;
+  private Label info1 = new Label();
+  private Label info2 = new Label();
+  private Label info3 = new Label();
+  private Label info4 = new Label();
+  private Label info5 = new Label();
 
   public static void main(String[] args) {
     launch(args);
@@ -70,11 +80,15 @@ public class FinalReality extends Application {
     buttonNew.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
+
         newGroup.getChildren().add(label);
         newGroup.getChildren().add(labelEn);
-        controller.startGame();
+        newGroup.getChildren().add(labelinv);
+        Group info = playersInfo();
+        newGroup.getChildren().add(info);
         Scene sceneNew = new Scene(newGroup,1200,600);
         primaryStage.setScene(sceneNew);
+        controller.startGame();
 
       }
     });
@@ -133,7 +147,7 @@ public class FinalReality extends Application {
   public Group CreateZone(){
     int xPos = 600;
     Group group = new Group();
-    Label label3 =new Label("Insert Characters Names: \n Only create 5");
+    Label label3 =new Label("Insert Characters Names: \n Create 5");
     label3.setLayoutX(xPos);
     label3.setLayoutY(40);
     TextField name1 = new TextField();
@@ -252,7 +266,7 @@ public class FinalReality extends Application {
   }
   public Group equipping(){
     Group group = new Group();
-    int xPos = 400, xPos2 = xPos +190;
+    int xPos = 350, xPos2 = xPos +250;
     int yPos = 50;
     int tope = controller.getInventory().size()-1;
     setUpTimer2();
@@ -350,14 +364,24 @@ public class FinalReality extends Application {
     });
     weapon1.setLayoutX(xPos2+180);
     weapon1.setLayoutY(yPos);
+    equipped1.setLayoutX(xPos2+350);
+    equipped1.setLayoutY(yPos);
     weapon2.setLayoutX(xPos2+180);
     weapon2.setLayoutY(yPos+30);
+    equipped2.setLayoutX(xPos2+350);
+    equipped2.setLayoutY(yPos+30);
     weapon3.setLayoutX(xPos2+180);
     weapon3.setLayoutY(yPos+60);
+    equipped3.setLayoutX(xPos2+350);
+    equipped3.setLayoutY(yPos+60);
     weapon4.setLayoutX(xPos2+180);
     weapon4.setLayoutY(yPos+90);
+    equipped4.setLayoutX(xPos2+350);
+    equipped4.setLayoutY(yPos+90);
     weapon5.setLayoutX(xPos2+180);
     weapon5.setLayoutY(yPos+120);
+    equipped5.setLayoutX(xPos2+350);
+    equipped5.setLayoutY(yPos+120);
     group.getChildren().add(player1);
     group.getChildren().add(player2);
     group.getChildren().add(player3);
@@ -373,6 +397,11 @@ public class FinalReality extends Application {
     group.getChildren().add(weapon3);
     group.getChildren().add(weapon4);
     group.getChildren().add(weapon5);
+    group.getChildren().add(equipped1);
+    group.getChildren().add(equipped2);
+    group.getChildren().add(equipped3);
+    group.getChildren().add(equipped4);
+    group.getChildren().add(equipped5);
 
     return group;
   }
@@ -380,11 +409,101 @@ public class FinalReality extends Application {
     AnimationTimer timer = new AnimationTimer() {
       @Override
       public void handle(long now) {
-        weapon1.setText( controller.getWeaponName(cont1));
-        weapon2.setText(controller.getWeaponName(cont2));
-        weapon3.setText(controller.getWeaponName(cont3));
-        weapon4.setText(controller.getWeaponName(cont4));
-        weapon5.setText(controller.getWeaponName(cont5));
+        weapon1.setText( controller.getWeaponName(controller.getFromInventory(cont1)));
+        weapon2.setText(controller.getWeaponName(controller.getFromInventory(cont2)));
+        weapon3.setText(controller.getWeaponName(controller.getFromInventory(cont3)));
+        weapon4.setText(controller.getWeaponName(controller.getFromInventory(cont4)));
+        weapon5.setText(controller.getWeaponName(controller.getFromInventory(cont5)));
+        if (controller.getEquippedWeapon(controller.getPlayer(0))!=null){
+          equipped1.setText("Equipped: " + controller.getWeaponName(controller.getEquippedWeapon(controller.getPlayer(0))));
+        }
+        else{
+          equipped1.setText("No Weapon Equipped");
+        }
+        if (controller.getEquippedWeapon(controller.getPlayer(1))!=null){
+          equipped2.setText("Equipped: " + controller.getWeaponName(controller.getEquippedWeapon(controller.getPlayer(1))));
+        }
+        else{
+          equipped2.setText("No Weapon Equipped");
+        }
+        if (controller.getEquippedWeapon(controller.getPlayer(2))!=null){
+          equipped3.setText("Equipped: " + controller.getWeaponName(controller.getEquippedWeapon(controller.getPlayer(2))));
+        }
+        else{
+          equipped3.setText("No Weapon Equipped");
+        }
+        if (controller.getEquippedWeapon(controller.getPlayer(3))!=null){
+          equipped4.setText("Equipped: " + controller.getWeaponName(controller.getEquippedWeapon(controller.getPlayer(3))));
+        }
+        else{
+          equipped4.setText("No Weapon Equipped");
+        }
+        if (controller.getEquippedWeapon(controller.getPlayer(4))!=null){
+          equipped5.setText("Equipped: " + controller.getWeaponName(controller.getEquippedWeapon(controller.getPlayer(4))));
+        }
+        else{
+          equipped5.setText("No Weapon Equipped");
+        }
+      }
+    };
+    timer.start();
+  }
+  public Group playersInfo(){
+    Group group = new Group();
+    int xPos = 600;
+    int yPos = 20;
+    setUpTimer3();
+    info1.setLayoutX(xPos);
+    info1.setLayoutY(yPos);
+    info2.setLayoutX(xPos);
+    info2.setLayoutY(yPos+100);
+    info3.setLayoutX(xPos+250);
+    info3.setLayoutY(yPos);
+    info4.setLayoutX(xPos+250);
+    info4.setLayoutY(yPos+100);
+    info5.setLayoutX(xPos+100);
+    info5.setLayoutY(yPos+200);
+    group.getChildren().add(info1);
+    group.getChildren().add(info2);
+    group.getChildren().add(info3);
+    group.getChildren().add(info4);
+    group.getChildren().add(info5);
+    return group;
+  }
+  public void setUpTimer3(){
+    AnimationTimer timer = new AnimationTimer() {
+      @Override
+      public void handle(long now) {
+        String name1 = controller.getCharacterName(controller.getPlayer(0));
+        int hp1 = controller.getCharacterLife(controller.getPlayer(0));
+        int dp1 = controller.getCharacterDp(controller.getPlayer(0));
+        boolean status1 = controller.getCharacterStatus(controller.getPlayer(0));
+        String nameW1 = controller.getWeaponName(controller.getEquippedWeapon(controller.getPlayer(0)));
+        info1.setText("Player 1: " + name1 + '\n' + "HP: " + hp1 + '\n' + "DP: " + dp1 + '\n' + "Alive? " + status1 + '\n' + "Weapon: " + nameW1);
+        String name2 = controller.getCharacterName(controller.getPlayer(1));
+        int hp2 = controller.getCharacterLife(controller.getPlayer(1));
+        int dp2 = controller.getCharacterDp(controller.getPlayer(1));
+        boolean status2 = controller.getCharacterStatus(controller.getPlayer(1));
+        String nameW2 = controller.getWeaponName(controller.getEquippedWeapon(controller.getPlayer(1)));
+        info2.setText("Player 2: " + name2 + '\n' + "HP: " + hp2 + '\n' + "DP: " + dp2 + '\n' + "Alive? " + status2 + '\n' + "Weapon: " + nameW2);
+        String name3 = controller.getCharacterName(controller.getPlayer(2));
+        int hp3 = controller.getCharacterLife(controller.getPlayer(2));
+        int dp3 = controller.getCharacterDp(controller.getPlayer(2));
+        boolean status3 = controller.getCharacterStatus(controller.getPlayer(2));
+        String nameW3 = controller.getWeaponName(controller.getEquippedWeapon(controller.getPlayer(2)));
+        info3.setText("Player 3: " + name3 + '\n' + "HP: " + hp3 + '\n' + "DP: " + dp3 + '\n' + "Alive? " + status3 + '\n' + "Weapon: " + nameW3);
+        String name4 = controller.getCharacterName(controller.getPlayer(3));
+        int hp4 = controller.getCharacterLife(controller.getPlayer(3));
+        int dp4 = controller.getCharacterDp(controller.getPlayer(3));
+        boolean status4 = controller.getCharacterStatus(controller.getPlayer(3));
+        String nameW4 = controller.getWeaponName(controller.getEquippedWeapon(controller.getPlayer(3)));
+        info4.setText("Player 4: " + name4 + '\n' + "HP: " + hp4 + '\n' + "DP: " + dp4 + '\n' + "Alive? " + status4 + '\n' + "Weapon: " + nameW4);
+        String name5 = controller.getCharacterName(controller.getPlayer(4));
+        int hp5 = controller.getCharacterLife(controller.getPlayer(4));
+        int dp5 = controller.getCharacterDp(controller.getPlayer(4));
+        boolean status5 = controller.getCharacterStatus(controller.getPlayer(4));
+        String nameW5 = controller.getWeaponName(controller.getEquippedWeapon(controller.getPlayer(4)));
+        info5.setText("Player 5: " + name5 + '\n' + "HP: " + hp5 + '\n' + "DP: " + dp5 + '\n' + "Alive? " + status5 + '\n' + "Weapon: " + nameW5);
       }
     };
     timer.start();
