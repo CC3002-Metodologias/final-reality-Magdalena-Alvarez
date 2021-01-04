@@ -2,6 +2,7 @@ package com.github.cc3002.finalreality.model.weapon;
 
 import com.github.cc3002.finalreality.model.character.ICharacter;
 import com.github.cc3002.finalreality.model.character.player.*;
+import com.github.cc3002.finalreality.model.character.player.Mage.Black_Mage;
 
 import java.util.Objects;
 
@@ -12,7 +13,7 @@ public class KnifeWeapon extends AbstractWeapon{
      *      New Knife's name
      */
     public KnifeWeapon(String name) {
-        super(name, 5, 10, WeaponType.KNIFE);
+        super(name, 5, 8, WeaponType.KNIFE);
     }
 
     @Override

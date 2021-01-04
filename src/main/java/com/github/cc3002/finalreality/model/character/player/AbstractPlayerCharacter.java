@@ -1,5 +1,6 @@
 package com.github.cc3002.finalreality.model.character.player;
 
+import com.github.cc3002.finalreality.controller.phases.PlayerDecisionPhase;
 import com.github.cc3002.finalreality.model.character.AbstractCharacter;
 //import com.github.cc3002.finalreality.model.character.Enemy;
 import com.github.cc3002.finalreality.model.character.ICharacter;
@@ -73,5 +74,13 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
     }
   }
 
+  @Override
+  public boolean isPlayerCharacter() {
+    return true;
+  }
 
+  @Override
+  public void decision() {
+    state.toDecisionPhase();
+  }
 }

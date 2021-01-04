@@ -5,24 +5,24 @@ import com.github.cc3002.finalreality.model.character.player.IPlayer;
 import com.github.cc3002.finalreality.model.character.player.Mage.IMages;
 
 public class PlayerDecisionPhase extends Phase{
-    private final IPlayer playingChar;
+    private int number;
+    public PlayerDecisionPhase() {
 
-    public PlayerDecisionPhase(ICharacter playingChar) {
-        this.playingChar = (IPlayer) playingChar;
     }
 
     @Override
-    public void toMagicState() {
-        changePhase(new MagicState((IMages) playingChar));
+    public void setNumber(int i) {
+        this.number =i;
     }
 
     @Override
-    public void toInventoryState() {
-        changePhase(new InventoryPhase(playingChar));
+    public void equipFromTheInventory() {
+        IPlayer player = (IPlayer) character;
+        controller.equip(player,number);
     }
 
     @Override
     public void toPlayerSelectingPhase() {
-        changePhase(new PlayerSelectingPhase(playingChar));
+        changePhase(new PlayerSelectingPhase());
     }
 }

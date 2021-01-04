@@ -1,7 +1,8 @@
 package com.github.cc3002.finalreality.model.weapon;
 
 import com.github.cc3002.finalreality.model.character.ICharacter;
-import com.github.cc3002.finalreality.model.character.player.*;
+import com.github.cc3002.finalreality.model.character.player.Mage.Black_Mage;
+import com.github.cc3002.finalreality.model.character.player.Mage.White_Mage;
 
 import java.util.Objects;
 
@@ -12,7 +13,7 @@ public class StaffWeapon extends AbstractWeapon {
      *      New Staff's name
      */
     public StaffWeapon(String name) {
-        super(name, 5, 15, WeaponType.STAFF);
+        super(name, 5, 11, WeaponType.STAFF);
     }
 
     @Override

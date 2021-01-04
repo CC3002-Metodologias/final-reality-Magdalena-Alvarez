@@ -1,6 +1,8 @@
 package com.github.cc3002.finalreality.model.controller;
 
 import com.github.cc3002.finalreality.controller.GameController;
+import com.github.cc3002.finalreality.controller.phases.IPhase;
+import com.github.cc3002.finalreality.controller.phases.StartTurnPhase;
 import com.github.cc3002.finalreality.model.character.Enemy;
 import com.github.cc3002.finalreality.model.character.ICharacter;
 import com.github.cc3002.finalreality.model.character.player.IPlayer;
@@ -115,6 +117,42 @@ public class ControllerTest {
             }
         }
         assertFalse(c.getResult());
+
+    }
+    void oneTurn(ICharacter playingChar){
+        IPhase expectedStart = new StartTurnPhase();
+        expectedStart.setController(c);
+        expectedStart.setCharacter(playingChar);
+        assertEquals(expectedStart, c.getPhase());
+        assertEquals(expectedStart,playingChar.getPhase());
+        expectedStart.setController(new GameController());
+        assertNotEquals(expectedStart,c.getPhase());
+        c.toDecision(playingChar);
+        if (playingChar.isPlayerCharacter()){
+            c.goToInventory(2);
+            c.goToInventory(4);
+            c.selectTarget(c.getEnemy(3));
+            c.toAttack();
+        }
+        assertNotEquals(expectedStart,c.getPhase());
+    }
+    @Test
+    void gameTurnTest() throws InterruptedException {
+        starGame();
+        Thread.sleep(1200);
+        ICharacter playingChar = c.startTurn();
+        oneTurn(playingChar);
+        playingChar=c.startTurn();
+        oneTurn(playingChar);
+        playingChar = c.startTurn();
+        oneTurn(playingChar);
+        playingChar = c.startTurn();
+        oneTurn(playingChar);
+        playingChar = c.startTurn();
+        oneTurn(playingChar);
+        playingChar = c.startTurn();
+        oneTurn(playingChar);
+
 
     }
 }

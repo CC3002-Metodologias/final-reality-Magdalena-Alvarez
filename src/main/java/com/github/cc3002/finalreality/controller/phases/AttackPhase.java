@@ -4,17 +4,18 @@ import com.github.cc3002.finalreality.model.character.ICharacter;
 import com.github.cc3002.finalreality.model.character.player.IPlayer;
 
 public class AttackPhase extends Phase {
-    private final ICharacter target;
-    private final ICharacter playingChar;
+    private ICharacter target;
 
-    public AttackPhase(ICharacter target, ICharacter playingChar) {
+    public AttackPhase(ICharacter target) {
         this.target = target;
-        this.playingChar = playingChar;
-        controller.attack(playingChar, target);
-    }
 
+    }
+    public void attack(){
+        controller.attack(character, target);
+        toEndTurnPhase();
+    }
     @Override
     public void toEndTurnPhase() {
-        changePhase(new EndTurnPhase(playingChar));
+        changePhase(new EndTurnPhase());
     }
 }

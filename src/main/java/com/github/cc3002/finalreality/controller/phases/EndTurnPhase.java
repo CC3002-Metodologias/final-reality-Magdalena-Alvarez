@@ -5,12 +5,16 @@ import com.github.cc3002.finalreality.model.character.ICharacter;
 public class EndTurnPhase extends Phase {
 
 
-    public EndTurnPhase(ICharacter playingChar) {
-        controller.endTurn(playingChar);
+    public EndTurnPhase() {
+
+    }
+    public void endTurn(){
+        controller.endTurn(character);
+        toWaitingPhase();
+    }
+    @Override
+    public void toWaitingPhase() {
+        changePhase(new WaitingState());
     }
 
-    @Override
-    public void toStartTurnPhase() {
-        changePhase(new StartTurnPhase());
-    }
 }

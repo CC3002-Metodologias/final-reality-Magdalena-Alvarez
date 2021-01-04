@@ -6,27 +6,24 @@ import com.github.cc3002.finalreality.model.character.player.IPlayer;
 import java.util.Random;
 
 public class EnemySelectingPhase extends Phase{
-    private final Enemy playingChar;
     private Random randNum = new Random(1234);
     private int num ;
     private IPlayer target;
 
-    private  IPlayer selPlayer(){
-        num = randNum.nextInt();
-        target = controller.getPlayer(num);
-        if (controller.getCharacterStatus(target)){
-            return target;
-        }
-        else{
-            return  selPlayer();
-        }
-    }
-    public EnemySelectingPhase(Enemy playingChar) {
-        this.playingChar = playingChar;
-    }
 
+    public EnemySelectingPhase(){
+
+    }
+    private  void selPlayer(){
+        num = randNum.nextInt(5);
+        target = controller.getPlayer(num);
+        if (!controller.getCharacterStatus(target)){
+            selPlayer();
+        }
+    }
     @Override
     public void toAttackPhase() {
-        changePhase(new AttackPhase(target, playingChar));
+        selPlayer();
+        changePhase(new AttackPhase(target));
     }
 }

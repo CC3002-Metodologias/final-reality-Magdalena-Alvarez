@@ -1,4 +1,4 @@
-package com.github.cc3002.citricliquid.gui.nodes;
+package com.github.cc3002.finalreality.gui.nodes;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;

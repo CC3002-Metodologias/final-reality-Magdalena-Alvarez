@@ -1,5 +1,6 @@
 package com.github.cc3002.finalreality.model.character;
 
+import com.github.cc3002.finalreality.controller.phases.EnemySelectingPhase;
 import com.github.cc3002.finalreality.model.character.player.CharacterClass;
 
 import java.util.List;
@@ -69,6 +70,18 @@ public class Enemy extends AbstractCharacter {
 
   @Override
   public void attackedByEnemy() {
+  }
+
+  @Override
+  public void decision() {
+    state.toEnemySelectingPhase();
+    state.toAttackPhase();
+    state.attack();
+  }
+
+  @Override
+  public boolean isPlayerCharacter() {
+    return false;
   }
 
   @Override

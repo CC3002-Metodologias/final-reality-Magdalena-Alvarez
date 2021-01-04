@@ -2,8 +2,8 @@ package com.github.cc3002.finalreality.model.weapon;
 
 import com.github.cc3002.finalreality.model.character.ICharacter;
 import com.github.cc3002.finalreality.model.character.player.*;
-
-import java.util.Objects;
+import com.github.cc3002.finalreality.model.character.player.Mage.Black_Mage;
+import com.github.cc3002.finalreality.model.character.player.Mage.White_Mage;
 
 /**
  * A class that holds all the information of a weapon.

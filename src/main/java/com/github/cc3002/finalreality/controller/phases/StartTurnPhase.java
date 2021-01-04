@@ -4,21 +4,20 @@ import com.github.cc3002.finalreality.model.character.Enemy;
 import com.github.cc3002.finalreality.model.character.ICharacter;
 
 public class StartTurnPhase extends Phase{
-    ICharacter playingChar;
     /*
 
      */
-    public StartTurnPhase() {
-        this.playingChar = controller.startTurn();
+    public StartTurnPhase(){
     }
 
     @Override
     public void toDecisionPhase() {
-        changePhase(new PlayerDecisionPhase(playingChar));
+        changePhase(new PlayerDecisionPhase());
     }
 
     @Override
     public void toEnemySelectingPhase() {
-        changePhase(new EnemySelectingPhase((Enemy)playingChar));
+        changePhase(new EnemySelectingPhase());
+
     }
 }
