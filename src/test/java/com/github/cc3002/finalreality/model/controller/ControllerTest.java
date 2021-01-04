@@ -97,7 +97,8 @@ public class ControllerTest {
         for (int i = 0; i<c.getNumenemies();i++){
             while (c.getCharacterStatus(c.getEnemy(i))) {
                 Thread.sleep(1200);
-                ICharacter playingCharacter = c.startTurn();
+                c.startTurn();
+                ICharacter playingCharacter = c.getPlayingChar();
                 c.attack(playingCharacter,c.getEnemy(i));
                 c.endTurn(playingCharacter);
             }
@@ -111,7 +112,8 @@ public class ControllerTest {
         for (int i = 0; i<c.getNumPlayers();i++){
             while (c.getCharacterStatus(c.getPlayer(i))) {
                 Thread.sleep(1200);
-                ICharacter playingCharacter = c.startTurn();
+                c.startTurn();
+                ICharacter playingCharacter = c.getPlayingChar();
                 c.attack(playingCharacter,c.getPlayer(i));
                 c.endTurn(playingCharacter);
             }
@@ -140,17 +142,23 @@ public class ControllerTest {
     void gameTurnTest() throws InterruptedException {
         starGame();
         Thread.sleep(1200);
-        ICharacter playingChar = c.startTurn();
+        c.startTurn();
+        ICharacter playingChar = c.getPlayingChar();
         oneTurn(playingChar);
-        playingChar=c.startTurn();
+        c.startTurn();
+        playingChar = c.getPlayingChar();
         oneTurn(playingChar);
-        playingChar = c.startTurn();
+        c.startTurn();
+        playingChar = c.getPlayingChar();
         oneTurn(playingChar);
-        playingChar = c.startTurn();
+        c.startTurn();
+        playingChar = c.getPlayingChar();
         oneTurn(playingChar);
-        playingChar = c.startTurn();
+        c.startTurn();
+        playingChar = c.getPlayingChar();
         oneTurn(playingChar);
-        playingChar = c.startTurn();
+        c.startTurn();
+        playingChar = c.getPlayingChar();
         oneTurn(playingChar);
 
 
