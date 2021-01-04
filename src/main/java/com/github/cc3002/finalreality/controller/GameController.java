@@ -1,6 +1,6 @@
 package com.github.cc3002.finalreality.controller;
 
-import com.github.cc3002.finalreality.controller.phases.Phase;
+import com.github.cc3002.finalreality.controller.phases.*;
 import com.github.cc3002.finalreality.model.character.Enemy;
 import com.github.cc3002.finalreality.model.character.ICharacter;
 import com.github.cc3002.finalreality.model.character.player.*;
@@ -27,7 +27,8 @@ public class GameController {
     private boolean result;
     private final PlayerHandler pHandler = new PlayerHandler(this);
     private final EnemyHandler eHandler = new EnemyHandler(this);
-    private Phase phase;
+    private IPhase phase;
+    private ICharacter playingChar = null;
 
     /**
      * create a new controller.
@@ -211,6 +212,19 @@ public class GameController {
         return weapon.getName();
     }
 
+    public ICharacter getPlayingChar() {
+        return playingChar;
+    }
+
+    public String getPlayingCharName() {
+        if (playingChar!= null) {
+            return playingChar.getName();
+        }
+        else {
+            return "No player";
+        }
+    }
+
     /**
      * returns the number of players
      * @return
@@ -259,6 +273,10 @@ public class GameController {
      */
     public Enemy getEnemy(int i){
         return enemies.get(i);
+    }
+
+    public IPhase getPhase(){
+        return phase;
     }
 
     /**
@@ -383,7 +401,7 @@ public class GameController {
      */
     public void startGame(){
         for (int i=0; i<5; i++){
-            createEnemy("Enemy"+i, 2*(i+1)+5);
+            createEnemy("Enemy"+i, 2*(i)+8);
         }
         for (int i=0; i<party.size();i++) {
             getPlayer(i).waitTurn();
@@ -398,8 +416,13 @@ public class GameController {
      * @return
      *      first character in the turn queue
      */
-    public ICharacter startTurn(){
-        return turns.poll();
+    public void startTurn(){
+
+        ICharacter character = turns.poll();
+        setPhase(new StartTurnPhase());
+        character.setState(phase);
+        phase.setCharacter(character);
+        this.playingChar = character;
     }
 
     /**
@@ -410,10 +433,31 @@ public class GameController {
         if (character.getStatus()) {
             character.waitTurn();
         }
+        this.playingChar = null;
     }
 
-    public void setPhase(Phase phase) {
+    public void setPhase(IPhase phase) {
         this.phase = phase;
         phase.setController(this);
+    }
+
+    public void toDecision(ICharacter playingChar) {
+        playingChar.decision();
+    }
+
+
+    public void goToInventory(int i) {
+        phase.setNumber(i);
+        phase.equipFromTheInventory();
+    }
+
+    public void selectTarget(ICharacter enemy) {
+        phase.toPlayerSelectingPhase();
+        phase.setTarget(enemy);
+
+    }
+
+    public void toAttack() {
+        phase.attack();
     }
 }
