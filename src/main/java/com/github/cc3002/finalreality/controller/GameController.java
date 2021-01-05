@@ -24,6 +24,7 @@ public class GameController {
     private int maxenemies = 8;
     private int aliveenemies =0;
     private final BlockingQueue<ICharacter> turns;
+    private boolean finished = false;
     private boolean result;
     private final PlayerHandler pHandler = new PlayerHandler(this);
     private final EnemyHandler eHandler = new EnemyHandler(this);
@@ -35,6 +36,7 @@ public class GameController {
      */
     public GameController() {
         this.turns = new LinkedBlockingQueue<>();
+        setPhase(new WaitingState());
     }
     /**
      * get the game's result.
@@ -224,7 +226,9 @@ public class GameController {
             return "No player";
         }
     }
-
+    public boolean isAPlayer(){
+        return playingChar.isPlayerCharacter();
+    }
     /**
      * returns the number of players
      * @return
@@ -376,6 +380,10 @@ public class GameController {
         attacker.attack(victim);
     }
 
+    public boolean isFinished() {
+        return finished;
+    }
+
     /**
      * when a player dies subtracts 1 to the alive players. If all players are dead, you lose
      */
@@ -383,6 +391,7 @@ public class GameController {
         alivePlayers-=1;
         if (alivePlayers==0){
             result =false;
+            finished = true;
         }
     }
 
@@ -393,6 +402,7 @@ public class GameController {
         aliveenemies-=1;
         if (aliveenemies<=0){
             result =true;
+            finished = true;
         }
     }
 
@@ -401,7 +411,7 @@ public class GameController {
      */
     public void startGame(){
         for (int i=0; i<5; i++){
-            createEnemy("Enemy"+i, 2*(i)+8);
+            createEnemy("Demon", 2*(i)+8);
         }
         for (int i=0; i<party.size();i++) {
             getPlayer(i).waitTurn();
@@ -419,9 +429,10 @@ public class GameController {
     public void startTurn(){
 
         ICharacter character = turns.poll();
-        setPhase(new StartTurnPhase());
         character.setState(phase);
         phase.setCharacter(character);
+        phase.toStartTurnPhase();
+
         this.playingChar = character;
     }
 
@@ -459,5 +470,6 @@ public class GameController {
 
     public void toAttack() {
         phase.attack();
+        phase.endTurn();
     }
 }

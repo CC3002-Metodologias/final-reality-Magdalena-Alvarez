@@ -67,8 +67,9 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
   }
   @Override
   public void attackedByEnemy() {
-    this.life-= 8-this.dp;
+    this.life-= 13-this.dp;
     if (this.life <=0){
+      this.life=0;
       this.status = false;
       c.firePropertyChange("StatusCharacter",true, false);
     }

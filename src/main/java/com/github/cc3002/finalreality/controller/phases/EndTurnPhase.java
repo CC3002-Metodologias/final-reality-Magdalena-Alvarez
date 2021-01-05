@@ -8,6 +8,7 @@ public class EndTurnPhase extends Phase {
     public EndTurnPhase() {
 
     }
+    @Override
     public void endTurn(){
         controller.endTurn(character);
         toWaitingPhase();

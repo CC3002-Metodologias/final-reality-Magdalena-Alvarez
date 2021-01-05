@@ -28,4 +28,6 @@ public interface IPhase {
     void setNumber(int i);
 
     void attack();
+
+    void endTurn();
 }

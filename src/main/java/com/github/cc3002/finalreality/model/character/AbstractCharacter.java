@@ -97,6 +97,7 @@ public abstract class AbstractCharacter implements ICharacter {
 
     this.life-= 8- this.dp;
     if (this.life <=0) {
+      this.life=0;
       this.status = false;
       c.firePropertyChange("StatusCharacter",true, false);
     }
@@ -106,6 +107,7 @@ public abstract class AbstractCharacter implements ICharacter {
   public void attackedByBow(){
     this.life-= 15- this.dp;
     if (this.life <=0) {
+      this.life=0;
       this.status = false;
       c.firePropertyChange("StatusCharacter",true, false);
     }
@@ -115,6 +117,7 @@ public abstract class AbstractCharacter implements ICharacter {
   public void attackedByKnife() {
     this.life-=5-this.dp;
     if (this.life <=0) {
+      this.life=0;
       this.status = false;
       c.firePropertyChange("StatusCharacter",true, false);
     }
@@ -124,6 +127,7 @@ public abstract class AbstractCharacter implements ICharacter {
   public void attackedBySword() {
     this.life-= 15-this.dp;
     if (this.life <=0) {
+      this.life=0;
       this.status = false;
       c.firePropertyChange("StatusCharacter",true, false);
     }
@@ -133,6 +137,7 @@ public abstract class AbstractCharacter implements ICharacter {
   public void attackedByStaff() {
     this.life-= 5-this.dp;
     if (this.life <=0) {
+      this.life=0;
       this.status = false;
       c.firePropertyChange("StatusCharacter",true, false);
     }

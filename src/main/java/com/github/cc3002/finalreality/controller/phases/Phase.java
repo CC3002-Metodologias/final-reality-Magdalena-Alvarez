@@ -79,4 +79,9 @@ public abstract class Phase implements IPhase{
     public void setNumber(int i){
 
     }
+
+    @Override
+    public void endTurn() {
+
+    }
 }

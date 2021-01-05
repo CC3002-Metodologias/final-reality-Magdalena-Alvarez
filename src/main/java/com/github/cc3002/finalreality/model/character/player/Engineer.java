@@ -18,6 +18,7 @@ public class Engineer extends AbstractPlayerCharacter{
      */
     public Engineer(@NotNull String name, @NotNull BlockingQueue<ICharacter> turnsQueue) {
         super(name, turnsQueue, CharacterClass.ENGINEER);
+        this.dp =2;
     }
 
     @Override

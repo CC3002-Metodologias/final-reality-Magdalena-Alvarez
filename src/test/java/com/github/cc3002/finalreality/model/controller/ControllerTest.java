@@ -2,6 +2,7 @@ package com.github.cc3002.finalreality.model.controller;
 
 import com.github.cc3002.finalreality.controller.GameController;
 import com.github.cc3002.finalreality.controller.phases.IPhase;
+import com.github.cc3002.finalreality.controller.phases.PlayerDecisionPhase;
 import com.github.cc3002.finalreality.controller.phases.StartTurnPhase;
 import com.github.cc3002.finalreality.model.character.Enemy;
 import com.github.cc3002.finalreality.model.character.ICharacter;
@@ -131,6 +132,11 @@ public class ControllerTest {
         assertNotEquals(expectedStart,c.getPhase());
         c.toDecision(playingChar);
         if (playingChar.isPlayerCharacter()){
+            IPhase expectedPhase = new PlayerDecisionPhase();
+            expectedPhase.setController(c);
+            expectedPhase.setCharacter(c.getPlayingChar());
+            assertEquals(expectedPhase,c.getPhase());
+            assertEquals(expectedPhase,c.getPlayingChar().getPhase());
             c.goToInventory(2);
             c.goToInventory(4);
             c.selectTarget(c.getEnemy(3));

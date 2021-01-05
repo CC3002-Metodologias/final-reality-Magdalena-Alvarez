@@ -11,7 +11,9 @@ public class AttackPhase extends Phase {
 
     }
     public void attack(){
-        controller.attack(character, target);
+        if (controller.getCharacterStatus(target)) {
+            controller.attack(character, target);
+        }
         toEndTurnPhase();
     }
     @Override

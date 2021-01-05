@@ -32,8 +32,8 @@ public class Enemy extends AbstractCharacter {
       @NotNull final BlockingQueue<ICharacter> turnsQueue) {
     super(turnsQueue, name, CharacterClass.ENEMY);
     this.weight = weight;
-    this.attack_points = 8;
-    this.dp = 2;
+    this.attack_points = 15;
+    this.dp = 4;
     this.life = 30;
   }
 
@@ -77,6 +77,7 @@ public class Enemy extends AbstractCharacter {
     state.toEnemySelectingPhase();
     state.toAttackPhase();
     state.attack();
+    state.endTurn();
   }
 
   @Override
