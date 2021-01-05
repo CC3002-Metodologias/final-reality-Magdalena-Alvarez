@@ -75,7 +75,7 @@ public class ControllerTest {
         assertEquals(c.getCharacterName(enemy1),expected_name);
         int expected_weight = 15;
         assertEquals(c.getWeight((Enemy) enemy1),expected_weight);
-        int expected_AP = 8;
+        int expected_AP = 15;
         assertEquals(c.getEnemyAttack((Enemy) enemy1),expected_AP);
     }
     @Test

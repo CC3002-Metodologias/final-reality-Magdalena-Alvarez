@@ -67,7 +67,7 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
   }
   @Override
   public void attackedByEnemy() {
-    this.life-= 13-this.dp;
+    this.life-= 15-this.dp;
     if (this.life <=0){
       this.life=0;
       this.status = false;
