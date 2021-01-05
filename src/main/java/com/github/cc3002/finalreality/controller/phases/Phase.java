@@ -32,25 +32,29 @@ public abstract class Phase implements IPhase{
     }
 
     @Override
-    public void toDecisionPhase(){}
+    public void toDecisionPhase() throws InvalidTransitionException {
+        throw new InvalidTransitionException("You can't go to Decision from here");
+    }
     @Override
-    public void toEnemySelectingPhase(){}
+    public void toEnemySelectingPhase() throws InvalidTransitionException {
+        throw new InvalidTransitionException("You can't go to Enemy Selection from here");
+    }
     @Override
-    public void toStartTurnPhase(){}
+    public void toStartTurnPhase() throws InvalidTransitionException {throw new InvalidTransitionException("You can't go to Start turn from here");}
     @Override
-    public void toAttackPhase(){}
+    public void toAttackPhase() throws InvalidTransitionException {
+        throw new InvalidTransitionException("You can't go to Attack from here");
+    }
     @Override
-    public void toEndTurnPhase(){}
+    public void toEndTurnPhase() throws InvalidTransitionException {throw new InvalidTransitionException("You can't go to end turn from here");}
     @Override
-    public void toMagicState(){}
-    @Override
-    public void toInventoryState(){}
-    @Override
-    public void toPlayerSelectingPhase(){}
+    public void toPlayerSelectingPhase() throws InvalidTransitionException {
+        throw new InvalidTransitionException("You can't go to Player selection from here");
+    }
 
     @Override
-    public void toWaitingPhase() {
-
+    public void toWaitingPhase() throws InvalidTransitionException {
+        throw new InvalidTransitionException("You can't go to Waiting from here");
     }
 
     @Override
@@ -67,21 +71,21 @@ public abstract class Phase implements IPhase{
     }
 
     @Override
-    public void equipFromTheInventory() {
-
+    public void equipFromTheInventory() throws InvalidMethodException {
+        throw new InvalidMethodException("You can't equip from the inventory in this phase");
     }
 
     @Override
-    public void setTarget(ICharacter enemy) {
-
+    public void setTarget(ICharacter enemy) throws InvalidMethodException {
+        throw new InvalidMethodException("You can't set the target in this phase");
     }
 
-    public void setNumber(int i){
-
+    public void setNumber(int i) throws InvalidMethodException {
+        throw new InvalidMethodException("You can't set the number in this phase");
     }
 
     @Override
-    public void endTurn() {
-
+    public void endTurn() throws InvalidMethodException {
+        throw new InvalidMethodException("You can't end the turn in this phase");
     }
 }

@@ -10,24 +10,22 @@ public interface IPhase {
     void changePhase(IPhase phase);
 
 
-    void toDecisionPhase();
-     void toEnemySelectingPhase();
-     void toStartTurnPhase();
-     void toAttackPhase();
-     void toEndTurnPhase();
-     void toMagicState();
-     void toInventoryState();
-     void toPlayerSelectingPhase();
+    void toDecisionPhase() throws InvalidTransitionException;
+     void toEnemySelectingPhase() throws InvalidTransitionException;
+     void toStartTurnPhase() throws InvalidTransitionException;
+     void toAttackPhase() throws InvalidTransitionException;
+     void toEndTurnPhase() throws InvalidTransitionException;
+     void toPlayerSelectingPhase() throws InvalidTransitionException;
 
-    void equipFromTheInventory();
+    void equipFromTheInventory() throws InvalidMethodException;
 
-    void setTarget(ICharacter enemy);
+    void setTarget(ICharacter enemy) throws InvalidMethodException;
 
-    void toWaitingPhase();
+    void toWaitingPhase() throws InvalidTransitionException;
 
-    void setNumber(int i);
+    void setNumber(int i) throws InvalidMethodException;
 
     void attack();
 
-    void endTurn();
+    void endTurn() throws InvalidMethodException;
 }

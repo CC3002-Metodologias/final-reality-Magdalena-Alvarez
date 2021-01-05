@@ -1,5 +1,6 @@
 package com.github.cc3002.finalreality.model.character.player;
 
+import com.github.cc3002.finalreality.controller.phases.InvalidTransitionException;
 import com.github.cc3002.finalreality.controller.phases.PlayerDecisionPhase;
 import com.github.cc3002.finalreality.model.character.AbstractCharacter;
 //import com.github.cc3002.finalreality.model.character.Enemy;
@@ -82,6 +83,10 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
 
   @Override
   public void decision() {
-    state.toDecisionPhase();
+    try {
+      state.toDecisionPhase();
+    } catch (InvalidTransitionException e) {
+      e.printStackTrace();
+    }
   }
 }

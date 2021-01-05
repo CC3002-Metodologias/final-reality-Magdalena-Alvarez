@@ -52,10 +52,14 @@ public abstract class AbstractCharacterTest {
       final ICharacter sameClassDifferentCharacter,
       final ICharacter differentClassCharacter, final ICharacter sameClassDifferentName) {
     assertEquals(expectedCharacter, testEqualCharacter);
-    assertNotEquals(sameClassDifferentCharacter, testEqualCharacter);
-    assertNotEquals(testEqualCharacter, differentClassCharacter);
-    assertNotEquals(testEqualCharacter, sameClassDifferentName);
     assertEquals(expectedCharacter.hashCode(), testEqualCharacter.hashCode());
+    assertNotEquals(sameClassDifferentCharacter, testEqualCharacter);
+    assertNotEquals(sameClassDifferentCharacter.hashCode(), testEqualCharacter.hashCode());
+    assertNotEquals(testEqualCharacter, differentClassCharacter);
+    assertNotEquals(testEqualCharacter.hashCode(), differentClassCharacter.hashCode());
+    assertNotEquals(testEqualCharacter, sameClassDifferentName);
+    assertNotEquals(testEqualCharacter.hashCode(), sameClassDifferentName.hashCode());
+
   }
 
   protected void basicSetUp() {

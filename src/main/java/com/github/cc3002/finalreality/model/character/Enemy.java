@@ -1,6 +1,8 @@
 package com.github.cc3002.finalreality.model.character;
 
 import com.github.cc3002.finalreality.controller.phases.EnemySelectingPhase;
+import com.github.cc3002.finalreality.controller.phases.InvalidMethodException;
+import com.github.cc3002.finalreality.controller.phases.InvalidTransitionException;
 import com.github.cc3002.finalreality.model.character.player.CharacterClass;
 
 import java.util.List;
@@ -74,10 +76,22 @@ public class Enemy extends AbstractCharacter {
 
   @Override
   public void decision() {
-    state.toEnemySelectingPhase();
-    state.toAttackPhase();
+    try {
+      state.toEnemySelectingPhase();
+    } catch (InvalidTransitionException e) {
+      e.printStackTrace();
+    }
+    try {
+      state.toAttackPhase();
+    } catch (InvalidTransitionException e) {
+      e.printStackTrace();
+    }
     state.attack();
-    state.endTurn();
+    try {
+      state.endTurn();
+    } catch (InvalidMethodException e) {
+      e.printStackTrace();
+    }
   }
 
   @Override

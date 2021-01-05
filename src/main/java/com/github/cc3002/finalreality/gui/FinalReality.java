@@ -64,10 +64,9 @@ public class FinalReality extends Application {
   private Label info4e = new Label();
   private Label info5e = new Label();
   private Group Vicg = new Group();
-  private Label vicL = new Label("You win");
+  private Label vicL = new Label("YOU WON!");
   private Scene secene;
   private Scene loseScene ;
-  private MovableNode sprite ;
   private ArrayList<ImageView> imges = new ArrayList<ImageView>();
 
   public static void main(String[] args) {
@@ -183,8 +182,8 @@ public class FinalReality extends Application {
     imgEn5.setFitWidth(delta);
     imgEn5.setLayoutX(x+1080);
     imgEn5.setLayoutY(y+180);
-    vicL.setLayoutX(50);
-    vicL.setLayoutY(50);
+    vicL.setLayoutX(120);
+    vicL.setLayoutY(400);
     label.setLayoutX(10);
     label.setLayoutY(10);
     labelEn.setLayoutX(150);
@@ -194,7 +193,7 @@ public class FinalReality extends Application {
     Group midRoot = CreateZone();
     Group rightRoot = CreateEquipZone();
     Group loseG = new Group();
-    Label lose = new Label("you lost");
+    Label lose = new Label("YOU LOST");
     lose.setLayoutX(150);
     lose.setLayoutY(50);
     loseG.getChildren().add(backgroundlost);
@@ -203,7 +202,7 @@ public class FinalReality extends Application {
     loseG.getChildren().add(lose);
     Vicg.getChildren().add(backgroundVic);
     vicL.setFont(Font.font("Verdana",30));
-    vicL.setTextFill(Color.WHITE);
+    vicL.setTextFill(Color.RED);
     Vicg.getChildren().add(vicL);
     secene = new Scene(Vicg,450,500);
     loseScene = new Scene(loseG,480,280);
@@ -748,13 +747,6 @@ public class FinalReality extends Application {
         else {
           group.getChildren().add(enText);
           controller.getPlayingChar().decision();
-          try {
-            Thread.sleep(3000);
-          } catch (InterruptedException e) {
-            e.printStackTrace();
-          }
-
-
           group.getChildren().add(contTheGame);
 
         }
@@ -805,19 +797,19 @@ public class FinalReality extends Application {
         int dp1e = controller.getCharacterDp(controller.getEnemy(0));
         boolean status1e = controller.getCharacterStatus(controller.getEnemy(0));
         int W1e = controller.getWeight((controller.getEnemy(0)));
-        info1e.setText("Enemy 1: " + name1e + '\n' + "HP: " + hp1e + '\n' + "DP: " + dp1e + '\n' + "Alive? " + status1e + '\n' + "Weapon: " + W1e);
+        info1e.setText("Enemy 1: " + name1e + '\n' + "HP: " + hp1e + '\n' + "DP: " + dp1e + '\n' + "Alive? " + status1e + '\n' + "Weight: " + W1e);
         String name2e = controller.getCharacterName(controller.getEnemy(1));
         int hp2e = controller.getCharacterLife(controller.getEnemy(1));
         int dp2e = controller.getCharacterDp(controller.getEnemy(1));
         boolean status2e = controller.getCharacterStatus(controller.getPlayer(1));
         int W2e = controller.getWeight((controller.getEnemy(1)));
-        info2e.setText("Enemy 2: " + name2e + '\n' + "HP: " + hp2e + '\n' + "DP: " + dp2e + '\n' + "Alive? " + status2e + '\n' + "Weapon: " + W2e);
+        info2e.setText("Enemy 2: " + name2e + '\n' + "HP: " + hp2e + '\n' + "DP: " + dp2e + '\n' + "Alive? " + status2e + '\n' + "Weight: " + W2e);
         String name3e = controller.getCharacterName(controller.getEnemy(2));
         int hp3e = controller.getCharacterLife(controller.getEnemy(2));
         int dp3e = controller.getCharacterDp(controller.getEnemy(2));
         boolean status3e = controller.getCharacterStatus(controller.getEnemy(2));
         int W3e = controller.getWeight((controller.getEnemy(2)));
-        info3e.setText("Enemy 3: " + name3e + '\n' + "HP: " + hp3e + '\n' + "DP: " + dp3e + '\n' + "Alive? " + status3e + '\n' + "Weapon: " + W3e);
+        info3e.setText("Enemy 3: " + name3e + '\n' + "HP: " + hp3e + '\n' + "DP: " + dp3e + '\n' + "Alive? " + status3e + '\n' + "Weight: " + W3e);
         String name4e = controller.getCharacterName(controller.getEnemy(3));
         int hp4e = controller.getCharacterLife(controller.getEnemy(3));
         int dp4e = controller.getCharacterDp(controller.getEnemy(3));

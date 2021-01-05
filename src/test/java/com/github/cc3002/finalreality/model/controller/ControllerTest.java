@@ -1,9 +1,7 @@
 package com.github.cc3002.finalreality.model.controller;
 
 import com.github.cc3002.finalreality.controller.GameController;
-import com.github.cc3002.finalreality.controller.phases.IPhase;
-import com.github.cc3002.finalreality.controller.phases.PlayerDecisionPhase;
-import com.github.cc3002.finalreality.controller.phases.StartTurnPhase;
+import com.github.cc3002.finalreality.controller.phases.*;
 import com.github.cc3002.finalreality.model.character.Enemy;
 import com.github.cc3002.finalreality.model.character.ICharacter;
 import com.github.cc3002.finalreality.model.character.player.IPlayer;
@@ -92,42 +90,44 @@ public class ControllerTest {
         c.equip(c.getPlayer(4),0);
         c.startGame();
     }
-    @Test
-    void gameTestVictory() throws InterruptedException {
-        starGame();
-        for (int i = 0; i<c.getNumenemies();i++){
-            while (c.getCharacterStatus(c.getEnemy(i))) {
-                Thread.sleep(1200);
-                c.startTurn();
-                ICharacter playingCharacter = c.getPlayingChar();
-                c.attack(playingCharacter,c.getEnemy(i));
-                c.endTurn(playingCharacter);
-            }
-        }
-        assertTrue(c.getResult());
 
-    }
-    @Test
-    void gameTestDefeat() throws InterruptedException {
-        starGame();
-        for (int i = 0; i<c.getNumPlayers();i++){
-            while (c.getCharacterStatus(c.getPlayer(i))) {
-                Thread.sleep(1200);
-                c.startTurn();
-                ICharacter playingCharacter = c.getPlayingChar();
-                c.attack(playingCharacter,c.getPlayer(i));
-                c.endTurn(playingCharacter);
-            }
-        }
-        assertFalse(c.getResult());
-
-    }
-    void oneTurn(ICharacter playingChar){
+    void oneTurn(ICharacter playingChar) {
         IPhase expectedStart = new StartTurnPhase();
         expectedStart.setController(c);
         expectedStart.setCharacter(playingChar);
         assertEquals(expectedStart, c.getPhase());
+        assertEquals(expectedStart.hashCode(),c.getPhase().hashCode());
         assertEquals(expectedStart,playingChar.getPhase());
+        try {
+            c.getPhase().toEndTurnPhase();
+            fail("You can't go to end turn from here");
+        } catch (InvalidTransitionException e) {
+        }
+        try {
+            c.getPhase().toWaitingPhase();
+            fail("You can't go to waiting from here");
+        } catch (InvalidTransitionException e) {
+        }
+        try {
+            c.getPhase().toStartTurnPhase();
+            fail("You can't go to start turn from here");
+        } catch (InvalidTransitionException e) {
+        }
+        try {
+            c.getPhase().toAttackPhase();
+            fail("You can't go to attack from here");
+        } catch (InvalidTransitionException e) {
+        }
+        try {
+            c.getPhase().toPlayerSelectingPhase();
+            fail("You can't go to start turn from here");
+        } catch (InvalidTransitionException e) {
+        }
+        try {
+            c.getPhase().endTurn();
+            fail("You can't end the turn in this phase");
+        } catch ( InvalidMethodException e) {
+        }
         expectedStart.setController(new GameController());
         assertNotEquals(expectedStart,c.getPhase());
         c.toDecision(playingChar);
@@ -137,11 +137,38 @@ public class ControllerTest {
             expectedPhase.setCharacter(c.getPlayingChar());
             assertEquals(expectedPhase,c.getPhase());
             assertEquals(expectedPhase,c.getPlayingChar().getPhase());
+
             c.goToInventory(2);
             c.goToInventory(4);
             c.selectTarget(c.getEnemy(3));
             c.toAttack();
         }
+        try {
+            c.getPhase().toEnemySelectingPhase();
+            fail("You can't go to Enemy Selection from here");
+        } catch (InvalidTransitionException e) {
+        }
+        try {
+            c.getPhase().toDecisionPhase();
+            fail("You can't go to Decision from here");
+        } catch (InvalidTransitionException e) {
+        }
+        try {
+            c.getPhase().equipFromTheInventory();
+            fail("You can't equip from the inventory in this phase");
+        } catch ( InvalidMethodException e) {
+        }
+        try {
+            c.getPhase().setTarget(c.getEnemy(0));
+            fail("You can't set the target in this phase");
+        } catch ( InvalidMethodException e) {
+        }
+        try {
+            c.getPhase().setNumber(0);
+            fail("You can't set the number in this phase");
+        } catch ( InvalidMethodException e) {
+        }
+
         assertNotEquals(expectedStart,c.getPhase());
     }
     @Test
@@ -150,6 +177,24 @@ public class ControllerTest {
         Thread.sleep(1200);
         c.startTurn();
         ICharacter playingChar = c.getPlayingChar();
+        oneTurn(playingChar);
+        c.startTurn();
+        playingChar = c.getPlayingChar();
+        oneTurn(playingChar);
+        c.startTurn();
+        playingChar = c.getPlayingChar();
+        oneTurn(playingChar);
+        c.startTurn();
+        playingChar = c.getPlayingChar();
+        oneTurn(playingChar);
+        c.startTurn();
+        playingChar = c.getPlayingChar();
+        oneTurn(playingChar);
+        c.startTurn();
+        playingChar = c.getPlayingChar();
+        oneTurn(playingChar);
+        c.startTurn();
+        playingChar = c.getPlayingChar();
         oneTurn(playingChar);
         c.startTurn();
         playingChar = c.getPlayingChar();

@@ -13,7 +13,7 @@ public class KnifeWeapon extends AbstractWeapon{
      *      New Knife's name
      */
     public KnifeWeapon(String name) {
-        super(name, 5, 8, WeaponType.KNIFE);
+        super(name, 5, 10, WeaponType.KNIFE);
     }
 
     @Override
