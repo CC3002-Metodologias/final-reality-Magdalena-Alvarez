@@ -4,15 +4,11 @@ import com.github.cc3002.finalreality.model.character.AbstractCharacter;
 //import com.github.cc3002.finalreality.model.character.Enemy;
 import com.github.cc3002.finalreality.model.character.ICharacter;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import com.github.cc3002.finalreality.model.weapon.IWeapon;
-import com.github.cc3002.finalreality.model.weapon.AbstractWeapon;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -66,12 +62,23 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
   }
   @Override
   public void attackedByEnemy() {
-    this.life-= 8-this.dp;
+    this.life-= 15-this.dp;
     if (this.life <=0){
+      this.life=0;
       this.status = false;
       c.firePropertyChange("StatusCharacter",true, false);
     }
   }
 
+  @Override
+  public boolean isPlayerCharacter() {
+    return true;
+  }
+
+  @Override
+  public void decision() {
+
+    state.toDecisionPhase();
+  }
 
 }

@@ -1,6 +1,7 @@
 package com.github.cc3002.finalreality.model.controller;
 
 import com.github.cc3002.finalreality.controller.GameController;
+import com.github.cc3002.finalreality.controller.phases.*;
 import com.github.cc3002.finalreality.model.character.Enemy;
 import com.github.cc3002.finalreality.model.character.ICharacter;
 import com.github.cc3002.finalreality.model.character.player.IPlayer;
@@ -16,8 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ControllerTest {
     private final Random index = new Random(4234);
-    private BlockingQueue<ICharacter> turns = new LinkedBlockingQueue<>();
-    private final GameController c = new GameController(turns);
+    private final GameController c = new GameController();
     private final String BlackMageName = "Mage 1";
     private final String EnemyName = "Enemy";
     private final String EngineerName = "Engie";
@@ -73,7 +73,7 @@ public class ControllerTest {
         assertEquals(c.getCharacterName(enemy1),expected_name);
         int expected_weight = 15;
         assertEquals(c.getWeight((Enemy) enemy1),expected_weight);
-        int expected_AP = 8;
+        int expected_AP = 15;
         assertEquals(c.getEnemyAttack((Enemy) enemy1),expected_AP);
     }
     @Test
@@ -90,32 +90,105 @@ public class ControllerTest {
         c.equip(c.getPlayer(4),0);
         c.startGame();
     }
+
     @Test
     void gameTestVictory() throws InterruptedException {
-        starGame();
-        for (int i = 0; i<c.getNumenemies();i++){
-            while (c.getCharacterStatus(c.getEnemy(i))) {
-                Thread.sleep(1200);
-                ICharacter playingCharacter = c.startTurn();
-                c.attack(playingCharacter,c.getEnemy(i));
-                c.endTurn(playingCharacter);
-            }
-        }
-        assertTrue(c.getResult());
+            starGame();
+            for (int i = 0; i<c.getNumenemies();i++){
+                while (c.getCharacterStatus(c.getEnemy(i))) {
 
-    }
+                    Thread.sleep(1200);
+                    c.startTurn();
+                    ICharacter playingCharacter = c.getPlayingChar();
+                    c.attack(playingCharacter,c.getEnemy(i));
+                    c.endTurn(playingCharacter);
+
+                }
+            }
+            assertTrue(c.getResult());
+        }
+
     @Test
     void gameTestDefeat() throws InterruptedException {
-        starGame();
-        for (int i = 0; i<c.getNumPlayers();i++){
-            while (c.getCharacterStatus(c.getPlayer(i))) {
-                Thread.sleep(1200);
-                ICharacter playingCharacter = c.startTurn();
-                c.attack(playingCharacter,c.getPlayer(i));
-                c.endTurn(playingCharacter);
+            starGame();
+            for (int i = 0; i<c.getNumPlayers();i++){
+                while (c.getCharacterStatus(c.getPlayer(i))) {
+                        Thread.sleep(1200);
+                        c.startTurn();
+                        ICharacter playingCharacter = c.getPlayingChar();
+                        c.attack(playingCharacter,c.getPlayer(i));
+                        c.endTurn(playingCharacter);
+                    }
             }
-        }
         assertFalse(c.getResult());
+    }
+
+    void oneTurn(ICharacter playingChar) {
+        IPhase expectedStart = new StartTurnPhase();
+        expectedStart.setController(c);
+        expectedStart.setCharacter(playingChar);
+        assertEquals(expectedStart, c.getPhase());
+        assertEquals(expectedStart.hashCode(),c.getPhase().hashCode());
+        assertEquals(expectedStart,playingChar.getPhase());
+        expectedStart.setController(new GameController());
+        assertNotEquals(expectedStart,c.getPhase());
+        c.toDecision(playingChar);
+        if (playingChar.isPlayerCharacter()){
+            IPhase expectedPhase = new PlayerDecisionPhase();
+            expectedPhase.setController(c);
+            expectedPhase.setCharacter(c.getPlayingChar());
+            assertEquals(expectedPhase,c.getPhase());
+            assertEquals(expectedPhase,c.getPlayingChar().getPhase());
+
+            c.goToInventory(2);
+            c.goToInventory(4);
+            c.selectTarget(c.getEnemy(3));
+            c.toAttack();
+        }
+        assertNotEquals(expectedStart,c.getPhase());
+    }
+
+    @Test
+    void gameTurnTest() throws InterruptedException {
+        starGame();
+        Thread.sleep(1200);
+        c.startTurn();
+        ICharacter playingChar = c.getPlayingChar();
+        oneTurn(playingChar);
+        c.startTurn();
+        playingChar = c.getPlayingChar();
+        oneTurn(playingChar);
+        c.startTurn();
+        playingChar = c.getPlayingChar();
+        oneTurn(playingChar);
+        c.startTurn();
+        playingChar = c.getPlayingChar();
+        oneTurn(playingChar);
+        c.startTurn();
+        playingChar = c.getPlayingChar();
+        oneTurn(playingChar);
+        c.startTurn();
+        playingChar = c.getPlayingChar();
+        oneTurn(playingChar);
+        c.startTurn();
+        playingChar = c.getPlayingChar();
+        oneTurn(playingChar);
+        c.startTurn();
+        playingChar = c.getPlayingChar();
+        oneTurn(playingChar);
+        c.startTurn();
+        playingChar = c.getPlayingChar();
+        oneTurn(playingChar);
+        c.startTurn();
+        playingChar = c.getPlayingChar();
+        oneTurn(playingChar);
+        c.startTurn();
+        playingChar = c.getPlayingChar();
+        oneTurn(playingChar);
+        c.startTurn();
+        playingChar = c.getPlayingChar();
+        oneTurn(playingChar);
+
 
     }
 }

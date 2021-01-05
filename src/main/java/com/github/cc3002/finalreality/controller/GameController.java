@@ -1,37 +1,42 @@
 package com.github.cc3002.finalreality.controller;
 
+import com.github.cc3002.finalreality.controller.phases.*;
 import com.github.cc3002.finalreality.model.character.Enemy;
 import com.github.cc3002.finalreality.model.character.ICharacter;
 import com.github.cc3002.finalreality.model.character.player.*;
+import com.github.cc3002.finalreality.model.character.player.Black_Mage;
+import com.github.cc3002.finalreality.model.character.player.White_Mage;
 import com.github.cc3002.finalreality.model.weapon.*;
-import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.Callable;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class GameController {
     private List<IPlayer> party = new ArrayList<>();
     private List<Enemy> enemies = new ArrayList<>();
-    public List<IWeapon> inventory = new ArrayList<>();
+    private List<IWeapon> inventory = new ArrayList<>();
     private int numPlayers = 0;
     private int numenemies = 0;
     private int maxPlayers = 5;
     private int alivePlayers = 0;
-    private int maxenemies = 10;
+    private int maxenemies = 8;
     private int aliveenemies =0;
     private final BlockingQueue<ICharacter> turns;
+    private boolean finished = false;
     private boolean result;
     private final PlayerHandler pHandler = new PlayerHandler(this);
     private final EnemyHandler eHandler = new EnemyHandler(this);
+    private IPhase phase;
+    private ICharacter playingChar = null;
 
     /**
      * create a new controller.
-     * @param turnsQueue
-     *      the queue with the characters waiting for their turn
      */
-    public GameController(@NotNull BlockingQueue<ICharacter> turnsQueue) {
-        this.turns = turnsQueue;
+    public GameController() {
+        this.turns = new LinkedBlockingQueue<>();
+        setPhase(new WaitingState());
     }
     /**
      * get the game's result.
@@ -199,11 +204,60 @@ public class GameController {
     }
 
     /**
+     * returns a weapon's name
+     * @param weapon
+     *      weapon
+     * @return
+     *      weapon's name
+     */
+    public String getWeaponName(IWeapon weapon){
+        return weapon.getName();
+    }
+
+    /**
+     * gets the character that is playing.
+     * @return
+     *      plating character
+     */
+    public ICharacter getPlayingChar() {
+        return playingChar;
+    }
+
+    /**
+     * gets the name of the character that ir playing
+     * @return
+     *      name of the playing character
+     */
+    public String getPlayingCharName() {
+        if (playingChar!= null) {
+            return playingChar.getName();
+        }
+        else {
+            return "No player";
+        }
+    }
+
+    /**
+     * returns if the playing character is a player character or not
+     * @return
+     *      true if it it, false if it isn't
+     */
+    public boolean isAPlayer(){
+        return playingChar.isPlayerCharacter();
+    }
+    /**
      * returns the number of players
      * @return
      *      number of player
      */
     public int getNumPlayers(){return numPlayers;}
+
+    /**
+     * returns the number of alive players
+     * @return
+     *      number of player that are not dead
+     */
+    public int getAlivePlayers(){return alivePlayers;}
 
     /**
      * returns the number of enemies
@@ -213,12 +267,21 @@ public class GameController {
     public int getNumenemies(){return numenemies;}
 
     /**
+     * returns the number of alive enemies
+     * @return
+     *      number of enemies that are not dead
+     */
+    public int getAliveEnemies() {
+        return aliveenemies;
+    }
+
+    /**
      * returns the user's party 
      * @return
      *      list of players
      */
     public List<IPlayer> getParty(){
-        return this.party;
+        return List.copyOf(this.party);
     }
 
     /**
@@ -230,6 +293,10 @@ public class GameController {
      */
     public Enemy getEnemy(int i){
         return enemies.get(i);
+    }
+
+    public IPhase getPhase(){
+        return phase;
     }
 
     /**
@@ -304,6 +371,15 @@ public class GameController {
     }
 
     /**
+     * gets the inventory of the user
+     * @return
+     *      inventory
+     */
+    public List<IWeapon> getInventory() {
+        return List.copyOf(inventory);
+    }
+
+    /**
      * equips the i-th weapon to the player
      * @param player
      * player to equip the weapon
@@ -326,12 +402,22 @@ public class GameController {
     }
 
     /**
+     * return if the game is over or not
+     * @return
+     *      true if is over, false if it isn't
+     */
+    public boolean isFinished() {
+        return finished;
+    }
+
+    /**
      * when a player dies subtracts 1 to the alive players. If all players are dead, you lose
      */
     public void deadPlayer(){
         alivePlayers-=1;
         if (alivePlayers==0){
             result =false;
+            finished = true;
         }
     }
 
@@ -342,6 +428,7 @@ public class GameController {
         aliveenemies-=1;
         if (aliveenemies<=0){
             result =true;
+            finished = true;
         }
     }
 
@@ -349,7 +436,10 @@ public class GameController {
      * starts the game making all the character wait for their turn
      */
     public void startGame(){
-        for (int i=0; i<party.size();i++){
+        for (int i=0; i<5; i++){
+            createEnemy("Demon", 2*(i)+8);
+        }
+        for (int i=0; i<party.size();i++) {
             getPlayer(i).waitTurn();
         }
         for(int i = 0; i<enemies.size();i++){
@@ -362,8 +452,14 @@ public class GameController {
      * @return
      *      first character in the turn queue
      */
-    public ICharacter startTurn(){
-        return turns.poll();
+    public void startTurn(){
+
+        ICharacter character = turns.poll();
+        assert character != null;
+        character.setState(phase);
+        phase.setCharacter(character);
+        phase.toStartTurnPhase();
+        this.playingChar = character;
     }
 
     /**
@@ -371,6 +467,57 @@ public class GameController {
      * @param character
      */
     public void endTurn(ICharacter character){
-        character.waitTurn();
+        if (character.getStatus()) {
+            character.waitTurn();
+        }
+        this.playingChar = null;
+    }
+
+    /**
+     * set a phase to the controller and set the controller to that phase
+     * @param phase
+     *      phase to set
+     */
+    public void setPhase(IPhase phase) {
+        this.phase = phase;
+        phase.setController(this);
+    }
+
+    /**
+     * lets the character makes a decision
+     * @param playingChar
+     *      character that have to make a decision
+     */
+    public void toDecision(ICharacter playingChar) {
+        playingChar.decision();
+    }
+
+    /**
+     * set the number of weapon to equip and then equips that weapon to the playing character
+     * @param i
+     *      number of weapon
+     */
+    public void goToInventory(int i){
+            phase.setNumber(i);
+            phase.equipFromTheInventory();
+    }
+
+    /**
+     * goes to player selection phase and set the target to attack
+     * @param enemy
+     *      target to set
+     */
+    public void selectTarget(ICharacter enemy) {
+        phase.toPlayerSelectingPhase();
+        phase.setTarget(enemy);
+    }
+
+    /**
+     * attacks the target and the finish the turn
+     */
+    public void toAttack() {
+        phase.attack();
+        phase.endTurn();
+
     }
 }

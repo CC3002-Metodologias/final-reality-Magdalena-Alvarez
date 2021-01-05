@@ -19,6 +19,7 @@ public class Knight extends AbstractPlayerCharacter {
      */
     public Knight(@NotNull String name, @NotNull BlockingQueue<ICharacter> turnsQueue) {
         super(name, turnsQueue, CharacterClass.KNIGHT);
+        this.dp=8;
     }
 
     @Override

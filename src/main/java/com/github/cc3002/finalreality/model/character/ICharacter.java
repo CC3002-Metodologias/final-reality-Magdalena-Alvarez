@@ -1,5 +1,6 @@
 package com.github.cc3002.finalreality.model.character;
 
+import com.github.cc3002.finalreality.controller.phases.IPhase;
 import com.github.cc3002.finalreality.model.character.player.CharacterClass;
 
 
@@ -44,6 +45,12 @@ public interface ICharacter {
   boolean getStatus();
 
   /**
+   * Returns the characters's turn phase
+   * @return
+   */
+  IPhase getPhase();
+
+  /**
    * Attacks a character
    * @param character
    *  character to attach
@@ -76,4 +83,20 @@ public interface ICharacter {
    */
   void attackedByEnemy();
 
+  /**
+   * Set character's turn phase
+   */
+  void setState(IPhase phase);
+
+  /**
+   * the character decide what to do.
+   */
+  void decision();
+
+  /**
+   * returns if the character is player or not
+   * @return
+   *    true if it is, false if it isn't
+   */
+  boolean isPlayerCharacter();
 }

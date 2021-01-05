@@ -1,10 +1,7 @@
 package com.github.cc3002.finalreality.model.character.player;
 
-import com.github.cc3002.finalreality.model.character.Enemy;
 import com.github.cc3002.finalreality.model.character.ICharacter;
 import com.github.cc3002.finalreality.model.weapon.IWeapon;
-import com.github.cc3002.finalreality.model.weapon.KnifeWeapon;
-import com.github.cc3002.finalreality.model.weapon.StaffWeapon;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -31,15 +28,6 @@ public class Black_Mage extends AbstractPlayerCharacter {
         if (this.status){
             weapon.equippedByBlack_Mage(this);
         }
-    }
-
-    /**
-     * returns mage's mana
-     * @return
-     *      mage's mana
-     */
-    public int getMana() {
-        return mana;
     }
 
     @Override

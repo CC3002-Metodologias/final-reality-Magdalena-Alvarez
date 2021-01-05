@@ -1,16 +1,10 @@
 package com.github.cc3002.finalreality.model.character;
 
-import com.github.cc3002.finalreality.model.character.player.*;
-import com.github.cc3002.finalreality.model.character.player.White_Mage;
-import com.github.cc3002.finalreality.model.character.player.White_Mage;
-import com.github.cc3002.finalreality.model.weapon.BowWeapon;
-import com.github.cc3002.finalreality.model.weapon.KnifeWeapon;
+import com.github.cc3002.finalreality.model.character.player.Mage.Black_Mage;
+import com.github.cc3002.finalreality.model.character.player.Mage.White_Mage;
 import com.github.cc3002.finalreality.model.weapon.StaffWeapon;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class White_MageTest extends  AbstractPlayerCharacterTest{
     private static final String White_MageName = "Mage";

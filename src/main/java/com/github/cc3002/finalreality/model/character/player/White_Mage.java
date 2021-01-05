@@ -1,15 +1,14 @@
 package com.github.cc3002.finalreality.model.character.player;
 import com.github.cc3002.finalreality.model.character.ICharacter;
 import com.github.cc3002.finalreality.model.weapon.IWeapon;
-import com.github.cc3002.finalreality.model.weapon.StaffWeapon;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
+
 public class White_Mage extends AbstractPlayerCharacter{
     protected int mana;
     protected int Mage_mana = 100;
-
 
     /**
      * Creates a new character that it's class is white mage.
@@ -22,15 +21,6 @@ public class White_Mage extends AbstractPlayerCharacter{
     public White_Mage(@NotNull String name, @NotNull BlockingQueue<ICharacter> turnsQueue) {
         super(name, turnsQueue, CharacterClass.WHITE_MAGE);
         this.mana = Mage_mana;
-    }
-
-    /**
-     * returns mage's mana
-     * @return
-     *      mage's mana
-     */
-    public int getMana() {
-        return mana;
     }
 
     @Override

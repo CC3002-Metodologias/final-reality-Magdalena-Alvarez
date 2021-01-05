@@ -2,14 +2,11 @@ package com.github.cc3002.finalreality.model.character;
 
 import com.github.cc3002.finalreality.model.character.player.CharacterClass;
 
-import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import com.github.cc3002.finalreality.model.character.player.IPlayer;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -31,13 +28,15 @@ public class Enemy extends AbstractCharacter {
       @NotNull final BlockingQueue<ICharacter> turnsQueue) {
     super(turnsQueue, name, CharacterClass.ENEMY);
     this.weight = weight;
-    this.attack_points = 8;
-    this.dp = 2;
+    this.attack_points = 15;
+    this.dp = 4;
     this.life = 30;
   }
 
   /**
    * Returns the weight of this enemy.
+   * @return
+   *    enemy's weight
    */
   public int getWeight() {
     return weight;
@@ -69,6 +68,20 @@ public class Enemy extends AbstractCharacter {
 
   @Override
   public void attackedByEnemy() {
+  }
+
+  @Override
+  public void decision() {
+    state.toEnemySelectingPhase();
+    state.toAttackPhase();
+    state.attack();
+    state.endTurn();
+
+  }
+
+  @Override
+  public boolean isPlayerCharacter() {
+    return false;
   }
 
   @Override
