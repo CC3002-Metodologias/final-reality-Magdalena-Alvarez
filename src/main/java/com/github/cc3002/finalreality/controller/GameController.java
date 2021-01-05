@@ -431,11 +431,7 @@ public class GameController {
         ICharacter character = turns.poll();
         character.setState(phase);
         phase.setCharacter(character);
-        try {
             phase.toStartTurnPhase();
-        } catch (InvalidTransitionException e) {
-            e.printStackTrace();
-        }
 
         this.playingChar = character;
     }
@@ -462,38 +458,23 @@ public class GameController {
 
 
     public void goToInventory(int i){
-        try {
             phase.setNumber(i);
-        } catch (InvalidMethodException e) {
-            e.printStackTrace();
-        }
-        try {
+
             phase.equipFromTheInventory();
-        } catch (InvalidMethodException e) {
-            e.printStackTrace();
-        }
+
     }
 
     public void selectTarget(ICharacter enemy) {
-        try {
             phase.toPlayerSelectingPhase();
-        } catch (InvalidTransitionException e) {
-            e.printStackTrace();
-        }
-        try {
+
             phase.setTarget(enemy);
-        } catch (InvalidMethodException e) {
-            e.printStackTrace();
-        }
+
 
     }
 
     public void toAttack() {
         phase.attack();
-        try {
-            phase.endTurn();
-        } catch (InvalidMethodException e) {
-            e.printStackTrace();
-        }
+        phase.endTurn();
+
     }
 }

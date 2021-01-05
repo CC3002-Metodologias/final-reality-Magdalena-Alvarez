@@ -98,36 +98,6 @@ public class ControllerTest {
         assertEquals(expectedStart, c.getPhase());
         assertEquals(expectedStart.hashCode(),c.getPhase().hashCode());
         assertEquals(expectedStart,playingChar.getPhase());
-        try {
-            c.getPhase().toEndTurnPhase();
-            fail("You can't go to end turn from here");
-        } catch (InvalidTransitionException e) {
-        }
-        try {
-            c.getPhase().toWaitingPhase();
-            fail("You can't go to waiting from here");
-        } catch (InvalidTransitionException e) {
-        }
-        try {
-            c.getPhase().toStartTurnPhase();
-            fail("You can't go to start turn from here");
-        } catch (InvalidTransitionException e) {
-        }
-        try {
-            c.getPhase().toAttackPhase();
-            fail("You can't go to attack from here");
-        } catch (InvalidTransitionException e) {
-        }
-        try {
-            c.getPhase().toPlayerSelectingPhase();
-            fail("You can't go to start turn from here");
-        } catch (InvalidTransitionException e) {
-        }
-        try {
-            c.getPhase().endTurn();
-            fail("You can't end the turn in this phase");
-        } catch ( InvalidMethodException e) {
-        }
         expectedStart.setController(new GameController());
         assertNotEquals(expectedStart,c.getPhase());
         c.toDecision(playingChar);
@@ -143,31 +113,7 @@ public class ControllerTest {
             c.selectTarget(c.getEnemy(3));
             c.toAttack();
         }
-        try {
-            c.getPhase().toEnemySelectingPhase();
-            fail("You can't go to Enemy Selection from here");
-        } catch (InvalidTransitionException e) {
-        }
-        try {
-            c.getPhase().toDecisionPhase();
-            fail("You can't go to Decision from here");
-        } catch (InvalidTransitionException e) {
-        }
-        try {
-            c.getPhase().equipFromTheInventory();
-            fail("You can't equip from the inventory in this phase");
-        } catch ( InvalidMethodException e) {
-        }
-        try {
-            c.getPhase().setTarget(c.getEnemy(0));
-            fail("You can't set the target in this phase");
-        } catch ( InvalidMethodException e) {
-        }
-        try {
-            c.getPhase().setNumber(0);
-            fail("You can't set the number in this phase");
-        } catch ( InvalidMethodException e) {
-        }
+
 
         assertNotEquals(expectedStart,c.getPhase());
     }

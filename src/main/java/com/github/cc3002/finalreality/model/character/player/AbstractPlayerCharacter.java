@@ -83,10 +83,8 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
 
   @Override
   public void decision() {
-    try {
-      state.toDecisionPhase();
-    } catch (InvalidTransitionException e) {
-      e.printStackTrace();
-    }
+
+    state.toDecisionPhase();
   }
+
 }

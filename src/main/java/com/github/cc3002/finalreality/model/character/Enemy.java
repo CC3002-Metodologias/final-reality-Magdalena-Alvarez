@@ -76,22 +76,11 @@ public class Enemy extends AbstractCharacter {
 
   @Override
   public void decision() {
-    try {
-      state.toEnemySelectingPhase();
-    } catch (InvalidTransitionException e) {
-      e.printStackTrace();
-    }
-    try {
-      state.toAttackPhase();
-    } catch (InvalidTransitionException e) {
-      e.printStackTrace();
-    }
+    state.toEnemySelectingPhase();
+    state.toAttackPhase();
     state.attack();
-    try {
-      state.endTurn();
-    } catch (InvalidMethodException e) {
-      e.printStackTrace();
-    }
+    state.endTurn();
+
   }
 
   @Override
