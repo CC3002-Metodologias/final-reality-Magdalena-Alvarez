@@ -4,20 +4,17 @@ import com.github.cc3002.finalreality.model.character.ICharacter;
 import com.github.cc3002.finalreality.model.character.player.IPlayer;
 
 public class PlayerSelectingPhase extends Phase {
-    private ICharacter target;
 
-    public PlayerSelectingPhase(){//IPlayer playingChar) {
-        //this.playingChar = playingChar;
+    /**
+     * creates a new player selection phase
+     */
+    public PlayerSelectingPhase(){
     }
-
     @Override
     public void setTarget(ICharacter enemy) {
-        this.target=enemy;
+        this.target= enemy;
         toAttackPhase();
-
     }
-
-
 
     @Override
     public void toAttackPhase() {

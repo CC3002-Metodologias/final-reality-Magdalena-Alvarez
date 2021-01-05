@@ -1,15 +1,13 @@
-package com.github.cc3002.finalreality.model.character.player.Mage;
+package com.github.cc3002.finalreality.model.character.player;
 
 import com.github.cc3002.finalreality.model.character.ICharacter;
-import com.github.cc3002.finalreality.model.character.player.AbstractPlayerCharacter;
-import com.github.cc3002.finalreality.model.character.player.CharacterClass;
 import com.github.cc3002.finalreality.model.weapon.IWeapon;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 
-public class Black_Mage extends AbstractPlayerCharacter implements IMages{
+public class Black_Mage extends AbstractPlayerCharacter {
     protected int mana;
     protected int Mage_mana = 100;
     /**
@@ -30,10 +28,6 @@ public class Black_Mage extends AbstractPlayerCharacter implements IMages{
         if (this.status){
             weapon.equippedByBlack_Mage(this);
         }
-    }
-
-    public int getMana() {
-        return mana;
     }
 
     @Override

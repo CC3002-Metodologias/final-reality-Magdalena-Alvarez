@@ -4,10 +4,10 @@ import com.github.cc3002.finalreality.controller.phases.*;
 import com.github.cc3002.finalreality.model.character.Enemy;
 import com.github.cc3002.finalreality.model.character.ICharacter;
 import com.github.cc3002.finalreality.model.character.player.*;
-import com.github.cc3002.finalreality.model.character.player.Mage.Black_Mage;
-import com.github.cc3002.finalreality.model.character.player.Mage.White_Mage;
+import com.github.cc3002.finalreality.model.character.player.Black_Mage;
+import com.github.cc3002.finalreality.model.character.player.White_Mage;
 import com.github.cc3002.finalreality.model.weapon.*;
-import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
@@ -215,13 +215,19 @@ public class GameController {
     }
 
     /**
-     * get the character that is playing.
+     * gets the character that is playing.
      * @return
+     *      plating character
      */
     public ICharacter getPlayingChar() {
         return playingChar;
     }
 
+    /**
+     * gets the name of the character that ir playing
+     * @return
+     *      name of the playing character
+     */
     public String getPlayingCharName() {
         if (playingChar!= null) {
             return playingChar.getName();
@@ -230,6 +236,12 @@ public class GameController {
             return "No player";
         }
     }
+
+    /**
+     * returns if the playing character is a player character or not
+     * @return
+     *      true if it it, false if it isn't
+     */
     public boolean isAPlayer(){
         return playingChar.isPlayerCharacter();
     }
@@ -358,6 +370,11 @@ public class GameController {
         return inventory.get(i);
     }
 
+    /**
+     * gets the inventory of the user
+     * @return
+     *      inventory
+     */
     public List<IWeapon> getInventory() {
         return List.copyOf(inventory);
     }
@@ -384,6 +401,11 @@ public class GameController {
         attacker.attack(victim);
     }
 
+    /**
+     * return if the game is over or not
+     * @return
+     *      true if is over, false if it isn't
+     */
     public boolean isFinished() {
         return finished;
     }
@@ -433,10 +455,10 @@ public class GameController {
     public void startTurn(){
 
         ICharacter character = turns.poll();
+        assert character != null;
         character.setState(phase);
         phase.setCharacter(character);
-            phase.toStartTurnPhase();
-
+        phase.toStartTurnPhase();
         this.playingChar = character;
     }
 
@@ -451,31 +473,48 @@ public class GameController {
         this.playingChar = null;
     }
 
+    /**
+     * set a phase to the controller and set the controller to that phase
+     * @param phase
+     *      phase to set
+     */
     public void setPhase(IPhase phase) {
         this.phase = phase;
         phase.setController(this);
     }
 
+    /**
+     * lets the character makes a decision
+     * @param playingChar
+     *      character that have to make a decision
+     */
     public void toDecision(ICharacter playingChar) {
         playingChar.decision();
     }
 
-
+    /**
+     * set the number of weapon to equip and then equips that weapon to the playing character
+     * @param i
+     *      number of weapon
+     */
     public void goToInventory(int i){
             phase.setNumber(i);
-
             phase.equipFromTheInventory();
-
     }
 
+    /**
+     * goes to player selection phase and set the target to attack
+     * @param enemy
+     *      target to set
+     */
     public void selectTarget(ICharacter enemy) {
-            phase.toPlayerSelectingPhase();
-
-            phase.setTarget(enemy);
-
-
+        phase.toPlayerSelectingPhase();
+        phase.setTarget(enemy);
     }
 
+    /**
+     * attacks the target and the finish the turn
+     */
     public void toAttack() {
         phase.attack();
         phase.endTurn();

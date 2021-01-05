@@ -688,7 +688,7 @@ public class FinalReality extends Application {
         group.getChildren().add(startTurn);
       }
     });
-    Label choseEn = new Label("Choose an Enemy number");
+    Label choseEn = new Label("Choose an Enemy number between 1 & 5");
     choseEn.setLayoutX(x);
     choseEn.setLayoutY(y+150);
     Button rtoAtt= new Button("Ready to Attack");
@@ -700,7 +700,7 @@ public class FinalReality extends Application {
     rtoAtt.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
-        controller.selectTarget(controller.getEnemy(Integer.parseInt(targNum.getText())));
+        controller.selectTarget(controller.getEnemy(Integer.parseInt(targNum.getText())-1));
         controller.toAttack();
         group.getChildren().remove(0,group.getChildren().size());
         group.getChildren().add(inTurn);

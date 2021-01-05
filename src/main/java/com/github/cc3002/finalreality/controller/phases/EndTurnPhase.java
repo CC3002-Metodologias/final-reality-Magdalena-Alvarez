@@ -1,12 +1,11 @@
 package com.github.cc3002.finalreality.controller.phases;
 
-import com.github.cc3002.finalreality.model.character.ICharacter;
-
 public class EndTurnPhase extends Phase {
 
-
+    /**
+     * creates a new end turn phase
+     */
     public EndTurnPhase() {
-
     }
     @Override
     public void endTurn(){

@@ -1,18 +1,12 @@
 package com.github.cc3002.finalreality.model.character;
 
-import com.github.cc3002.finalreality.controller.phases.EnemySelectingPhase;
-import com.github.cc3002.finalreality.controller.phases.InvalidMethodException;
-import com.github.cc3002.finalreality.controller.phases.InvalidTransitionException;
 import com.github.cc3002.finalreality.model.character.player.CharacterClass;
 
-import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import com.github.cc3002.finalreality.model.character.player.IPlayer;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -41,6 +35,8 @@ public class Enemy extends AbstractCharacter {
 
   /**
    * Returns the weight of this enemy.
+   * @return
+   *    enemy's weight
    */
   public int getWeight() {
     return weight;

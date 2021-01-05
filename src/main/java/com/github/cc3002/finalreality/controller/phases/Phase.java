@@ -2,12 +2,15 @@ package com.github.cc3002.finalreality.controller.phases;
 
 import com.github.cc3002.finalreality.controller.GameController;
 import com.github.cc3002.finalreality.model.character.ICharacter;
+import com.github.cc3002.finalreality.model.character.player.IPlayer;
 
 import java.util.Objects;
 
 public abstract class Phase implements IPhase{
     protected GameController controller;
     protected ICharacter character;
+    protected int number ;
+    protected ICharacter target;
 
     public void setController (GameController c){
         this.controller = c;
@@ -22,7 +25,6 @@ public abstract class Phase implements IPhase{
     public void changePhase(IPhase phase){
         controller.setPhase(phase);
         character.setState(phase);
-        //phase.setController(controller);
         phase.setCharacter(character);
 
     }

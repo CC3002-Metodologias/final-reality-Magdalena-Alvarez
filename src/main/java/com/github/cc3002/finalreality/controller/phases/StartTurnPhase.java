@@ -1,15 +1,11 @@
 package com.github.cc3002.finalreality.controller.phases;
 
-import com.github.cc3002.finalreality.model.character.Enemy;
-import com.github.cc3002.finalreality.model.character.ICharacter;
-
 public class StartTurnPhase extends Phase{
-    /*
-
+    /**
+     * creates a new start turn phase
      */
     public StartTurnPhase(){
     }
-
     @Override
     public void toDecisionPhase() {
         changePhase(new PlayerDecisionPhase());

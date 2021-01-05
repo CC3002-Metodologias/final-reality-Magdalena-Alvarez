@@ -88,7 +88,15 @@ public interface ICharacter {
    */
   void setState(IPhase phase);
 
+  /**
+   * the character decide what to do.
+   */
   void decision();
 
+  /**
+   * returns if the character is player or not
+   * @return
+   *    true if it is, false if it isn't
+   */
   boolean isPlayerCharacter();
 }
