@@ -688,7 +688,7 @@ public class FinalReality extends Application {
         group.getChildren().add(startTurn);
       }
     });
-    Label choseEn = new Label("Choose an Enamy number");
+    Label choseEn = new Label("Choose an Enemy number");
     choseEn.setLayoutX(x);
     choseEn.setLayoutY(y+150);
     Button rtoAtt= new Button("Ready to Attack");
@@ -746,6 +746,7 @@ public class FinalReality extends Application {
         }
         else {
           group.getChildren().add(enText);
+          group.getChildren().remove(inTurn);
           controller.getPlayingChar().decision();
           group.getChildren().add(contTheGame);
 
@@ -801,7 +802,7 @@ public class FinalReality extends Application {
         String name2e = controller.getCharacterName(controller.getEnemy(1));
         int hp2e = controller.getCharacterLife(controller.getEnemy(1));
         int dp2e = controller.getCharacterDp(controller.getEnemy(1));
-        boolean status2e = controller.getCharacterStatus(controller.getPlayer(1));
+        boolean status2e = controller.getCharacterStatus(controller.getEnemy(1));
         int W2e = controller.getWeight((controller.getEnemy(1)));
         info2e.setText("Enemy 2: " + name2e + '\n' + "HP: " + hp2e + '\n' + "DP: " + dp2e + '\n' + "Alive? " + status2e + '\n' + "Weight: " + W2e);
         String name3e = controller.getCharacterName(controller.getEnemy(2));
@@ -826,8 +827,6 @@ public class FinalReality extends Application {
     };
     timer.start();
   }
-  
-
   
   }
 

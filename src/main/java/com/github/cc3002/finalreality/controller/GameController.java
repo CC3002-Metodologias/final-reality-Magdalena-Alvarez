@@ -214,6 +214,10 @@ public class GameController {
         return weapon.getName();
     }
 
+    /**
+     * get the character that is playing.
+     * @return
+     */
     public ICharacter getPlayingChar() {
         return playingChar;
     }

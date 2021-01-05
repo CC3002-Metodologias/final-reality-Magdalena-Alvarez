@@ -19,13 +19,7 @@ public class PlayerDecisionPhase extends Phase{
     public void equipFromTheInventory() {
         IPlayer player = (IPlayer) character;
         controller.equip(player,number);
-        //for ( IPlayer p: controller.getParty()) {
-          //  if(p.equals(player)) {
-            //    int index = controller.getParty().indexOf(p);
-              //  controller.equip(controller.getPlayer(index), number);
-                //controller.equip(player,number);
-            //}
-       // }
+
     }
 
     @Override

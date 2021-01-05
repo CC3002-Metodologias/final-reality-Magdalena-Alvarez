@@ -91,6 +91,38 @@ public class ControllerTest {
         c.startGame();
     }
 
+    @Test
+    void gameTestVictory() throws InterruptedException {
+            starGame();
+            for (int i = 0; i<c.getNumenemies();i++){
+                while (c.getCharacterStatus(c.getEnemy(i))) {
+
+                    Thread.sleep(1200);
+                    c.startTurn();
+                    ICharacter playingCharacter = c.getPlayingChar();
+                    c.attack(playingCharacter,c.getEnemy(i));
+                    c.endTurn(playingCharacter);
+
+                }
+            }
+            assertTrue(c.getResult());
+        }
+
+    @Test
+    void gameTestDefeat() throws InterruptedException {
+            starGame();
+            for (int i = 0; i<c.getNumPlayers();i++){
+                while (c.getCharacterStatus(c.getPlayer(i))) {
+                        Thread.sleep(1200);
+                        c.startTurn();
+                        ICharacter playingCharacter = c.getPlayingChar();
+                        c.attack(playingCharacter,c.getPlayer(i));
+                        c.endTurn(playingCharacter);
+                    }
+            }
+        assertFalse(c.getResult());
+    }
+
     void oneTurn(ICharacter playingChar) {
         IPhase expectedStart = new StartTurnPhase();
         expectedStart.setController(c);
@@ -113,10 +145,9 @@ public class ControllerTest {
             c.selectTarget(c.getEnemy(3));
             c.toAttack();
         }
-
-
         assertNotEquals(expectedStart,c.getPhase());
     }
+
     @Test
     void gameTurnTest() throws InterruptedException {
         starGame();
